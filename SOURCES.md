@@ -9,10 +9,12 @@ Every member profile, past connection, transcript and message in this repository
 Keep this list current.
 
 - Claude (Anthropic): planning, the PRD, the repository scaffold.
-- Claude Code (Anthropic), running Claude Opus 5.5 with Claude Sonnet subagents: most of the implementation, including the scan view in `web/` and the docs in `docs/submission/`.
-- IBM Bob: the pieces listed in `bob-screenshots/` (fill in what each person built). Planned: `scripts/validate_data.py` (SK) and `tools/summarize_run.py` (Jesse). A spec, tests and a Bob prompt exist for the second; the Bob-built implementation and screenshots are not in the repo yet.
-- IBM Granite models on watsonx.ai: embeddings and agent text at run time (fill in model ids). Planned: the repo runs on a mock provider by default and does not yet show a shipped watsonx provider.
-- watsonx Orchestrate: the network agent. Planned: no Orchestrate agent or export is in the repo yet.
+- Claude Code (Anthropic), with Claude Opus and Claude Sonnet subagents: most of the implementation, including the scan view in `web/` and the docs in `docs/submission/`.
+- Claude Desktop computer use (Anthropic): drove IBM Bob for the S10 build and for the J3 approvals. Jesse supervised; Bob wrote the code.
+- Gemini (Google): one cross-family code review, run through a command-line tool.
+- IBM Bob: `scripts/validate_data.py` (SK, S10) and `tools/summarize_run.py` (Jesse, J3). Screenshots are in `bob-screenshots/`.
+- IBM watsonx.ai Granite: `ibm/granite-4-h-small` (chat: agent turns, votes and messages) and `ibm/granite-embedding-278m-multilingual` (embeddings for scoring). `runs/demo.json` is a real Granite run (temperature 0, 2 turns per agent). The mock provider remains the default for tests.
+- IBM watsonx Orchestrate: the network agent spec (`orchestrate/warm_intro_network_agent.yaml`) and OpenAPI tool definitions are in `orchestrate/`. Whether the agent was imported and run in Orchestrate is recorded in `docs/submission/tech_statement.md`.
 
 ## Statistics in the pitch
 

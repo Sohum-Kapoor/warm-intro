@@ -1,6 +1,6 @@
 # Warm Intro
 
-LiDAR for connections: an agent for every member of Michigan's innovation ecosystem. The agents scout for each other, hold the first meeting themselves, and bring their people in only when both agents vote yes.
+LiDAR for connections: an agent for every member of Michigan's innovation ecosystem. The agents scout for each other, hold the first meeting themselves, and bring their people in only when both agents vote yes. Each member's agent is one agent design run per member inside the meeting tool.
 
 Built at the Michigan DevFest AI Hackathon, Nov 13, 2026, by SK and Jesse. What exists today: the Python backend (`warmintro/`, built to `docs/CONTRACTS.md`, mock provider by default and IBM Granite on watsonx.ai behind the same interface), a static scan view (`web/`) that plays back a run, and a cached Granite demo round (`runs/demo.json`).
 
@@ -30,12 +30,12 @@ Built at the Michigan DevFest AI Hackathon, Nov 13, 2026, by SK and Jesse. What 
 
 ## Run it
 
-**Scan view (no backend, no keys).** It plays back `web/fixtures/sample_run.json`.
+**Scan view (no backend, no keys).** Hosted at https://sohum-kapoor.github.io/warm-intro/ (scan view at `/web/`). Locally it plays back `web/fixtures/sample_run.json`.
 
 ```
 open web/index.html
 # or
-cd web && python3 -m http.server   # then open http://localhost:8000 (change the port if the API uses 8000)
+python3 -m http.server 5500   # from the repo root, then open http://localhost:5500/web/ (the API uses port 8000)
 ```
 
 **Granite demo (no backend, no keys).** Open `web/index.html?run=demo` to play back `runs/demo.json`, a real IBM Granite round on watsonx.ai (5 meetings, 2 turns per agent, 28 pairs scored, 5 passed, 4 introductions, 1 decline; temperature 0, reproducible). Press `f` for pitch mode; the speed toggle changes playback speed. Featured: mt001 (Priya N. and Tern Aerial, declined) and mt003 (Lumen Sight and Kestrel Stamping, introduced).
@@ -47,6 +47,7 @@ cd web && python3 -m http.server   # then open http://localhost:8000 (change the
 **Backend.**
 
 ```
+python3 -m venv .venv && make setup   # once: creates .venv if missing, installs the package and dev tools
 make test     # offline, mock provider
 make data     # generate synthetic profiles and history
 make round    # run one round, write runs/latest.json

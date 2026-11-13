@@ -1,6 +1,6 @@
 # Video script (3:00 maximum)
 
-Narrate throughout. Record from the cached Granite round, `web/index.html?run=demo`, so nothing is slow on screen. Product on screen: 0:25 to 2:25, which is 120 seconds (the rule is at least 90). Bracketed lines are screen directions. Lines marked **TODO** depend on what the humans confirm in `tech_statement.md`; do not film a claim that is not true.
+Narrate throughout. Record from the cached Granite round, `web/index.html?run=demo`, so nothing is slow on screen. Product on screen: 0:25 to 2:25, which is 120 seconds (the rule is at least 90). Bracketed lines are screen directions. The Orchestrate row (2:25-2:45) is marked **TODO** and depends on what the humans confirm in `tech_statement.md`; do not film a claim that is not true.
 
 Setup before recording: open `web/index.html?run=demo`; set the speed toggle to the faster setting; press `f` for pitch mode when you want the clean full-screen view. Have `bob-screenshots/sk/11-bob-reports-33-pass.png` and `bob-screenshots/jesse/03-tests-pass.png` ready in tabs, and the Orchestrate agent page open.
 
