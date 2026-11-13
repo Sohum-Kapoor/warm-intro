@@ -55,10 +55,17 @@
     $('#avatar').textContent = initials(me.name);
     $('#who-meta').textContent = metaLine(me) || settings.memberId;
     // Size the select to its label so the chevron sits right after the name.
-    const probe = h('span', { class: 'sr-only', style: 'font-weight:650;font-size:14px;position:absolute;clip:auto;width:auto;height:auto;visibility:hidden' }, me.name);
-    document.body.append(probe);
-    select.style.width = Math.min(probe.offsetWidth + 22, 230) + 'px';
-    probe.remove();
+    // Measured again once the bundled font has loaded, so the width matches the real glyphs.
+    const fit = () => {
+      const ctx = document.createElement('canvas').getContext('2d');
+      const cs = getComputedStyle(select);
+      ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      select.style.width = Math.min(Math.ceil(ctx.measureText(me.name).width) + 22, 230) + 'px';
+    };
+    fit();
+    if (document.fonts && document.fonts.load) {
+      document.fonts.load('600 14px "Libre Franklin"').then(fit, () => {});
+    }
 
     const app = new URL(WI.APP_URL);
     app.searchParams.set('member', settings.memberId);
@@ -222,14 +229,17 @@
   function introCard(m, openIt, opts) {
     const o = opts || {};
     const state = handledState(m);
+    // In the weekly feed the double yes sits on the card's status line; an ask result
+    // uses that slot for its candidate count and keeps the votes on their own row.
+    const agreed = h('span', { class: 'agreed' }, h('span', { html: ICON.check, style: 'display:inline-flex' }), 'Both agents said yes');
     return h('article', { class: 'card intro' },
-      h('div', { class: 'eyebrow' }, h('span', { class: 'pip' }),
+      h('div', { class: 'state-line' }, h('span', { class: 'pip' }),
         o.eyebrow || (state ? 'Introduction' : 'New introduction'),
-        h('span', { class: 'right' }, o.right || '')),
+        h('span', { class: 'right' }, o.right || agreed)),
       party(m.counterpart),
       whyLine(m, o.ask),
-      h('div', { class: 'votes' }, h('span', { class: 'votes-head' }, 'Both agents said yes'),
-        voteChip(m.my_vote, 'You'), voteChip(m.their_vote, 'Them')),
+      o.right ? h('div', { class: 'votes' }, h('span', { class: 'votes-head' }, 'Both agents said yes'),
+        voteChip(m.my_vote, 'You'), voteChip(m.their_vote, 'Them')) : null,
       introMessage(m),
       o.noActions ? null : actionsFor(m),
       meetingDetails(m, openIt));
@@ -241,7 +251,7 @@
     const v = mineNo ? m.my_vote : m.their_vote;
     const hit = dealBreakerHit(m);
     return h('article', { class: 'card muted' },
-      h('div', { class: 'eyebrow gray' }, h('span', { class: 'pip' }), o.eyebrow || 'Declined, no introduction',
+      h('div', { class: 'state-line gray' }, h('span', { class: 'pip' }), o.eyebrow || 'Declined, no introduction',
         h('span', { class: 'right' }, o.right || '')),
       party(m.counterpart),
       v ? h('div', { class: 'reason' },

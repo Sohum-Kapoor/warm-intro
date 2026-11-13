@@ -17,15 +17,15 @@
         </div>
       </div>
       <button class="status" id="status" type="button" role="switch" aria-checked="true" title="Pause or resume your agent">
-        <span class="status-dot" aria-hidden="true"></span>
         <span class="status-label">Active</span>
+        <span class="switch" aria-hidden="true"><span class="knob"></span></span>
       </button>
     </header>
 
     <div class="whoami">
       <span class="avatar" id="avatar" aria-hidden="true">KS</span>
       <div class="who">
-        <label class="who-label" for="member">Signed in as</label>
+        <label class="who-label sr-only" for="member">Signed in as</label>
         <div class="who-select">
           <select id="member" aria-label="Switch member"></select>
           <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -50,13 +50,13 @@
       <label class="sr-only" for="ask-input">Ask your agent</label>
       <input id="ask-input" type="text" placeholder="Ask your agent to find someone…" maxlength="300">
       <button type="submit" class="ask-go" aria-label="Send to your agent">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
     </form>
 
     <footer class="foot">
       <a id="open-app" href="https://sohum-kapoor.github.io/warm-intro/site/app/?member=m001" target="_blank" rel="noopener">Open full app <span aria-hidden="true">↗</span></a>
-      <span class="honest"><i aria-hidden="true"></i>Synthetic members · AI-generated</span>
+      <span class="honest">Synthetic members · AI-generated</span>
     </footer>
   </div>
   <script src="data/site_data.js"></script>

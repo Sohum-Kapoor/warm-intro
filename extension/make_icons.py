@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Draw the Warm Intro toolbar icons with the standard library only.
 
-A rust rounded square with two cream dots joined by a line: two members,
+A grey-green rounded square with two paper dots joined by a line: two members,
 one introduction. Rendered at 4x and box-filtered down for anti-aliasing.
 
     python3 extension/make_icons.py
@@ -12,8 +12,8 @@ import struct
 import zlib
 
 HERE = pathlib.Path(__file__).resolve().parent
-ACCENT = (180, 68, 28)     # #b4441c, the site's accent
-DOT = (251, 247, 240)      # warm cream
+ACCENT = (92, 107, 84)     # #5c6b54, the palette accent ("Three stones")
+DOT = (246, 246, 245)      # #f6f6f5, the palette paper
 SS = 4                     # supersampling factor
 
 
