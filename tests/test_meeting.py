@@ -250,3 +250,42 @@ def test_introduction_retries_once_when_in_agent_voice():
             return next(replies)
 
     assert _introduction(Fake(), "s", [], me, other, []) == f"{other['name']} builds cameras. Take a call with them."
+
+
+class SpeakScript:
+    """Returns scripted speak replies in order; votes are 'no'. Records message lists."""
+
+    def __init__(self, lines):
+        self.lines = list(lines)
+        self.seen = []
+
+    def embed(self, texts):
+        return MockLLM().embed(texts)
+
+    def chat(self, system, messages, json_mode=False):
+        if json_mode:
+            return '{"vote": "no", "reason": "x"}'
+        self.seen.append(messages)
+        return self.lines.pop(0)
+
+
+DUP = "We would want to discuss the paid pilot terms and installs without stopping production."
+
+
+def test_duplicate_turn_retries_once_and_keeps_fresh_line():
+    a_id, b_id = yes_members()
+    llm = SpeakScript(["Opening from the first side.", DUP, DUP, "A fresh point about timing and budget.", "Closing remark, entirely different wording."])
+    m = run_meeting(a_id, b_id, llm=llm)
+    texts = [t["text"] for t in m["transcript"]]
+    assert texts[1] == DUP and texts[2] == "A fresh point about timing and budget."
+    assert len(llm.seen) == 5  # 4 turns + exactly one retry
+    nudged = [msgs for msgs in llm.seen if "repeats what was already said" in msgs[-1]["content"]]
+    assert len(nudged) == 1
+
+
+def test_still_duplicate_after_retry_is_kept_without_looping():
+    a_id, b_id = yes_members()
+    llm = SpeakScript([DUP] * 7)
+    m = run_meeting(a_id, b_id, llm=llm)
+    assert all(t["text"] == DUP for t in m["transcript"])
+    assert len(llm.seen) == 7  # 4 turns + one retry each for turns 2-4

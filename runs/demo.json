@@ -1,6 +1,6 @@
 {
   "synthetic": true,
-  "run_id": "2026-11-13T13-05-02",
+  "run_id": "2026-11-13T15-32-10",
   "mode": "proactive",
   "request": null,
   "status": "complete",
@@ -236,37 +236,38 @@
         {
           "speaker": "m003",
           "turn": 1,
-          "text": "I represent Priya N., a master's student in computer science focusing on robotics and path planning. She is seeking a hands-on flight software role on a small drone team, offering her expertise in engineering flight path planning software for 15 hours a week, along with her coursework and simulation code."
+          "text": "I represent Priya N.; she is a master's student in computer science focusing on robotics and path planning. Priya needs a hands-on flight software role on a small drone team that fits around her classes, and she offers robotics expertise to engineer flight path planning software 15 hours a week, along with her coursework and simulation code."
         },
         {
           "speaker": "m004",
           "turn": 1,
-          "text": "We at Tern Aerial are building inspection drones for bridges and wind turbines. We need a student engineer for flight path planning software and a bridge owner to host inspection flights. We offer hands-on flight software roles on a small drone team, with equity in the company, though the first roles would be unpaid until our spring funding round closes."
+          "text": "We at Tern Aerial are building inspection drones for bridges and wind turbines. We need a student engineer for flight path planning software and a bridge owner to host inspection flights. In return, we offer hands-on flight software roles on a small drone team and equity in the company, with the first roles unpaid until the spring round."
         },
         {
           "speaker": "m003",
           "turn": 2,
-          "text": "Priya is looking for paid engineering experience that fits around her classes. Since the offered roles at Tern Aerial are unpaid, she will not proceed with this opportunity."
+          "text": "Priya is looking for a paid engineering experience that fits around her classes, so the unpaid roles are a deal-breaker. However, if the spring round offers paid work, we would want to discuss the terms of the flight path planning role and the equity offer."
         },
         {
           "speaker": "m004",
           "turn": 2,
-          "text": "We understand Priya's need for paid experience. Unfortunately, we cannot offer paid roles at this time, as our funding round has not yet closed. We appreciate her interest and wish her the best in finding a suitable opportunity."
+          "text": "We at Tern Aerial cannot offer paid work until the spring round closes, but we can discuss the flight path planning role and equity terms once funding is secured."
         }
       ],
       "votes": {
         "m003": {
           "vote": "no",
-          "reason": "The roles are unpaid, which conflicts with Priya's need for paid experience."
+          "reason": "The other side requires unpaid work during the semester, which is a deal-breaker for Priya."
         },
         "m004": {
           "vote": "no",
-          "reason": "Priya needs paid experience, which we cannot provide until our spring funding round closes."
+          "reason": "Priya N. requires a paid role, which conflicts with our current unpaid offer until the spring round."
         }
       },
       "result": "declined",
       "ai_generated": true,
-      "introductions": []
+      "introductions": [],
+      "created_at": "2026-11-13T15:32:18"
     },
     {
       "id": "mt002",
@@ -302,32 +303,32 @@
         {
           "speaker": "m007",
           "turn": 1,
-          "text": "We at Oatwhistle Foods are a startup in food technology, making shelf-stable oat snacks in a shared kitchen. We need a brand launch strategy and packaging story for our new product, and a co-packer with a nut-free line. In return, we offer a new food brand with a product ready to launch and room for a first marketing hire, as well as tasting panels and recipe testing."
+          "text": "We at Oatwhistle Foods are a startup in food technology, launching a new shelf-stable oat snack. We need a brand launch strategy, packaging story, and a co-packer with a nut-free line. In return, we offer a ready-to-launch product and the opportunity for a first marketing hire."
         },
         {
           "speaker": "m006",
           "turn": 1,
-          "text": "I represent Marcus D., a brand marketer with eight years of experience in consumer food and beverage companies. He now freelances and wants to join an early team where he can shape a brand from the start. Marcus offers brand launch strategy and packaging story for food and beverage products, as well as naming and shelf placement experience."
+          "text": "I represent Marcus D., a brand marketer with eight years of experience in consumer food and beverage companies. He is now freelancing and seeks an early food or beverage brand to build from the start, particularly one that values packaging and storytelling. Marcus offers brand launch strategy and packaging story for food and beverage products, along with naming and shelf placement experience."
         },
         {
           "speaker": "m007",
           "turn": 2,
-          "text": "We would want to work with Marcus on a brand launch strategy and packaging story for our oat snacks, and we could offer him a role in our early team to shape the brand from the start."
+          "text": "We at Oatwhistle Foods would benefit from your brand launch strategy and packaging story expertise. We can provide a ready-to-launch product and the opportunity for a first marketing hire. A call between our members would be worthwhile to discuss how we can collaborate."
         },
         {
           "speaker": "m006",
           "turn": 2,
-          "text": "Marcus is open to part-time or project work, and he is looking for a founder who values packaging and storytelling. A call between the members would be worthwhile to discuss the details of the collaboration."
+          "text": "A call between the members would be worthwhile to discuss how we can collaborate."
         }
       ],
       "votes": {
         "m007": {
           "vote": "yes",
-          "reason": "Marcus directly addresses our need for a brand launch strategy and packaging story, and offers relevant experience."
+          "reason": "Marcus directly addresses our need for a brand launch strategy and packaging story."
         },
         "m006": {
           "vote": "yes",
-          "reason": "Oatwhistle Foods directly addresses Marcus's need for a brand launch strategy and packaging story, and offers a role in an early team to shape the brand from the start."
+          "reason": "Oatwhistle Foods directly addresses Marcus's need for an early food brand to build from the start and values packaging and storytelling."
         }
       },
       "result": "introduced",
@@ -337,17 +338,18 @@
           "meeting_id": "mt002",
           "to": "m007",
           "from_agent": "agent:m007",
-          "message": "Marcus D., a brand marketer with eight years of experience in consumer food and beverage companies, now freelances and wants to join an early team where they can shape a brand from the start. They offer brand launch strategy and packaging story for food and beverage products, as well as naming and shelf placement experience. A call between you and Marcus would be worthwhile to discuss the details of the collaboration.",
+          "message": "Marcus D. is a brand marketer with eight years of experience in consumer food and beverage companies, now freelancing. He seeks an early food or beverage brand to build from the start, particularly one that values packaging and storytelling. Marcus offers brand launch strategy and packaging story for food and beverage products, along with naming and shelf placement experience.",
           "ai_generated": true
         },
         {
           "meeting_id": "mt002",
           "to": "m006",
           "from_agent": "agent:m006",
-          "message": "Oatwhistle Foods is a startup in food technology making shelf-stable oat snacks in a shared kitchen. They need a brand launch strategy and packaging story for their new product, and a co-packer with a nut-free line. In return, they offer a new food brand with a product ready to launch and room for a first marketing hire, as well as tasting panels and recipe testing. Marcus is open to part-time or project work, and he is looking for a founder who values packaging and storytelling. A call between the members would be worthwhile to discuss the details of the collaboration.",
+          "message": "Oatwhistle Foods is a startup in food technology launching a new shelf-stable oat snack. They need a brand launch strategy, packaging story, and a co-packer with a nut-free line. In return, they offer a ready-to-launch product and the opportunity for a first marketing hire. A call between the members would be worthwhile to discuss how they can collaborate.",
           "ai_generated": true
         }
-      ]
+      ],
+      "created_at": "2026-11-13T15:32:24"
     },
     {
       "id": "mt003",
@@ -383,7 +385,7 @@
         {
           "speaker": "m002",
           "turn": 1,
-          "text": "We at Lumen Sight are a machine vision startup building cameras and software for factory inspection. We need a stamping plant for a paid pilot of our camera inspection on a production line, and we offer camera surface defect inspection for stamped parts that mounts on a running line, along with labelled defect image sets from earlier tests."
+          "text": "We at Lumen Sight are a machine vision startup building cameras and software for factory inspection. We need a stamping plant for a paid pilot of our camera inspection on a production line, and we offer camera surface defect inspection for stamped parts that mounts on a running line."
         },
         {
           "speaker": "m001",
@@ -393,22 +395,22 @@
         {
           "speaker": "m002",
           "turn": 2,
-          "text": "We would want the pilot to be no longer than twelve weeks. A call between our members would be worthwhile to discuss the details of the pilot and how our camera inspection can benefit your production line."
+          "text": "We would want a pilot of no more than twelve weeks. A call between our members would be worthwhile to discuss the pilot and how our camera inspection can help with your surface defect inspection needs."
         },
         {
           "speaker": "m001",
           "turn": 2,
-          "text": "We would want the pilot to be no longer than twelve weeks. A call between our members would be worthwhile to discuss the details of the pilot and how your camera inspection can benefit our production line."
+          "text": "We would be open to a twelve-week pilot if the terms are clear and paid upfront. A call would help us understand how your camera inspection technology integrates with our production line."
         }
       ],
       "votes": {
         "m002": {
           "vote": "yes",
-          "reason": "Kestrel Stamping directly addresses our need for a stamping plant for a paid pilot and offers a production line for pilots of camera inspection hardware."
+          "reason": "Kestrel Stamping directly addresses our need for a stamping plant pilot and offers a compatible production line for testing."
         },
         "m001": {
           "vote": "yes",
-          "reason": "Lumen Sight directly addresses Kestrel Stamping's need for surface defect inspection and offers a pilot within the desired timeframe."
+          "reason": "Lumen Sight directly addresses our need for surface defect inspection in a paid pilot."
         }
       },
       "result": "introduced",
@@ -418,17 +420,18 @@
           "meeting_id": "mt003",
           "to": "m002",
           "from_agent": "agent:m002",
-          "message": "Kestrel Stamping is a metal stamping supplier running three press lines for appliance and vehicle brackets. They need surface defect inspection for stamped parts and faster quoting on new die jobs. The match is worth your time because they offer a stamping production line for pilots of camera inspection hardware and prototype stamping runs of 500 to 5000 brackets, which aligns with your need for a stamping plant for a paid pilot. A call between your members would be worthwhile to discuss the details of the pilot and how Lumen Sight's camera inspection can benefit their production line.",
+          "message": "Kestrel Stamping is a metal stamping supplier running three press lines for appliance and vehicle brackets. They need surface defect inspection for stamped parts and faster quoting on new die jobs. A call between your members would be worthwhile to discuss the pilot and how Lumen Sight's camera inspection can help with their surface defect inspection needs.",
           "ai_generated": true
         },
         {
           "meeting_id": "mt003",
           "to": "m001",
           "from_agent": "agent:m001",
-          "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and they offer camera surface defect inspection for stamped parts that mounts on a running line, along with labelled defect image sets from earlier tests. A call between your members would be worthwhile to discuss the details of the pilot and how their camera inspection can benefit your production line.",
+          "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and they offer camera surface defect inspection for stamped parts that mounts on a running line. The agents discussed a potential twelve-week pilot and the need for a clear, paid agreement, and agreed that a call between the members would be worthwhile to discuss the pilot and how Lumen Sight's camera inspection can help with Kestrel Stamping's surface defect inspection needs.",
           "ai_generated": true
         }
-      ]
+      ],
+      "created_at": "2026-11-13T15:32:33"
     },
     {
       "id": "mt004",
@@ -464,32 +467,32 @@
         {
           "speaker": "m005",
           "turn": 1,
-          "text": "We at Great Lakes Mobility Group are a 4,000-person maker of vehicle components with plants across the region. Our supply chain still runs on spreadsheets and phone calls, and we need live shipment tracking for inbound parts across several plants, as well as a plant-floor tool that spots late supplier deliveries. We can offer a multi-plant manufacturer pilot site with real inbound shipments and introductions to our supplier network."
+          "text": "We at Great Lakes Mobility Group are a 4,000-person automotive component maker with plants across the region. Our supply chain still runs on spreadsheets and phone calls, so we need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. We can offer a multi-plant manufacturer pilot site with real inbound shipments and introductions to our supplier network."
         },
         {
           "speaker": "m008",
           "turn": 1,
-          "text": "We at Brindle Route are a four-person startup that builds software to track inbound shipments and warn plants about late parts. We need a large manufacturer to pilot live shipment tracking across several plants and a plant logistics lead to tell us what breaks."
+          "text": "We at Brindle Route are a four-person startup that builds software to track inbound shipments and warn plants about late parts. We have only tested it on small fleets and need a large manufacturer to pilot live shipment tracking across several plants."
         },
         {
           "speaker": "m005",
           "turn": 2,
-          "text": "We would want a signed data agreement before any pilot. If you can provide that, we can discuss a pilot at our facilities."
+          "text": "We would want a signed data agreement before any pilot. We can offer a multi-plant manufacturer pilot site with real inbound shipments."
         },
         {
           "speaker": "m008",
           "turn": 2,
-          "text": "We would want a signed data agreement before any pilot. If you can provide that, we can discuss a pilot at your facilities."
+          "text": "We would want a signed data agreement before any pilot. We can offer live shipment tracking for inbound parts across several plants, tied to dispatch records and late delivery alerts for plant schedulers."
         }
       ],
       "votes": {
         "m005": {
           "vote": "yes",
-          "reason": "Brindle Route directly addresses our need for live shipment tracking across several plants and offers a pilot at their facilities."
+          "reason": "Both sides need live shipment tracking and a pilot, and Brindle Route's offer matches our need."
         },
         "m008": {
           "vote": "yes",
-          "reason": "Great Lakes Mobility Group directly addresses Brindle Route's need for a large manufacturer pilot and offers a signed data agreement as a condition."
+          "reason": "Great Lakes Mobility Group directly addresses our need for a large manufacturer pilot and offers a multi-plant pilot site."
         }
       },
       "result": "introduced",
@@ -499,17 +502,18 @@
           "meeting_id": "mt004",
           "to": "m005",
           "from_agent": "agent:m005",
-          "message": "Brindle Route is a four-person startup that builds software to track inbound shipments and warn plants about late parts. They need a large manufacturer to pilot live shipment tracking across several plants and a plant logistics lead to tell them what breaks. The agents discussed the need for a signed data agreement before any pilot, and if provided, they can discuss a pilot at Great Lakes Mobility Group's facilities. The proposed next step is to provide the signed data agreement to move forward with the pilot.",
+          "message": "Brindle Route is a four-person startup that builds software to track inbound shipments and warn plants about late parts. They have only tested it on small fleets and need a large manufacturer to pilot live shipment tracking across several plants. The agents discussed the need for a signed data agreement before any pilot, and the offer of a multi-plant manufacturer pilot site with real inbound shipments. The proposed next step is for Brindle Route to provide their data agreement for review.",
           "ai_generated": true
         },
         {
           "meeting_id": "mt004",
           "to": "m008",
           "from_agent": "agent:m008",
-          "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They need live shipment tracking for inbound parts across several plants, as well as a plant-floor tool that spots late supplier deliveries. The agents discussed a potential pilot at their facilities, with a signed data agreement as a prerequisite. You should draft and sign the data agreement, then schedule a detailed discussion about the pilot.",
+          "message": "Great Lakes Mobility Group is a 4,000-person automotive component maker with plants across the region. Their supply chain still runs on spreadsheets and phone calls, so they need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. The agents discussed a potential pilot with real inbound shipments, and a signed data agreement is required before any pilot. A proposed next step is to draft a data agreement and schedule a follow-up meeting to discuss the pilot in more detail.",
           "ai_generated": true
         }
-      ]
+      ],
+      "created_at": "2026-11-13T15:32:40"
     },
     {
       "id": "mt005",
@@ -538,32 +542,32 @@
         {
           "speaker": "m002",
           "turn": 1,
-          "text": "We at Lumen Sight are a six-person machine vision startup building cameras and software for factory inspection. We have run lab tests and are looking for our first customer production floor. We would like a stamping plant for a paid pilot of camera inspection on a production line, and an advisor who has sold software into factories. In return, we can offer camera surface defect inspection for stamped parts that mounts on a running line, as well as labelled defect image sets from earlier tests."
+          "text": "We at Lumen Sight are a machine vision startup building cameras and software for factory inspection. We need a stamping plant for a paid pilot of our camera inspection on a production line, and an advisor who has sold software into factories. In return, we offer camera surface defect inspection for stamped parts that mounts on a running line, and labelled defect image sets from earlier tests."
         },
         {
           "speaker": "m005",
           "turn": 1,
-          "text": "We at Great Lakes Mobility Group are a 4,000-person maker of vehicle components with plants across the region. Our supply chain still runs on spreadsheets and phone calls. We pilot new tools with small teams and move carefully on contracts. We need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. We can offer a multi-plant manufacturer pilot site with real inbound shipments and introductions to our supplier network."
+          "text": "We at Great Lakes Mobility Group are a 4,000-person maker of vehicle components with plants across the region. We need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. We offer a multi-plant manufacturer pilot site with real inbound shipments and introductions to our supplier network."
         },
         {
           "speaker": "m002",
           "turn": 2,
-          "text": "We would want the pilot to be no longer than twelve weeks. A call between our members would be worthwhile, as you have a multi-plant manufacturer pilot site that matches our need for a stamping plant pilot."
+          "text": "We would want the pilot to be no longer than twelve weeks. A call between our members would be worthwhile to explore how our camera inspection could help with your inbound shipment tracking and late supplier delivery detection."
         },
         {
           "speaker": "m005",
           "turn": 2,
-          "text": "We would want a signed data agreement before the pilot. A call between our members would be worthwhile, as we can offer a multi-plant manufacturer pilot site with real inbound shipments."
+          "text": "We at Great Lakes Mobility Group can offer a multi-plant pilot site with real inbound shipments for your camera inspection, and introductions to our supplier network. A call between our members would be worthwhile to discuss the specifics of the pilot and how our needs align with your offerings."
         }
       ],
       "votes": {
         "m002": {
           "vote": "yes",
-          "reason": "Great Lakes Mobility Group directly addresses our need for a stamping plant pilot and offers a multi-plant manufacturer pilot site."
+          "reason": "Great Lakes Mobility Group directly addresses our need for a multi-plant pilot site with real inbound shipments for camera inspection and offers introductions to their supplier network."
         },
         "m005": {
           "vote": "yes",
-          "reason": "Lumen Sight directly addresses our need for a stamping plant pilot and offers a solution that matches our requirements."
+          "reason": "Lumen Sight directly addresses our need for a plant-floor tool to spot late supplier deliveries with their camera inspection pilot."
         }
       },
       "result": "introduced",
@@ -573,17 +577,18 @@
           "meeting_id": "mt005",
           "to": "m002",
           "from_agent": "agent:m002",
-          "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They pilot new tools with small teams and move carefully on contracts. They need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. In the meeting, they offered a multi-plant manufacturer pilot site with real inbound shipments and introductions to their supplier network. They would want a signed data agreement before the pilot. A call between your members would be worthwhile, as they can offer a multi-plant manufacturer pilot site that matches your need for a stamping plant pilot. The next step is to arrange a call between your members to discuss further.",
+          "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. In the meeting, they offered a multi-plant manufacturer pilot site with real inbound shipments and introductions to their supplier network. A call between your members would be worthwhile to explore how Lumen Sight's camera inspection could help with their inbound shipment tracking and late supplier delivery detection.",
           "ai_generated": true
         },
         {
           "meeting_id": "mt005",
           "to": "m005",
           "from_agent": "agent:m005",
-          "message": "Lumen Sight is a six-person machine vision startup building cameras and software for factory inspection. They have run lab tests and are looking for their first customer production floor. You can offer them a twelve-week pilot at one of your stamping plants, with a signed data agreement as a prerequisite. A call between your members would be worthwhile to explore this opportunity further.",
+          "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and an advisor who has sold software into factories. In return, they offer camera surface defect inspection for stamped parts that mounts on a running line, and labelled defect image sets from earlier tests. A call between your members would be worthwhile to explore how their camera inspection could help with your inbound shipment tracking and late supplier delivery detection.",
           "ai_generated": true
         }
-      ]
+      ],
+      "created_at": "2026-11-13T15:32:50"
     }
   ],
   "introductions": [
@@ -591,56 +596,56 @@
       "meeting_id": "mt002",
       "to": "m007",
       "from_agent": "agent:m007",
-      "message": "Marcus D., a brand marketer with eight years of experience in consumer food and beverage companies, now freelances and wants to join an early team where they can shape a brand from the start. They offer brand launch strategy and packaging story for food and beverage products, as well as naming and shelf placement experience. A call between you and Marcus would be worthwhile to discuss the details of the collaboration.",
+      "message": "Marcus D. is a brand marketer with eight years of experience in consumer food and beverage companies, now freelancing. He seeks an early food or beverage brand to build from the start, particularly one that values packaging and storytelling. Marcus offers brand launch strategy and packaging story for food and beverage products, along with naming and shelf placement experience.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt002",
       "to": "m006",
       "from_agent": "agent:m006",
-      "message": "Oatwhistle Foods is a startup in food technology making shelf-stable oat snacks in a shared kitchen. They need a brand launch strategy and packaging story for their new product, and a co-packer with a nut-free line. In return, they offer a new food brand with a product ready to launch and room for a first marketing hire, as well as tasting panels and recipe testing. Marcus is open to part-time or project work, and he is looking for a founder who values packaging and storytelling. A call between the members would be worthwhile to discuss the details of the collaboration.",
+      "message": "Oatwhistle Foods is a startup in food technology launching a new shelf-stable oat snack. They need a brand launch strategy, packaging story, and a co-packer with a nut-free line. In return, they offer a ready-to-launch product and the opportunity for a first marketing hire. A call between the members would be worthwhile to discuss how they can collaborate.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt003",
       "to": "m002",
       "from_agent": "agent:m002",
-      "message": "Kestrel Stamping is a metal stamping supplier running three press lines for appliance and vehicle brackets. They need surface defect inspection for stamped parts and faster quoting on new die jobs. The match is worth your time because they offer a stamping production line for pilots of camera inspection hardware and prototype stamping runs of 500 to 5000 brackets, which aligns with your need for a stamping plant for a paid pilot. A call between your members would be worthwhile to discuss the details of the pilot and how Lumen Sight's camera inspection can benefit their production line.",
+      "message": "Kestrel Stamping is a metal stamping supplier running three press lines for appliance and vehicle brackets. They need surface defect inspection for stamped parts and faster quoting on new die jobs. A call between your members would be worthwhile to discuss the pilot and how Lumen Sight's camera inspection can help with their surface defect inspection needs.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt003",
       "to": "m001",
       "from_agent": "agent:m001",
-      "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and they offer camera surface defect inspection for stamped parts that mounts on a running line, along with labelled defect image sets from earlier tests. A call between your members would be worthwhile to discuss the details of the pilot and how their camera inspection can benefit your production line.",
+      "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and they offer camera surface defect inspection for stamped parts that mounts on a running line. The agents discussed a potential twelve-week pilot and the need for a clear, paid agreement, and agreed that a call between the members would be worthwhile to discuss the pilot and how Lumen Sight's camera inspection can help with Kestrel Stamping's surface defect inspection needs.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt004",
       "to": "m005",
       "from_agent": "agent:m005",
-      "message": "Brindle Route is a four-person startup that builds software to track inbound shipments and warn plants about late parts. They need a large manufacturer to pilot live shipment tracking across several plants and a plant logistics lead to tell them what breaks. The agents discussed the need for a signed data agreement before any pilot, and if provided, they can discuss a pilot at Great Lakes Mobility Group's facilities. The proposed next step is to provide the signed data agreement to move forward with the pilot.",
+      "message": "Brindle Route is a four-person startup that builds software to track inbound shipments and warn plants about late parts. They have only tested it on small fleets and need a large manufacturer to pilot live shipment tracking across several plants. The agents discussed the need for a signed data agreement before any pilot, and the offer of a multi-plant manufacturer pilot site with real inbound shipments. The proposed next step is for Brindle Route to provide their data agreement for review.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt004",
       "to": "m008",
       "from_agent": "agent:m008",
-      "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They need live shipment tracking for inbound parts across several plants, as well as a plant-floor tool that spots late supplier deliveries. The agents discussed a potential pilot at their facilities, with a signed data agreement as a prerequisite. You should draft and sign the data agreement, then schedule a detailed discussion about the pilot.",
+      "message": "Great Lakes Mobility Group is a 4,000-person automotive component maker with plants across the region. Their supply chain still runs on spreadsheets and phone calls, so they need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. The agents discussed a potential pilot with real inbound shipments, and a signed data agreement is required before any pilot. A proposed next step is to draft a data agreement and schedule a follow-up meeting to discuss the pilot in more detail.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt005",
       "to": "m002",
       "from_agent": "agent:m002",
-      "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They pilot new tools with small teams and move carefully on contracts. They need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. In the meeting, they offered a multi-plant manufacturer pilot site with real inbound shipments and introductions to their supplier network. They would want a signed data agreement before the pilot. A call between your members would be worthwhile, as they can offer a multi-plant manufacturer pilot site that matches your need for a stamping plant pilot. The next step is to arrange a call between your members to discuss further.",
+      "message": "Great Lakes Mobility Group is a 4,000-person maker of vehicle components with plants across the region. They need live shipment tracking for inbound parts across several plants and a plant-floor tool that spots late supplier deliveries. In the meeting, they offered a multi-plant manufacturer pilot site with real inbound shipments and introductions to their supplier network. A call between your members would be worthwhile to explore how Lumen Sight's camera inspection could help with their inbound shipment tracking and late supplier delivery detection.",
       "ai_generated": true
     },
     {
       "meeting_id": "mt005",
       "to": "m005",
       "from_agent": "agent:m005",
-      "message": "Lumen Sight is a six-person machine vision startup building cameras and software for factory inspection. They have run lab tests and are looking for their first customer production floor. You can offer them a twelve-week pilot at one of your stamping plants, with a signed data agreement as a prerequisite. A call between your members would be worthwhile to explore this opportunity further.",
+      "message": "Lumen Sight is a machine vision startup building cameras and software for factory inspection. They need a stamping plant for a paid pilot of their camera inspection on a production line, and an advisor who has sold software into factories. In return, they offer camera surface defect inspection for stamped parts that mounts on a running line, and labelled defect image sets from earlier tests. A call between your members would be worthwhile to explore how their camera inspection could help with your inbound shipment tracking and late supplier delivery detection.",
       "ai_generated": true
     }
   ],
@@ -661,6 +666,59 @@
       }
     }
   ],
+  "resource_suggestions": {
+    "m001": [],
+    "m002": [],
+    "m003": [],
+    "m004": [],
+    "m005": [],
+    "m006": [
+      {
+        "resource_id": "r09",
+        "name": "Start Garden",
+        "url": "https://startgarden.com/",
+        "hub": "grand_rapids",
+        "category": "accelerator",
+        "for_need": "an early food or beverage brand to build from the start",
+        "matched": "a shared commercial kitchen for a food startup",
+        "similarity": 0.735
+      }
+    ],
+    "m007": [
+      {
+        "resource_id": "r09",
+        "name": "Start Garden",
+        "url": "https://startgarden.com/",
+        "hub": "grand_rapids",
+        "category": "accelerator",
+        "for_need": "brand launch strategy and packaging story for a new food product",
+        "matched": "a shared commercial kitchen for a food startup",
+        "similarity": 0.714
+      },
+      {
+        "resource_id": "r13",
+        "name": "Michigan Small Business Development Center",
+        "url": "https://michigansbdc.org/",
+        "hub": "statewide",
+        "category": "small_business_support",
+        "for_need": "brand launch strategy and packaging story for a new food product",
+        "matched": "market research for a new product",
+        "similarity": 0.714
+      }
+    ],
+    "m008": [
+      {
+        "resource_id": "r03",
+        "name": "Newlab Detroit",
+        "url": "https://www.newlab.com/locations/detroit",
+        "hub": "detroit",
+        "category": "accelerator",
+        "for_need": "a large manufacturer to pilot live shipment tracking across several plants",
+        "matched": "a large company seeking startups to pilot a new technology",
+        "similarity": 0.709
+      }
+    ]
+  },
   "weights_before": {
     "individual-startup|complementary": 1.32,
     "small_business-startup|unexpected": 1.24,

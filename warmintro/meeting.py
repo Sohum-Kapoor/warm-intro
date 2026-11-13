@@ -46,6 +46,8 @@ theirs) that the other side's words have not broken. If your member needs a cond
 example paperwork or a prerequisite), say "we would want ..." as a condition, never as a refusal. \
 Never assume or invent terms the other side did not state.
 - Never speak for the other side and never write the other side's lines. Do not label turns.
+- Respond to what the other agent just said, from your own member's side. Never repeat, copy or \
+paraphrase the other agent's sentences as your own, and speak only for your own member.
 
 {task_instructions}
 
@@ -169,6 +171,28 @@ def _messages(transcript: list[Turn], me: str, counterpart: Member, first: bool)
     return messages
 
 
+REPEAT_THRESHOLD = 0.6
+REPEAT_NUDGE = (
+    "[moderator] That repeats what was already said. Say something new, from your own member's side, "
+    "in 1-2 sentences."
+)
+REPEAT_NUDGE_QUOTE = ' Do not say anything like: "{text}"'
+
+
+def _words(text: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9']+", text.lower()))
+
+
+def _repeats(text: str, transcript: list[Turn]) -> bool:
+    """True if text has word-set Jaccard overlap >= REPEAT_THRESHOLD with any earlier turn."""
+    w = _words(text)
+    for t in transcript:
+        o = _words(t["text"])
+        if w and o and len(w & o) / len(w | o) >= REPEAT_THRESHOLD:
+            return True
+    return False
+
+
 def _trim_reason(reason: str) -> str:
     """Keep a short reason whole; cut a long one at the last sentence end before the limit."""
     if len(reason) < MAX_REASON_CHARS:
@@ -279,7 +303,11 @@ def run_meeting(
         for me, other in sides:
             msgs = _messages(meeting["transcript"], me["id"], other, first=me is a)
             system = build_system(me, "speak", budget[me["id"]], turn, other)
-            text = strip_label(llm.chat(system, msgs), me["name"], other["name"], *_all_names) or NO_COMMENT
+            names = (me["name"], other["name"], *_all_names)
+            text = strip_label(llm.chat(system, msgs), *names) or NO_COMMENT
+            if _repeats(text, meeting["transcript"]):  # retry once; keep the result either way
+                nudged = [*msgs, {"role": "user", "content": REPEAT_NUDGE + REPEAT_NUDGE_QUOTE.format(text=text)}]
+                text = strip_label(llm.chat(system, nudged), *names) or text
             entry: Turn = {"speaker": me["id"], "turn": turn, "text": text}
             meeting["transcript"].append(entry)
             if on_turn:
