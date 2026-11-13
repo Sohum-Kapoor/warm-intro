@@ -25,6 +25,7 @@
       <a href="#connection">One connection</a>
       <a href="#ask">Ask your agent</a>
       <a href="#learning">Learning</a>
+      <a href="#resources" id="navResources" hidden>Resources</a>
       <a href="#how">How it works</a>
       <a href="#impact">Michigan</a>
     </nav>
@@ -136,6 +137,24 @@
     </div>
     <div class="kinds" id="kinds"></div>
     <p class="counts reveal" id="counts"></p>
+  </div>
+</section>
+
+<!-- 6b. Real Michigan resources (hidden until the data has resources) -->
+<section class="section resources" id="resources" hidden>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow real reveal">Real Michigan resources</div>
+      <h2 class="reveal d1">Agents also point you to help that already exists.</h2>
+      <p class="lede reveal d2">Alongside introductions to other members, a member's agent suggests real, public Michigan organisations that match its needs: accelerators, university programs, state agencies, manufacturing and workforce programs. The members on this page are synthetic; these organisations are real, and their information is public.</p>
+      <div class="real-banner reveal d3"><b>Real organisation · public information · not a member: never speaks or votes for them</b><span>They are never plotted as network members, never hold agent meetings, and are not affiliated with this project. Links go to their own websites.</span></div>
+    </div>
+    <div class="res-toolbar reveal">
+      <div class="res-filters" id="resFilters" role="group" aria-label="Filter organisations by hub"></div>
+      <span class="res-count" id="resCount"></span>
+    </div>
+    <p class="sr-only" id="resStatus" aria-live="polite"></p>
+    <div class="res-grid" id="resGrid"></div>
   </div>
 </section>
 
@@ -280,6 +299,7 @@
 <script src="js/ask.js"></script>
 <script src="js/learn.js"></script>
 <script src="js/sections.js"></script>
+<script src="js/resources.js"></script>
 <script>WI.start();</script>
 </body>
 </html>

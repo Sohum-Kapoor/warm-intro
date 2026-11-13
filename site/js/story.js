@@ -110,6 +110,7 @@
     var focusId = involves(feat, 'm001') ? 'm001' : feat.b;
     var otherId = feat.a === focusId ? feat.b : feat.a;
     var F = WI.member(focusId), O = WI.member(otherId);
+    WI.storyFocus = focusId;
     var evFocus = ((feat.candidate || {}).evidence || []).filter(function (e) { return e.need_of === focusId; })[0];
     var others = WI.members.length - 1;
 
@@ -162,7 +163,8 @@
       '</div></div></div>' +
       '<div class="nobody"><div class="big">Nobody at ' + esc(F.name) + ' lifted a finger until <em>both agents said yes.</em></div>' +
       '<p>No searching, no cold emails, no meeting that went nowhere. The scan, the shortlist, the first meeting and the vote all happened without them.</p>' +
-      '<div class="timer"><div><b>0 min</b>spent before this message</div><div><b>' + (feat.transcript || []).length + '</b>agent turns, AI-generated</div><div><b>' + yesCount + ' / 2</b>yes votes</div></div></div>',
+      '<div class="timer"><div><b>0 min</b>spent before this message</div><div><b>' + (feat.transcript || []).length + '</b>agent turns, AI-generated</div><div><b>' + yesCount + ' / 2</b>yes votes</div></div></div>' +
+      '<div id="suggestSlot"></div>',
       { final: true, involve: involve(true, F.name) });
     host.innerHTML = html;
 
