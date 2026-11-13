@@ -32,3 +32,6 @@ runs/*
 .DS_Store
 .idea/
 .vscode/
+
+# Design-skill working files
+.taste-skill/
