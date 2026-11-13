@@ -88,3 +88,13 @@ Tech statement wording: see "What is honestly built" below.
 ## What is honestly built
 
 One network agent in watsonx Orchestrate calls our six tools (an OpenAPI import of the Warm Intro service). The member agents are one agent design run once per member inside the meeting tool, each seeing only its own member's profile. They are not separate Orchestrate agents. Members, meetings, votes and messages are synthetic; transcripts, votes and messages are AI-generated. A schedule ("run every Monday") is only claimed if you actually create one in chat and show it **[NOT VERIFIED]** available on a trial instance (needs `is_schedulable: true` in the YAML; we leave it off).
+
+## Stable URL (Code Engine)
+
+The tunnel URL changes on every restart. Once the API is on Code Engine (steps in `orchestrate/CODE_ENGINE.md`), switch to its URL:
+
+1. `.venv/bin/python scripts/export_openapi.py --server-url <code-engine-url>`
+2. Re-import `orchestrate/openapi.json` in Orchestrate (section C step 5, or `orchestrate tools import -k openapi -f orchestrate/openapi.json`) and confirm the six tools still show.
+3. Commit `orchestrate/openapi.json`. The Code Engine URL is meant to be public, so it is safe in git.
+
+Sections A and F (the `make serve` plus `make tunnel` path) become the fallback if Code Engine is down.
