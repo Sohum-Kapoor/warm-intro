@@ -1,0 +1,20 @@
+[project]
+name = "warmintro"
+version = "0.1.0"
+description = "Warm Intro: agents that propose warm introductions between synthetic members"
+requires-python = ">=3.11"
+dependencies = ["fastapi", "uvicorn", "python-dotenv"]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+watsonx = ["ibm-watsonx-ai"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["warmintro"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
