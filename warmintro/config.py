@@ -26,6 +26,9 @@ CONTRAST_NEED_MIN = 0.35  # same problem: needs at least this similar
 CONTRAST_OFFER_MAX = 0.2  # opposite approach: offers no more similar than this
 # watsonx: need >= 0.68 (about the top 8% of pairs), offer <= 0.50 (about the 20th percentile band).
 CONTRAST_THRESHOLDS = {"mock": (CONTRAST_NEED_MIN, CONTRAST_OFFER_MAX), "watsonx": (0.68, 0.50)}
+# Minimum cosine for a resource suggestion. PROVISIONAL: mock is a guess; watsonx not yet tuned on real data.
+RESOURCE_MIN_SIMILARITIES = {"mock": 0.2, "watsonx": 0.65}
+RESOURCE_HUB_BONUS = 0.02  # ranking tie-break only; the reported similarity stays raw
 
 
 @dataclass(frozen=True)
@@ -36,6 +39,7 @@ class Settings:
     fit_threshold: float
     contrast_need_min: float
     contrast_offer_max: float
+    resource_min_similarity: float
     novelty_weight: float
     hub_bonus: float
     max_meetings_per_member: int
@@ -58,6 +62,7 @@ def get_settings() -> Settings:
         fit_threshold=float(env.get("FIT_THRESHOLD") or FIT_THRESHOLDS.get(provider, FIT_THRESHOLD)),
         contrast_need_min=need_min,
         contrast_offer_max=offer_max,
+        resource_min_similarity=RESOURCE_MIN_SIMILARITIES.get(provider, RESOURCE_MIN_SIMILARITIES["mock"]),
         novelty_weight=NOVELTY_WEIGHT,
         hub_bonus=HUB_BONUS,
         max_meetings_per_member=MAX_MEETINGS_PER_MEMBER,

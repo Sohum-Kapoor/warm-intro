@@ -11,6 +11,7 @@ from warmintro import feedback, store
 from warmintro.config import MAX_MEETINGS_PER_ROUND, get_settings
 from warmintro.llm import LLM, get_llm
 from warmintro.meeting import run_meeting
+from warmintro.resources import suggest
 from warmintro.scout import find_contrasts, score_pairs, scout, select_meetings
 from warmintro.store import Candidate, Meeting, Run, Turn
 
@@ -75,6 +76,7 @@ def run_round(
         "meetings": [],
         "introductions": [],
         "contrasts": [],
+        "resource_suggestions": {},
         "weights_before": weights_before,
         "weights_after": weights_before,
         "ai_generated": True,
@@ -92,6 +94,10 @@ def run_round(
             chosen = select_meetings(cands, max_meetings=max_meetings)
             run["contrasts"] = find_contrasts(members, llm)
         run["stats"]["passed_filter"] = len(cands)
+        resources = store.load_resources()
+        if resources:
+            for mid in sorted({i for c in chosen for i in (c["a"], c["b"])}):
+                run["resource_suggestions"][mid] = suggest(by_id[mid], resources, llm)
         _snapshot(run, by_id, cands)
 
         budgets = {m["id"]: m["intro_budget"] for m in members}

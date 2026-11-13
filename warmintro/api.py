@@ -11,7 +11,9 @@ from pydantic import BaseModel, Field
 
 from warmintro import feedback, store
 from warmintro.config import MAX_MEETINGS_PER_ROUND, get_settings
+from warmintro.llm import get_llm
 from warmintro.meeting import run_meeting
+from warmintro.resources import suggest
 from warmintro.round import run_round
 from warmintro.scout import scout as scout_members
 
@@ -78,6 +80,26 @@ def get_members() -> dict[str, Any]:
     """List every synthetic community member with their needs, offers and deal-breakers.
     Call this first to find member ids before scouting or holding a meeting."""
     return {"synthetic": True, "members": store.load_members()}
+
+
+@app.get("/resources", operation_id="getResources", summary="List real public Michigan resources")
+def get_resources() -> dict[str, Any]:
+    """List real, public Michigan organisations (accelerators, university programs, state agencies, manufacturing
+    and workforce programs) that a member can be pointed to. They are resources, not members: they never speak,
+    vote or receive messages. Each has helps_with phrases, the member types it serves, and a source url. Use
+    suggestResources to match them to one member's needs."""
+    return store.load_resources_doc()
+
+
+@app.get("/members/{member_id}/resources", operation_id="suggestResources", summary="Suggest resources for one member")
+def suggest_resources(member_id: str) -> dict[str, Any]:
+    """Return up to two real Michigan organisations that best fit this member's needs, each with the need and
+    the helps_with phrase that matched, and a similarity score. The matching is the only AI-generated part.
+    Unknown member ids return 404."""
+    member = next((m for m in store.load_members() if m["id"] == member_id), None)
+    if member is None:
+        raise KeyError(f"unknown member id: {member_id!r}")
+    return {"member_id": member_id, "suggestions": suggest(member, store.load_resources(), get_llm()), "ai_generated": True}
 
 
 @app.post("/scout", operation_id="scout", summary="Find the best matches for one member")

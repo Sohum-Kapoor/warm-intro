@@ -6,7 +6,7 @@ from warmintro.api import app
 
 SCRIPT = Path(__file__).resolve().parent.parent / "scripts" / "export_openapi.py"
 URL = "https://example.trycloudflare.com"
-TOOLS = {"getMembers", "scout", "holdMeeting", "recordFeedback", "runRound", "getLatestRun"}
+TOOLS = {"getMembers", "scout", "holdMeeting", "recordFeedback", "runRound", "getLatestRun", "getResources"}
 
 
 def _spec() -> dict:
@@ -29,9 +29,9 @@ def test_openapi_30_with_one_server():
     assert spec["servers"] == [{"url": URL}]
 
 
-def test_exactly_the_six_tool_operations_with_ids_and_descriptions():
+def test_exactly_the_seven_tool_operations_with_ids_and_descriptions():
     ops = [op for methods in _spec()["paths"].values() for op in methods.values()]
-    assert {op["operationId"] for op in ops} == TOOLS and len(ops) == 6
+    assert {op["operationId"] for op in ops} == TOOLS and len(ops) == 7
     assert all(op["description"].strip() for op in ops)
 
 

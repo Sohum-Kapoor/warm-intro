@@ -1,0 +1,72 @@
+{
+  "synthetic": false,
+  "note": "TEST FIXTURE ONLY: fake entries, not real organisations.",
+  "resources": [
+    {
+      "id": "t1",
+      "name": "Test Accelerator A",
+      "hub": "detroit",
+      "category": "test",
+      "serves": [
+        "startup"
+      ],
+      "description": "Fake test entry.",
+      "helps_with": [
+        "seed funding for startups",
+        "mentor network"
+      ],
+      "url": "https://example.invalid/t1",
+      "source_page": "https://example.invalid/src",
+      "terms_note": "test only"
+    },
+    {
+      "id": "t2",
+      "name": "Test Accelerator B",
+      "hub": "ann_arbor",
+      "category": "test",
+      "serves": [
+        "startup"
+      ],
+      "description": "Fake test entry.",
+      "helps_with": [
+        "seed funding for startups"
+      ],
+      "url": "https://example.invalid/t2",
+      "source_page": "https://example.invalid/src",
+      "terms_note": "test only"
+    },
+    {
+      "id": "t3",
+      "name": "Test Workforce C",
+      "hub": "statewide",
+      "category": "test",
+      "serves": [
+        "small_business",
+        "corporation"
+      ],
+      "description": "Fake test entry.",
+      "helps_with": [
+        "hiring and training workers"
+      ],
+      "url": "https://example.invalid/t3",
+      "source_page": "https://example.invalid/src",
+      "terms_note": "test only"
+    },
+    {
+      "id": "t4",
+      "name": "Test Program D",
+      "hub": "grand_rapids",
+      "category": "test",
+      "serves": [
+        "individual"
+      ],
+      "description": "Fake test entry.",
+      "helps_with": [
+        "career coaching for individuals"
+      ],
+      "url": "https://example.invalid/t4",
+      "source_page": "https://example.invalid/src",
+      "terms_note": "test only"
+    }
+  ]
+}

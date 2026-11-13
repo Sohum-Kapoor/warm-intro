@@ -122,12 +122,33 @@ Up to three turns per agent, alternating, `a` first. Each agent is prompted with
   "meetings": [ ],
   "introductions": [ ],
   "contrasts": [ ],
+  "resource_suggestions": {"m004": [ResourceSuggestion]},
   "weights_before": { },
   "weights_after": { }
 }
 ```
 
 `web/fixtures/sample_run.json` is a hand-written example of this shape. The web UI must render it with no backend.
+
+## Resources — `data/resources.json` (real, public; NOT synthetic)
+
+Real Michigan organisations an agent can point a member to. They are resources, not members: they never speak, vote or receive messages. Only the matching is AI-generated. A missing file means no resources.
+
+```json
+{"synthetic": false, "note": "...", "resources": [Resource]}
+```
+
+```json
+{"id": "r01", "name": "...", "hub": "detroit | grand_rapids | ann_arbor | statewide", "category": "...", "serves": ["startup"], "description": "one line", "helps_with": ["2-4 need-like phrases"], "url": "...", "source_page": "...", "terms_note": "..."}
+```
+
+**Suggestion** (`warmintro/resources.py: suggest(member, resources, llm, k=2)`): for each resource whose `serves` includes the member's `type`, the best cosine between any member need and any `helps_with` phrase. Resources below the provider minimum (mock 0.2, watsonx 0.65, provisional) are dropped. Ranking adds +0.02 for the member's own hub; the reported `similarity` is the raw cosine. Top k:
+
+```json
+{"resource_id": "r01", "name": "...", "url": "...", "hub": "detroit", "category": "...", "for_need": "the member need", "matched": "the helps_with phrase", "similarity": 0.41}
+```
+
+The run log's `resource_suggestions` maps each member id that appears in a meeting of the round to their suggestions (`{}` when there are no resources).
 
 ## HTTP API (FastAPI, `warmintro/api.py`) — these are also the tools Orchestrate calls
 
@@ -139,6 +160,8 @@ Up to three turns per agent, alternating, `a` first. Each agent is prompted with
 | `POST /feedback` | `{"meeting_id": "mt001", "outcome": "pilot"}` | `{"weights_before": {}, "weights_after": {}}` |
 | `POST /round` | optional `{"member_ids": [], "max_meetings": 8}` | `Run` |
 | `GET /runs/latest` | | `Run` |
+| `GET /resources` | | `{"synthetic": false, "note": "...", "resources": [Resource]}` (operationId `getResources`) |
+| `GET /members/{member_id}/resources` | | `{"member_id": "m004", "suggestions": [Suggestion], "ai_generated": true}`; 404 for an unknown member (operationId `suggestResources`) |
 
 CORS is open for `localhost` so the web page can call it.
 

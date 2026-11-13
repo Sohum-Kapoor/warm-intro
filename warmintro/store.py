@@ -91,6 +91,30 @@ class Introduction(TypedDict):
     ai_generated: bool
 
 
+class Resource(TypedDict):
+    id: str
+    name: str
+    hub: str
+    category: str
+    serves: list[str]
+    description: str
+    helps_with: list[str]
+    url: str
+    source_page: str
+    terms_note: str
+
+
+class ResourceSuggestion(TypedDict):
+    resource_id: str
+    name: str
+    url: str
+    hub: str
+    category: str
+    for_need: str
+    matched: str
+    similarity: float
+
+
 class Run(TypedDict):
     synthetic: bool
     run_id: str
@@ -102,6 +126,7 @@ class Run(TypedDict):
     candidates: list[Candidate]
     meetings: list[Meeting]
     introductions: list[Introduction]
+    resource_suggestions: dict[str, list[ResourceSuggestion]]
     weights_before: dict[str, float]
     weights_after: dict[str, float]
     ai_generated: bool
@@ -138,6 +163,21 @@ def load_members() -> list[Member]:
 
 def load_history() -> list[Connection]:
     return _read_data("history.json")["connections"]
+
+
+RESOURCES_NOTE = "Real, public Michigan organisations. Resources, not members: they never speak, vote or get messages."
+
+
+def load_resources_doc() -> dict[str, Any]:
+    """The whole resources file; an empty one if it has not landed yet."""
+    path = get_settings().data_dir / "resources.json"
+    if not path.exists():
+        return {"synthetic": False, "note": RESOURCES_NOTE, "resources": []}
+    return _read_json(path)
+
+
+def load_resources() -> list[Resource]:
+    return load_resources_doc()["resources"]
 
 
 def load_weights() -> dict[str, float]:
