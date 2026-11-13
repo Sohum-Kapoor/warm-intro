@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=380">
+  <title>Warm Intro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="top">
+      <div class="brand">
+        <img class="logo" src="icons/icon48.png" alt="" width="26" height="26">
+        <div class="brand-text">
+          <div class="wordmark">Warm Intro</div>
+          <div class="tagline">reimagining how Michigan connects</div>
+        </div>
+      </div>
+      <button class="status" id="status" type="button" role="switch" aria-checked="true" title="Pause or resume your agent">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="status-label">Active</span>
+      </button>
+    </header>
+
+    <div class="whoami">
+      <span class="avatar" id="avatar" aria-hidden="true">KS</span>
+      <div class="who">
+        <label class="who-label" for="member">Signed in as</label>
+        <div class="who-select">
+          <select id="member" aria-label="Switch member"></select>
+          <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="who-meta" id="who-meta"></div>
+      </div>
+      <button class="mode" id="mode" type="button" title="Data source settings">Demo</button>
+    </div>
+
+    <main class="scroll" id="scroll">
+      <div id="banner"></div>
+      <section id="ask-result" class="ask-result" aria-live="polite"></section>
+      <section class="week">
+        <h1 class="h">Your agent this week</h1>
+        <p class="summary" id="summary">Loading…</p>
+        <div id="feed" class="feed"></div>
+      </section>
+      <section id="resources" class="resources"></section>
+    </main>
+
+    <form class="ask" id="ask" autocomplete="off">
+      <label class="sr-only" for="ask-input">Ask your agent</label>
+      <input id="ask-input" type="text" placeholder="Ask your agent to find someone…" maxlength="300">
+      <button type="submit" class="ask-go" aria-label="Send to your agent">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+
+    <footer class="foot">
+      <a id="open-app" href="https://sohum-kapoor.github.io/warm-intro/site/app/?member=m001" target="_blank" rel="noopener">Open full app <span aria-hidden="true">↗</span></a>
+      <span class="honest"><i aria-hidden="true"></i>Synthetic members · AI-generated</span>
+    </footer>
+  </div>
+  <script src="data/site_data.js"></script>
+  <script src="lib.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

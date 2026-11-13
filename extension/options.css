@@ -1,0 +1,16 @@
+html.options, body.options { width: auto; height: auto; min-width: 420px; overflow: auto; }
+body.options { padding: 18px; }
+.opt { max-width: 520px; display: grid; gap: 14px; }
+.opt .brand { display: flex; align-items: center; gap: 9px; }
+.opt .card { display: grid; gap: 8px; }
+.lbl { font-weight: 650; font-size: 13px; }
+.opt input { height: 34px; border: 1px solid var(--line-2); border-radius: 10px; padding: 0 11px; background: var(--card); font-size: 13px; }
+.opt input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.hint { color: var(--muted); font-size: 12px; }
+.hint.small { font-size: 11px; }
+.hint code { font-size: 11px; background: var(--paper-2); padding: 0 4px; border-radius: 4px; }
+.row { display: flex; gap: 8px; }
+.row .btn { flex: none; padding: 0 14px; }
+.result { font-size: 12px; min-height: 17px; }
+.result.ok { color: #2f6b4f; }
+.result.err { color: var(--accent-ink); }

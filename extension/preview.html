@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Warm Intro popup preview</title>
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { padding: 20px; box-sizing: border-box; background: #e9e6df; font-family: system-ui, -apple-system, sans-serif; }
+    .frame { width: 380px; height: 560px; border: 0; border-radius: 10px; background: #f6f4ef;
+      box-shadow: 0 0 0 1px rgba(21, 23, 26, .1), 0 18px 50px -18px rgba(21, 23, 26, .45); display: block; }
+  </style>
+</head>
+<body>
+  <!-- Static preview for screenshots: the popup outside the extension.
+       chrome.* calls in popup.js are guarded, so it runs on plain http.
+       Query params pass through: ?member=m003&expand=1&ask=... -->
+  <iframe class="frame" id="popup" title="Warm Intro popup" src="popup.html"></iframe>
+  <script src="preview.js"></script>
+</body>
+</html>
