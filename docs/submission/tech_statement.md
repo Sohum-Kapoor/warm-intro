@@ -7,39 +7,41 @@
 Warm Intro has three tools behind a small FastAPI service (`warmintro/`, contract in `docs/CONTRACTS.md`):
 
 - **Scout** (`POST /scout`): embeds each member's needs and offers, scores every pair on fit (most of the score), a novelty bonus, learned weights and a capped cross-hub bonus, and returns only pairs above a fit threshold.
-- **Meeting** (`POST /meeting`): runs the first meeting between two members' agents for up to three turns each, then collects both votes and, on two yes votes, writes an introduction to each member.
+- **Meeting** (`POST /meeting`): runs the first meeting between two members' agents for two turns each, then collects both votes and, on two yes votes, writes an introduction to each member.
 - **Feedback** (`POST /feedback`): records an outcome and updates the weights used by the next scout run.
 
-A network agent in watsonx Orchestrate runs the loop by calling these tools. The scan view in `web/` reads the run log these tools produce.
+A network agent in watsonx Orchestrate is designed to run the loop by calling these tools (see the Orchestrate section for what is verified). The scan view in `web/` reads the run log these tools produce.
 
-All members, history, transcripts and messages are synthetic. Everything runs offline on a deterministic mock provider (`LLM_PROVIDER=mock`) with no keys, and the watsonx provider sits behind the same interface.
+All members, history, transcripts and messages are synthetic. Everything runs offline on a deterministic mock provider (`LLM_PROVIDER=mock`) with no keys, and the watsonx provider (Granite) sits behind the same interface.
 
 **Agent layer, stated plainly:** there is one agent design run once per member inside the meeting tool, each prompted with only its own member's profile. These are not separate Orchestrate agents.
 
 ## IBM Bob
 
-- Built with Bob: `tools/summarize_run.py`, a tool that turns a run log into a Markdown summary (stats, then each meeting's result and both members' reasons). The spec (`tools/SPEC_summarize_run.md`) and tests (`tools/tests/test_summarize_run.py`) were written first, and Jesse built the implementation in Bob against them.
-- Built with Bob: `scripts/validate_data.py`, built by SK (task S10).
-- Screenshots: `bob-screenshots/jesse/` and `bob-screenshots/sk/`.
-- **TODO (humans confirm):** that `tools/summarize_run.py` was built in Bob and what Bob did (plan, code, test fixes). Add a one-line description per screenshot file once captured.
-- **TODO (humans confirm):** that `scripts/validate_data.py` was built in Bob, and any other Bob use.
+Bob is recommended, not required, for this hackathon. We used it for two small pieces and not for the rest. Exactly:
 
-Other AI tools used are listed in `SOURCES.md` (Claude and Claude Code for planning and most of the implementation).
+- **Built with Bob:** `tools/summarize_run.py` (Jesse). It turns a run log into a Markdown summary: stats, then each meeting's result and both members' reasons. The spec (`tools/SPEC_summarize_run.md`) and 26 tests (`tools/tests/test_summarize_run.py`) were written first, and the implementation was built in IBM Bob against them. 26 of 26 tests pass. Screenshots: `bob-screenshots/jesse/` (tests failing first, code and chat, tests passing, CLI output).
+- **Built with Bob:** `scripts/validate_data.py` (SK, task S10), a validator for the synthetic data files. Built in IBM Bob against `scripts/VALIDATE_DATA_SPEC.md` and `tests/test_validate_data.py`: 33 of 33 spec tests pass, and the validator reports 0 errors and 0 warnings on `data/`. Screenshots: `bob-screenshots/sk/` (spec open, request, Bob's plan, a design steer, Bob reporting 33 passing, the code it wrote).
+- **Not built with Bob:** everything else, including `warmintro/` (scout, meeting, feedback, round, API), the synthetic data generator, the Orchestrate files and the scan view in `web/`. Those were written with Claude and Claude Code (see `SOURCES.md`).
+- **TODO (humans confirm):** add a one-line caption per screenshot file, and confirm each screenshot shows no key or personal detail.
 
 ## watsonx Orchestrate
 
-- Role: hosts the network agent that runs scouting, meetings, introductions and outcome recording by calling the three tools above, in proactive rounds and on request.
-- Integration notes, with the documentation they were checked against, are in `orchestrate/NOTES.md`.
-- **TODO (humans confirm):** that the network agent exists and what it is called.
-- **TODO (humans confirm):** how the tools are exposed to it (for example imported from the service's OpenAPI description, or hosted at a public URL on Code Engine), taken from `orchestrate/NOTES.md`.
-- **TODO (humans confirm):** whether a full round ran end to end through Orchestrate with nobody typing, and the date and run id of that run.
-- **TODO (humans confirm):** whether member agents shipped as separate Orchestrate agents (requirement R12, P1). If not, keep the sentence above as is.
-- **TODO (humans confirm):** that the agent definition and any exported work were saved before the account closes on Nov 24.
+- Role: hosts the network agent that runs scouting, meetings, introductions and outcome recording by calling the service's tools, in proactive rounds and on request.
+- In the repo: `orchestrate/warm_intro_network_agent.yaml` (agent spec, name `warm_intro_network_agent`), `orchestrate/openapi.json` (OpenAPI 3.0 export of the six tool operations, generated by `scripts/export_openapi.py`), `orchestrate/README.md` (click-by-click setup) and `orchestrate/NOTES.md` (the documentation each choice was checked against). The planned route is to import the OpenAPI tools over a public `cloudflared` tunnel (`make tunnel`) pointing at the local service.
+- What the repo does not show: that the agent was imported into a live Orchestrate tenant and ran a round. The files are the spec; a screenshot of the running agent is the proof.
+- **TODO (humans confirm):** that the network agent exists in Orchestrate, which model it runs on (the spec file names `groq/openai/gpt-oss-120b`, the documented default; it is not Granite), and that it called the tools against the live Granite service through the tunnel.
+- **TODO (humans confirm):** whether a full round ran end to end through Orchestrate, with the date and run id. If not, say "the agent and tools were set up and tested on a single call", whichever is true.
+- **TODO (humans confirm):** the one required Orchestrate screenshot, saved in the repo, and that the agent definition was saved or exported before the account closes on Nov 24.
+- Member agents are not separate Orchestrate agents. If that changes, edit the agent-layer sentence above and `CLAUDE.md` rule 10 together.
 
 ## watsonx.ai (Granite)
 
-- Used for embeddings (scoring) and for each agent's meeting text, vote and message to its member, when `LLM_PROVIDER=watsonx`.
-- **TODO (humans confirm):** the Granite model ids actually used (they are read from the environment, not hard-coded), and whether the submitted demo run used watsonx or the mock provider.
+- The live API runs on IBM Granite models on watsonx.ai, used for embeddings (scoring) and for each agent's meeting turns, vote and message to its member when `LLM_PROVIDER=watsonx`. Model ids are read from the environment (`WATSONX_CHAT_MODEL`, `WATSONX_EMBED_MODEL`), not hard-coded. `orchestrate/NOTES.md` lists `ibm/granite-4-h-small` (chat) and `ibm/granite-embedding-278m-multilingual` (embeddings) as the ids available on Nov 13; which ones the run used is set in the environment and is not recorded in the repo.
+- The submitted demo, `runs/demo.json`, is a real Granite round, not the mock: 5 meetings (mt001 to mt005), 2 turns per agent, 28 pairs scored and 5 passed the filter, 4 introductions and 1 decline. Chat runs at temperature 0, so the round is reproducible.
+- A full-network Granite round scored 1,711 pairs; 117 (6.8%) passed the fit threshold (0.68 for Granite, 0.30 on the mock) and 8 meetings were held. The scout is the filter: agents only meet where fit is high.
+- The mock provider stays the default so every test runs offline with no keys.
+- **TODO (humans confirm):** the exact chat and embedding model ids used for `runs/demo.json`, from the `.env` the run used (names only; do not paste keys).
 
 ## What we did not build
 
