@@ -84,9 +84,9 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Hero ---------- */
 .hero {
-  position: relative; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto; padding: 0 var(--margin);
-  --frame-w: clamp(300px, 31vw, 520px);
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto; padding: 0 var(--margin) clamp(48px, 6vh, 72px);
+  --frame-w: clamp(320px, 34vw, 500px);
 }
 .hero-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 22px; position: relative; z-index: 2; }
 .wordmark { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; text-decoration: none; }
@@ -95,23 +95,20 @@ button { font: inherit; color: inherit; }
 .hero-nav a:not(.button) { text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color var(--t-hover) ease; }
 @media (hover: hover) and (pointer: fine) { .hero-nav a:not(.button):hover { text-decoration-color: currentColor; } }
 
-.hero-stage { display: grid; grid-template-columns: minmax(0, 1fr) var(--frame-w) minmax(0, 1fr); align-items: center; column-gap: var(--gutter); padding-top: 12px; }
+.hero-stage { display: grid; grid-template-columns: max-content var(--frame-w) max-content; justify-content: center; align-items: center; column-gap: clamp(28px, 3vw, 56px); row-gap: 36px; padding-top: clamp(40px, 7vh, 80px); }
 .hero-title { grid-column: 1 / -1; grid-row: 1; display: grid; grid-template-columns: subgrid; align-items: center; font-size: clamp(2.5rem, 4.3vw, 4.5rem); line-height: 0.95; letter-spacing: -0.035em; }
 .half { display: block; }
-.half-a { grid-column: 1; justify-self: start; margin-left: -0.04em; }
-.half-b { grid-column: 3; justify-self: end; text-align: right; }
+.half-a { grid-column: 1; justify-self: end; text-align: right; }
+.half-b { grid-column: 3; justify-self: start; text-align: left; }
 .line { display: block; overflow: clip; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .line > span { display: block; }
 
 /* The reel: the frame with slivers of the frames before and after it */
-.reel { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 60px auto 60px; row-gap: 24px; align-self: stretch; align-content: space-between; position: relative; z-index: 1; }
-.reel-sliver { overflow: clip; background: var(--surface); }
-.reel-sliver img { width: 100%; height: 100%; object-fit: cover; }
-.reel-prev img { object-position: 50% 92%; }
-.reel-next img { object-position: 50% 8%; }
-.reel-frame { aspect-ratio: 4 / 3; overflow: clip; background: var(--surface); display: flex; justify-content: center; align-items: flex-start; padding-top: 18px; }
+.reel { grid-column: 2; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr); position: relative; z-index: 1; }
+.reel-frame { padding: clamp(20px, 2.4vw, 36px) 16px; overflow: clip; background: var(--surface); display: flex; justify-content: center; align-items: center; }
 
-.hero-lede { max-width: 48ch; font-size: var(--step-body); line-height: 1.5; padding: 28px 0 32px; }
+.hero-foot { grid-column: 1 / -1; grid-row: 2; justify-self: center; display: grid; justify-items: center; gap: 20px; text-align: center; }
+.hero-lede { max-width: 50ch; font-size: var(--step-body); line-height: 1.5; }
 
 /* ---------- The popup fragment (product UI) ---------- */
 [data-ui].pop {
@@ -336,7 +333,6 @@ button { font: inherit; color: inherit; }
   .js .hero [data-line] { transform: translateY(105%); animation: line-up 900ms var(--ease-expo) forwards; animation-delay: calc(120ms + var(--i) * 110ms); }
   .js .hero [data-load] { opacity: 0; transform: translateY(12px); animation: rise 500ms var(--ease-out) 560ms forwards; }
   .js .hero [data-open] { clip-path: inset(0 0 100% 0); animation: open 1000ms var(--ease-in-out) 150ms forwards; }
-  .js .hero .reel-sliver img { transform: scale(1.08); animation: settle 1400ms var(--ease-expo) 100ms forwards; }
 
   .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-expo); transition-delay: calc(var(--d, 0) * 80ms); }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
@@ -363,10 +359,10 @@ button { font: inherit; color: inherit; }
   .hero-title { display: block; font-size: min(7.9vw, 76px); }
   .half { display: block; }
   .half .line { display: inline-block; }
-  .half-a { margin-left: 0; }
-  .half-b { text-align: right; }
-  .reel { margin: clamp(20px, 4vw, 40px) auto 0; width: min(100%, 560px); grid-template-rows: 40px auto 40px; row-gap: 16px; }
-  .hero-lede { padding-top: 28px; }
+  .half-a { margin-left: 0; text-align: left; justify-self: stretch; }
+  .half-b { text-align: right; justify-self: stretch; }
+  .reel { margin: clamp(20px, 4vw, 40px) 0 0; width: min(100%, 600px); }
+  .hero-foot { justify-self: stretch; justify-items: start; text-align: left; margin-top: 28px; }
 }
 
 /* ---------- Tablet ---------- */
@@ -391,12 +387,11 @@ button { font: inherit; color: inherit; }
   .hero { min-height: 0; padding-bottom: 8px; }
   .hero-nav a:not(.button) { display: none; }
   .hero-nav .button { min-height: 44px; padding: 0 0.9rem; }
-  .reel { grid-template-rows: 28px auto 28px; row-gap: 12px; }
-  .reel-frame { aspect-ratio: 4 / 3; padding-top: 14px; }
+  .reel-frame { padding: 16px 0; }
   [data-ui].pop { width: 92%; }
-  .hero-lede { padding-top: 18px; }
   .why { display: block; }
-  .statement { font-size: 1.5rem; line-height: 1.22; }
+  .statement { font-size: 1.375rem; line-height: 1.22; }
+  .statement .chip { display: none; }
   .figures { grid-template-columns: 1fr; row-gap: 40px; }
   .cards-row { grid-template-columns: 1fr 1fr; row-gap: 20px; }
   .board-sec { padding-left: var(--margin); padding-right: var(--margin); }
