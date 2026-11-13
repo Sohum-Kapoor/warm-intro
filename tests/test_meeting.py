@@ -76,12 +76,12 @@ def test_planted_yes_pairs_are_introduced(pair):
         assert intro["meeting_id"] == m["id"]
 
 
-def test_transcript_alternates_with_three_turns_each():
+def test_transcript_alternates_with_two_turns_each():
     a_id, b_id = yes_members()
     seen = []
     m = run_meeting(a_id, b_id, on_turn=seen.append)
     assert [(t["speaker"], t["turn"]) for t in m["transcript"]] == [
-        (a_id, 1), (b_id, 1), (a_id, 2), (b_id, 2), (a_id, 3), (b_id, 3),
+        (a_id, 1), (b_id, 1), (a_id, 2), (b_id, 2),
     ]
     assert seen == m["transcript"]
 
@@ -209,7 +209,44 @@ def test_vote_and_introduction_end_with_moderator_message_and_names_prefix_count
             return super().chat(system, messages, json_mode)
 
     run_meeting(a_id, b_id, llm=Spy())
-    assert rec[-1][-1]["content"].startswith("[moderator]")
-    assert any(m["content"].startswith("[moderator]") for m in rec[-3])
-    users = [m["content"] for m in rec[-1][1:-1] if m["role"] == "user"]
+    intro = next(r for r in rec if "Write the message to your own member" in r[-1]["content"])
+    assert intro[-1]["content"].startswith("[moderator]")
+    assert any(m["content"].startswith("[moderator]") for m in rec[-1])
+    users = [m["content"] for m in intro[1:-1] if m["role"] == "user"]
     assert users and all(":" in u[:40] for u in users)
+
+
+def test_strip_label_removes_leading_names_only():
+    from warmintro.meeting import strip_label
+
+    names = ("Great Lakes Mobility Group", "Priya Raman")
+    assert strip_label("Great Lakes Mobility Group: We at GLMG need pilots.", *names) == "We at GLMG need pilots."
+    assert strip_label("**Priya Raman:** Hello there.", *names) == "Hello there."
+    assert strip_label("[Priya Raman]: Hi.", *names) == "Hi."
+    assert strip_label("Note: keep this", *names) == "Note: keep this"
+    assert strip_label("Priya Raman is great: really", *names) == "Priya Raman is great: really"
+
+
+def test_labels_stripped_from_turns_and_introductions():
+    class Labeller(MockLLM):
+        def chat(self, system, messages, json_mode=False):
+            out = super().chat(system, messages, json_mode)
+            return out if json_mode else f"{MEMBERS['m001']['name']}: {out}"
+
+    a_id, b_id = yes_members()
+    m = run_meeting(a_id, b_id, llm=Labeller())
+    assert not any(t["text"].startswith(MEMBERS["m001"]["name"] + ":") for t in m["transcript"])
+    assert not any(i["message"].startswith(MEMBERS["m001"]["name"] + ":") for i in m["introductions"])
+
+
+def test_introduction_retries_once_when_in_agent_voice():
+    from warmintro.meeting import _introduction
+
+    me, other = MEMBERS["m001"], MEMBERS["m002"]
+    replies = iter([f"We at {me['name']} met {other['name']}.", f"{other['name']} builds cameras. Take a call with them."])
+
+    class Fake:
+        def chat(self, system, messages, json_mode=False):
+            return next(replies)
+
+    assert _introduction(Fake(), "s", [], me, other, []) == f"{other['name']} builds cameras. Take a call with them."

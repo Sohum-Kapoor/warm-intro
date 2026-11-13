@@ -86,7 +86,7 @@ def test_chat_puts_system_first(sdk):
     assert llm.chat("SYS", msgs) == "hello"
     call = llm._model.calls[0]
     assert call["messages"] == [{"role": "system", "content": "SYS"}, *msgs]
-    assert call["params"] == {"temperature": 0.3, "max_completion_tokens": 300}
+    assert call["params"] == {"temperature": 0, "max_completion_tokens": 300}
 
 
 def test_context_block_is_stripped_before_the_sdk_call(sdk):

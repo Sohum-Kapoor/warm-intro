@@ -170,7 +170,7 @@ class WatsonxLLM:
     def chat(self, system: str, messages: list[dict], json_mode: bool = False) -> str:
         full = [{"role": "system", "content": strip_context(system)}, *messages]
         # max_tokens is deprecated in the REST docs; max_completion_tokens is current.
-        params: dict[str, Any] = {"temperature": 0.3, "max_completion_tokens": 300}
+        params: dict[str, Any] = {"temperature": 0, "max_completion_tokens": 300}
         if json_mode:
             params["response_format"] = {"type": "json_object"}
         try:
