@@ -81,7 +81,22 @@ class MockLLM:
             return self._vote(ctx, messages)
         if task == "introduce":
             return self._introduce(ctx, messages)
+        if task == "onboard":
+            return self._onboard(ctx)
         raise ValueError(f"unknown task in <context>: {task!r}")
+
+    def _onboard(self, ctx: dict[str, Any]) -> str:
+        """Keyword split of the person's sentences into needs, offers and deal-breakers."""
+        sentences = [s.strip(" .") for s in re.split(r"[.!?\n]+", ctx.get("about", "")) if s.strip(" .")]
+        words = lambda s: set(re.findall(r"[a-z']+", s.lower()))  # noqa: E731
+        needs = [s for s in sentences if words(s) & {"need", "needs"} or re.search(r"looking for|want", s, re.I)]
+        offers = [s for s in sentences if words(s) & {"offer", "offers", "can", "provide", "provides", "bring"}]
+        breakers = [s for s in sentences if words(s) & {"won't", "no", "not"}]
+        return json.dumps({
+            "sector": " ".join(sentences[0].split()[:4]) if sentences else "general",
+            "description": ". ".join(sentences[:2]) + ".",
+            "needs": needs[:4], "offers": offers[:4], "deal_breakers": breakers[:2],
+        })  # fmt: skip
 
     def _speak(self, ctx: dict[str, Any]) -> str:
         member = ctx["member"]

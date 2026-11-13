@@ -30,6 +30,7 @@ class Member(TypedDict):
     permissions: Permissions
     demo: NotRequired[bool]
     paused: NotRequired[bool]
+    user_created: NotRequired[bool]
 
 
 class Connection(TypedDict):

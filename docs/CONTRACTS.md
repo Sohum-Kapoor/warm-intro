@@ -175,6 +175,15 @@ Member app endpoints (errors are `{"detail": "message"}`: 404 unknown member, 42
 | `GET /members/{member_id}/activity` | | `{"synthetic": true, "ai_generated": true, "member_id", "stats": {"agents_met", "meetings", "yes_votes", "no_votes", "introductions"}, "meetings": [{"id", "result", "counterpart": {"id", "name", "type", "hub", "sector"}, "my_vote": Vote, "their_vote": Vote, "transcript": [Turn], "introductions": [Introduction to this member], "candidate": Candidate, "created_at"}], "introductions": [Introduction + "counterpart" + "meeting_id"]}`, both lists newest first (operationId `getMemberActivity`) |
 | `POST /ask` | `{"member_id", "request": "1-300 chars", "meet": true, "top_k": 3}` | `{"synthetic": true, "ai_generated": true, "request", "member_id", "candidates": [Candidate], "meeting": Meeting with introductions or null, "note"}`. With `meet` and a candidate, the top candidate gets one meeting, saved like any other. When nobody clears the fit threshold: 200, `candidates: []`, `meeting: null`, and a note (operationId `askAgent`; the only one of these four exported for Orchestrate) |
 
+Onboarding endpoints ("Create your agent"). User-created members are real input, not synthetic, so these responses carry `"synthetic": false`; the rest of the network stays synthetic:
+
+| Method and path | Body | Returns |
+| --- | --- | --- |
+| `POST /onboard/draft` | `{"name": 1-80 chars, "type": "individual" or "startup" or "small_business" or "corporation", "hub": "detroit" or "grand_rapids" or "ann_arbor", "about": 20-1200 chars}` | `{"synthetic": false, "ai_generated": true, "draft": {name, type, hub, sector, description, needs (1-4), offers (1-4), deal_breakers (0-2), intro_budget: 2, permissions: all true}}`. Nothing is saved. If the agent cannot read the text after one retry: 422 with `detail` "Your agent couldn't read that; add a sentence about what you need and what you offer." (operationId `draftProfile`) |
+| `POST /onboard` | a draft as above, possibly edited. `name` (1-80), `sector` (1-60), `type`, `hub`, and the PATCH rules for `needs`, `offers`, `deal_breakers`, `description`, `intro_budget`, `permissions`; needs and offers must be non-empty; all those fields are required | `{"synthetic": false, "member": Member, "first_matches": [Candidate, up to 3, best first, may be empty]}`. Assigns the next id (`m061`, ...), sets `user_created: true`, saves atomically to `data/profiles.json` (operationId `createMember`) |
+
+`Member.user_created` is an optional boolean, true only for members created through `POST /onboard`.
+
 Saved meetings carry an ISO `created_at`; older ones may lack it.
 
 CORS is open for `localhost`, `127.0.0.1`, `null` (file://) and `https://sohum-kapoor.github.io` (GET, POST, PATCH) so the web pages can call it.

@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from warmintro import feedback, store
+from warmintro import feedback, onboard, store
 from warmintro.config import MAX_MEETINGS_PER_ROUND, get_settings
 from warmintro.llm import get_llm
 from warmintro.meeting import run_meeting
@@ -245,6 +245,59 @@ def update_member(member_id: str, patch: dict[str, Any]) -> dict[str, Any]:
     _apply_patch(member, patch)
     store.save_members(members)
     return {"synthetic": True, "member": member}
+
+
+_member_lock = threading.Lock()  # next-id assignment and the profiles.json rewrite must not interleave
+
+
+@app.post("/onboard/draft", operation_id="draftProfile", summary="Turn a person's own words into a draft profile")
+def draft_profile(body: dict[str, Any]) -> dict[str, Any]:
+    """Body: name (1-80 chars), type (individual, startup, small_business or corporation), hub (detroit,
+    grand_rapids or ann_arbor) and about (20-1200 chars: who they are, what they need, what they can offer).
+    The person's agent (AI-generated) drafts a profile for them to review and edit. Nothing is saved; send the
+    reviewed draft to createMember. If the text cannot be read, returns 422 with a message to show them."""
+    return {"synthetic": False, "ai_generated": True, "draft": onboard.draft_profile(body)}
+
+
+def _new_member(body: dict[str, Any], member_id: str) -> store.Member:
+    if not isinstance(body, dict):
+        raise ValueError("send a draft profile object")
+    name, sector = body.get("name"), body.get("sector")
+    if not isinstance(name, str) or not 1 <= len(name.strip()) <= 80:
+        raise ValueError("name must be 1 to 80 characters")
+    if not isinstance(sector, str) or not 1 <= len(sector.strip()) <= 60:
+        raise ValueError("sector must be 1 to 60 characters")
+    if body.get("type") not in onboard.MEMBER_TYPES:
+        raise ValueError(f"type must be one of {', '.join(onboard.MEMBER_TYPES)}")
+    if body.get("hub") not in onboard.HUBS:
+        raise ValueError(f"hub must be one of {', '.join(onboard.HUBS)}")
+    member: store.Member = {
+        "id": member_id, "type": body["type"], "name": name.strip(), "hub": body["hub"], "sector": sector.strip(),
+        "description": "", "needs": [], "offers": [], "deal_breakers": [], "intro_budget": 2,
+        "permissions": {k: True for k in PERMISSION_KEYS}, "user_created": True,
+    }  # type: ignore[typeddict-item]  # fmt: skip
+    # Same rules as PATCH; a draft sends every field, so a missing one is an error here.
+    missing = [k for k in (*LIST_FIELDS, "description", "intro_budget", "permissions") if k not in body]
+    if missing:
+        raise ValueError(f"missing: {', '.join(missing)}")
+    _apply_patch(member, {k: body[k] for k in (*LIST_FIELDS, "description", "intro_budget", "permissions")})
+    if not member["needs"] or not member["offers"]:
+        raise ValueError("add at least one need and one offer so your agent has something to work with")
+    return member
+
+
+@app.post("/onboard", operation_id="createMember", summary="Go live: save a reviewed draft as a new member")
+def create_member(body: dict[str, Any]) -> dict[str, Any]:
+    """Body: a draft profile from draftProfile, possibly edited (needs, offers, deal_breakers: up to 6 items of
+    at most 160 characters; description at most 400; intro_budget 0-5). Assigns the next member id, marks the
+    member user_created and saves them. Returns the member and up to 3 first_matches (scouting candidates,
+    best first, possibly empty). User-created members are real input, not synthetic."""
+    with _member_lock:
+        members = store.load_members()
+        numbers = [int(m["id"][1:]) for m in members if m["id"][1:].isdigit()]
+        member = _new_member(body, f"m{max(numbers, default=0) + 1:03d}")
+        store.save_members([*members, member])
+    return {"synthetic": False, "member": member, "first_matches": scout_members(member["id"], top_k=3)}
 
 
 def _counterpart(members: dict[str, store.Member], member_id: str) -> dict[str, Any]:
