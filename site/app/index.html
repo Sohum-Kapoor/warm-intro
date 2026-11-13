@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My agent · Warm Intro</title>
+<meta name="description" content="Warm Intro: reimagining how Michigan connects. See and steer the AI agent that takes first meetings for you. Synthetic members; AI-generated conversations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="top-inner">
+    <a class="brand" href="../index.html" title="Warm Intro home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Warm Intro</span><span class="brand-sep" aria-hidden="true">·</span><span class="brand-app">My agent</span>
+    </a>
+    <div class="top-controls">
+      <label class="persona">
+        <span class="persona-label">Viewing as</span>
+        <select id="persona" aria-label="Viewing as member"></select>
+      </label>
+      <button id="agentToggle" class="agent-toggle" type="button" role="switch" aria-checked="true">
+        <span class="switch" aria-hidden="true"><span class="knob"></span></span>
+        <span class="agent-toggle-text">Agent active</span>
+      </button>
+      <button id="modePill" class="mode-pill" type="button" aria-haspopup="dialog">Demo data</button>
+    </div>
+  </div>
+  <div class="honesty-bar">
+    <span class="honesty-item"><span class="dot dot-synth" aria-hidden="true"></span>Synthetic members · AI-generated conversations</span>
+    <span id="demoNote" class="honesty-item honesty-demo">Demo mode: changes are saved in this browser</span>
+  </div>
+  <nav class="tabs" aria-label="Sections">
+    <div class="tabs-inner" role="tablist" id="tabs">
+      <button role="tab" type="button" data-tab="ask" id="tab-ask" aria-controls="main"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg><span>Ask</span></button>
+      <button role="tab" type="button" data-tab="activity" id="tab-activity" aria-controls="main"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span>Activity</span></button>
+      <button role="tab" type="button" data-tab="connections" id="tab-connections" aria-controls="main"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="15" r="3"/><path d="M10.5 10.5l3 3"/></svg><span>Connections</span><span class="tab-badge" id="connBadge" hidden></span></button>
+      <button role="tab" type="button" data-tab="profile" id="tab-profile" aria-controls="main"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>What it knows</span></button>
+    </div>
+  </nav>
+</header>
+
+<div id="notice" class="notice" role="status" hidden></div>
+
+<main id="main" tabindex="-1" role="tabpanel">
+  <div class="loading">Loading your agent…</div>
+</main>
+
+<footer class="foot">
+  <p>Warm Intro: reimagining how Michigan connects. Members, meetings and history in this demo are synthetic. Agent transcripts, votes and messages are AI-generated. Organisations under “Your agent also suggests” are real and are not members.</p>
+</footer>
+
+<dialog id="connectDialog" class="dialog" aria-labelledby="connectTitle">
+  <form method="dialog" id="connectForm">
+    <h2 id="connectTitle">Data source</h2>
+    <p class="muted" id="connectStatus"></p>
+    <label class="field">
+      <span class="field-label">Live agent API</span>
+      <input id="apiInput" type="url" inputmode="url" placeholder="http://localhost:8011" autocomplete="off">
+      <span class="field-hint">The Warm Intro API base URL. Live mode runs your agent on IBM Granite when the server uses watsonx.</span>
+    </label>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" id="useDemo">Use demo data</button>
+      <button type="button" class="btn btn-ghost" value="cancel" id="closeConnect">Cancel</button>
+      <button type="submit" class="btn btn-primary" id="connectBtn">Connect</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+  window.__errors = [];
+  window.addEventListener('error', function (e) { window.__errors.push(String(e.message)); document.body && document.body.setAttribute('data-errors', window.__errors.join(' | ')); });
+  window.addEventListener('unhandledrejection', function (e) { window.__errors.push('rejection: ' + String(e.reason && e.reason.message || e.reason)); document.body && document.body.setAttribute('data-errors', window.__errors.join(' | ')); });
+</script>
+<script src="../data/site_data.js"></script>
+<script src="../data/dev_fallback.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
