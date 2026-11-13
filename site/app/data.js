@@ -380,9 +380,10 @@
   }
 
   // ---------- live implementation ----------
-  function LiveStore(api) {
+  function LiveStore(api, key) {
     this.mode = 'live';
     this.api = api.replace(/\/+$/, '');
+    this.key = key || null; // presenter key: kept in this browser's localStorage only, sent as X-Admin-Key
     this._members = [];
     this.provider = null;
   }
@@ -398,9 +399,14 @@
       var t = ctl ? setTimeout(function () { ctl.abort(); }, timeoutMs || 15000) : null;
       var opts = { method: method, headers: {}, signal: ctl ? ctl.signal : undefined };
       if (body !== undefined) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
+      if (this.key) opts.headers['X-Admin-Key'] = this.key;
       return fetch(this.api + path, opts).then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (data) {
-          if (!res.ok) { var e = new Error(detailOf(data, res.status)); e.status = res.status; throw e; }
+          if (!res.ok) {
+            var e = new Error(detailOf(data, res.status)); e.status = res.status;
+            if (res.status === 429) { var ra = parseInt(res.headers.get('Retry-After') || '', 10); if (ra > 0) e.retryAfter = ra; }
+            throw e;
+          }
           return data;
         });
       }, function (err) {
@@ -493,9 +499,9 @@
     demoData: W, isFallbackData: !!window.WARM_INTRO_IS_FALLBACK,
     store: DEMO,
     /* Pick the implementation: ?api=… or a remembered URL means live; any failure falls back to demo. */
-    connect: function (api) {
+    connect: function (api, key) {
       if (!api) { window.WI.store = DEMO; return DEMO.init(); }
-      var live = new LiveStore(api);
+      var live = new LiveStore(api, key);
       return live.init().then(function (info) { window.WI.store = live; return info; }, function (err) {
         window.WI.store = DEMO;
         return { mode: 'demo', provider: W.provider || null, failedApi: api, notice: 'Couldn’t reach the live agent at ' + api + ' (' + (err && err.message || 'error') + '). Showing demo data instead.' };

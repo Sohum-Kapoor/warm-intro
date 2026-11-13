@@ -64,18 +64,35 @@
     var t = $('toast'); t.textContent = msg; t.classList.add('show');
     clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 3200);
   }
-  function notice(msg, kind) {
+  function notice(msg, kind, action) {
     var n = $('notice');
     n.textContent = '';
     if (!msg) { n.hidden = true; return; }
     n.hidden = false; n.className = 'notice notice-' + (kind || 'info');
-    append(n, [h('span', null, msg), h('button', { type: 'button', class: 'notice-x', 'aria-label': 'Dismiss notice', onclick: function () { n.hidden = true; } }, '×')]);
+    append(n, [h('span', { class: 'notice-text' }, msg),
+      action ? h('button', { type: 'button', class: 'btn btn-ghost btn-sm notice-action', onclick: function () { n.hidden = true; action.fn(); } }, action.label) : null,
+      h('button', { type: 'button', class: 'notice-x', 'aria-label': 'Dismiss notice', onclick: function () { n.hidden = true; } }, '×')]);
+  }
+  /* Calm handling of the live API's guard rails: 403 (seeded member needs the presenter key) and 429 (agent busy). */
+  function apiErrorNotice(err) {
+    if (err && err.status === 403) {
+      notice(err.message, 'info', { label: 'Create your own agent', fn: function () { openCreate(); } });
+      return true;
+    }
+    if (err && err.status === 429) {
+      notice(err.message + (err.retryAfter ? '' : ' Please try again shortly.'), 'info');
+      return true;
+    }
+    return false;
+  }
+  function apiErrorText(err, prefix) {
+    return err && (err.status === 403 || err.status === 429) ? err.message : (prefix || '') + (err && err.message);
   }
   function syncUrl() {
     try {
       var p = new URLSearchParams(location.search);
       p.set('tab', S.tab); if (S.memberId) p.set('member', S.memberId);
-      p.delete('ask'); p.delete('step');
+      p.delete('ask'); p.delete('step'); p.delete('key');
       history.replaceState(null, '', location.pathname + '?' + p.toString() + location.hash);
     } catch (e) { /* file:// or sandboxed: ignore */ }
   }
@@ -290,7 +307,7 @@
       if (res.meeting && isLive()) refreshActivity();
       renderMain();
     }, function (err) {
-      S.askBusy = false; S.askError = err.message; renderMain();
+      S.askBusy = false; S.askError = err.message; apiErrorNotice(err); renderMain();
     });
   }
   function progressView() {
@@ -490,7 +507,7 @@
       connSet(cp.id, { outcome: outcome, learned: { key: key, before: before, after: after, local: !!r.local }, error: null });
       S.busyFeedback[cp.id] = false; renderMain();
     }, function (err) {
-      connSet(cp.id, { error: 'Couldn’t record that: ' + err.message });
+      connSet(cp.id, { error: apiErrorText(err, 'Couldn’t record that: ') });
       S.busyFeedback[cp.id] = false; renderMain();
     });
   }
@@ -615,7 +632,11 @@
         .then(function (mem) {
           S.member = mem; S.draft = null; S.dirty = false; S.saveErr = null; S.saveMsg = 'Saved. Your agent will use this from its next meeting.';
           renderHeader(); renderMain(); toast('Profile saved');
-        }, function (err2) { S.saveErr = err2.message; statusEl.textContent = err2.message; statusEl.className = 'save-status is-error'; saveBtn.disabled = false; });
+        }, function (err2) {
+          S.saveErr = err2.status === 403 ? 'Not saved: this seeded member needs the presenter key.' : err2.message;
+          statusEl.textContent = S.saveErr; statusEl.className = 'save-status is-error'; saveBtn.disabled = false;
+          apiErrorNotice(err2);
+        });
     } },
       h('div', { class: 'card-head' }, h('h2', null, 'Profile'), memberTag(m)),
       profileEditor(d, onChange, { showPause: true }),
@@ -730,7 +751,7 @@
         intro_budget: d.intro_budget != null ? d.intro_budget : 2, permissions: Object.assign({ share_profile: true, propose_meetings: true, contact_member: true }, d.permissions || {})
       };
       o.note = r.note; o.step = 3; renderMain();
-    }, function (e) { o.step = 1; o.error = 'Your agent couldn’t draft that: ' + e.message; renderMain(); });
+    }, function (e) { o.step = 1; o.error = apiErrorText(e, 'Your agent couldn’t draft that: '); renderMain(); });
   }
   function createStep3(o) {
     var d = o.draft, L = WI.LIMITS;
@@ -779,7 +800,7 @@
       S.member = m; if (S.draft) S.draft.paused = m.paused;
       renderHeader(); renderMain();
       toast(m.paused ? 'Agent paused. It takes no new meetings.' : 'Agent resumed.');
-    }, function (e) { toast('Couldn’t change that: ' + e.message); });
+    }, function (e) { if (!apiErrorNotice(e)) toast('Couldn’t change that: ' + e.message); });
   }
   function refreshActivity() {
     var id = S.memberId;
@@ -841,6 +862,7 @@
     var dlg = $('connectDialog');
     $('modePill').addEventListener('click', function () {
       $('apiInput').value = (isLive() && WI.store.api) || LS.get('wi.api', '') || '';
+      $('keyInput').value = presenterKey() || '';
       $('connectStatus').textContent = isLive() ? 'Connected to ' + WI.store.api + ' (provider: ' + ((S.info && S.info.provider) || 'unknown') + ').' :
         'You’re viewing demo data: real IBM Granite runs over 60 synthetic members, saved with this page. Connect a running Warm Intro API to ask your agent new things.';
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
@@ -851,6 +873,7 @@
       e.preventDefault();
       var v = $('apiInput').value.trim();
       if (!/^https?:\/\/.+/.test(v)) { $('connectStatus').textContent = 'Enter a URL starting with http:// or https://'; return; }
+      setPresenterKey($('keyInput').value.trim());
       $('connectBtn').disabled = true; $('connectStatus').textContent = 'Connecting…';
       start(v).then(function (info) {
         $('connectBtn').disabled = false;
@@ -860,8 +883,13 @@
     });
   }
 
+  // Presenter key: localStorage only (memory fallback when storage is blocked). Never in the URL after load.
+  var keyMem = null;
+  function presenterKey() { return LS.get('wi.key', null) || keyMem; }
+  function setPresenterKey(k) { keyMem = k || null; if (k) LS.set('wi.key', k); else LS.del('wi.key'); }
+
   function start(api) {
-    return WI.connect(api).then(function (info) {
+    return WI.connect(api, presenterKey()).then(function (info) {
       S.info = info;
       notice(info.notice || (WI.isFallbackData && !isLive() ? 'Showing the development fallback data: example asks and resource suggestions aren’t bundled in this build.' : null), info.notice ? 'warn' : 'info');
       var want = params.get('member') || S.memberId || LS.get('wi.member', null) || 'm001';
@@ -874,6 +902,7 @@
   }
 
   wire();
+  if (params.get('key')) { setPresenterKey(params.get('key')); params.delete('key'); syncUrl(); }
   var t0 = params.get('tab');
   S.tab = TABS.concat(['create']).indexOf(t0) >= 0 ? t0 : 'ask';
   var apiParam = params.get('api') || LS.get('wi.api', null);

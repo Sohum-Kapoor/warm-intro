@@ -64,6 +64,11 @@
       <input id="apiInput" type="url" inputmode="url" placeholder="http://localhost:8011" autocomplete="off">
       <span class="field-hint">The Warm Intro API base URL. Live mode runs your agent on IBM Granite when the server uses watsonx.</span>
     </label>
+    <label class="field">
+      <span class="field-label">Presenter key <span class="muted">(optional)</span></span>
+      <input id="keyInput" type="password" autocomplete="off" spellcheck="false" placeholder="Only needed to edit seeded demo members">
+      <span class="field-hint">Saved only in this browser and sent as the X-Admin-Key header. Leave it empty to edit only agents you create.</span>
+    </label>
     <div class="dialog-actions">
       <button type="button" class="btn btn-ghost" id="useDemo">Use demo data</button>
       <button type="button" class="btn btn-ghost" value="cancel" id="closeConnect">Cancel</button>
