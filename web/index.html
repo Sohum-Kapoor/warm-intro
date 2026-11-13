@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warm Intro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">&#9679;&#8212;&#9679;</span> Warm Intro <span class="sub">agents scout, meet and decide who should talk</span></div>
+  <div class="badges">
+    <span class="badge synth" title="All members, companies and history are invented">Synthetic data</span>
+    <span class="badge ai" title="Transcripts, votes and messages are written by AI">AI-generated</span>
+    <span id="modeBadge" class="badge mode">sample</span>
+  </div>
+</header>
+<div id="banner" class="banner" hidden></div>
+<main>
+  <section class="stage">
+    <div class="stats" id="stats"></div>
+    <svg id="map" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Members by hub with meetings between them"></svg>
+    <div class="legend" id="legend"></div>
+  </section>
+  <aside>
+    <div class="card"><h2>Meetings <span class="ai-tag">AI-generated</span></h2><ol id="meetingList" class="mlist"></ol></div>
+    <div class="card grow" id="detail"></div>
+    <div class="card"><h2>Outbox <span class="ai-tag">AI-generated messages</span></h2><div id="outbox"></div></div>
+  </aside>
+</main>
+<footer class="controls">
+  <button id="btnRestart" title="Restart">&#8634; Restart</button>
+  <button id="btnBack" title="Step back">&#9664; Back</button>
+  <button id="btnPlay" class="primary" title="Play / pause">&#9654; Play</button>
+  <button id="btnFwd" title="Step forward">Next &#9654;</button>
+  <span id="progress" class="progress"></span>
+  <span class="spacer"></span>
+  <button id="btnRound" title="Run a round (live mode only)">Run a round</button>
+</footer>
+<script src="fixtures/sample_run.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
