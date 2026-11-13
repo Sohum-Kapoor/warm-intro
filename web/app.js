@@ -16,9 +16,11 @@
   var RESULT = {
     introduced: {color: '#3fb950', label: 'introduced'},
     declined: {color: '#f0883e', label: 'declined'},
-    blocked_by_permissions: {color: '#6e7681', label: 'blocked'}
+    blocked_by_permissions: {color: '#6e7681', label: 'blocked'},
+    in_progress: {color: '#58a6ff', label: 'in progress'}
   };
   var live = /[?&]live=1/.test(location.search);
+  var demo = /[?&]run=demo/.test(location.search);
   var run = null, shown = 0, selected = -1, timer = null, playing = false, busy = false;
   var speed = 1, userPaused = false, pollTimer = null, pollBusy = false, roundBase = null, lastFeedback = null;
   var STEP_MS = 1800, DRAW_MS = 1400, SPEEDS = [0.5, 1, 2];
@@ -44,6 +46,13 @@
       return r.json();
     }).catch(function () { return window.SAMPLE_RUN; });
   }
+  function loadDemo() {
+    if (location.protocol === 'file:') return Promise.resolve(window.DEMO_RUN);
+    return fetch('../runs/demo.json').then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).catch(function () { return window.DEMO_RUN || loadSample(); });
+  }
   function loadLive() {
     return fetch(API + '/runs/latest').then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -51,18 +60,24 @@
     });
   }
   function init() {
-    $('modeBadge').textContent = live ? 'live' : 'sample';
+    $('modeBadge').textContent = live ? 'live' : (demo ? 'demo' : 'sample');
     $('btnRound').disabled = !live;
     if (!live) $('btnRound').title = 'Open with ?live=1 and start the API to run a round';
     var p = live ? loadLive().catch(function (e) {
+      if (e.message === 'HTTP 404') {
+        banner('No round has run yet. Showing the sample run; press Run a round for a live one.');
+        $('modeBadge').textContent = 'live (no round yet)';
+        return loadSample();
+      }
       banner('Live API unavailable (' + e.message + '). Showing the sample run instead. Start it with: make serve');
       $('modeBadge').textContent = 'sample (fallback)';
       $('btnRound').disabled = true;
       return loadSample();
-    }) : loadSample();
+    }) : (demo ? loadDemo() : loadSample());
     p.then(function (r) {
       setRun(r); play();
       if (live && run.status === 'running') startPolling();
+      if (live && run.status === 'error') showError();
     });
   }
 
@@ -75,6 +90,7 @@
     byId = {};
     run.members.forEach(function (m) { byId[m.id] = m; });
   }
+  function showError() { banner('Round failed: ' + (run.error || 'unknown error')); }
   function isRunning() { return busy || run.status === 'running'; }
   function setRun(r) {
     run = normalize(r);
@@ -131,7 +147,7 @@
       var d = 'M' + a.x + ',' + a.y + ' Q' + mx + ',' + my + ' ' + b.x + ',' + b.y;
       var len = Math.hypot(b.x - a.x, b.y - a.y) * 1.2;
       var g = add(lines, el('g', {}, null, 1));
-      var p = add(g, el('path', {d: d, stroke: col, 'stroke-width': i === selected ? 5 : 3, class: 'mline' + (i === animateIdx ? ' draw' : ''), opacity: selected >= 0 && i !== selected ? 0.55 : 1}, null, 1));
+      var p = add(g, el('path', {d: d, stroke: col, 'stroke-width': i === selected ? 5 : 3, class: 'mline' + (i === animateIdx ? ' draw' : '') + (m.result === 'in_progress' ? ' inprog' : ''), opacity: selected >= 0 && i !== selected ? 0.55 : 1}, null, 1));
       if (i === animateIdx) { p.style.setProperty('--len', len); p.style.setProperty('--dur', (DRAW_MS / speed / 1000) + 's'); }
       var hit = add(g, el('path', {d: d, class: 'hit'}, null, 1));
       hit.addEventListener('click', function () { select(i); });
@@ -167,10 +183,12 @@
     if (!run.meetings.length) { add(ol, el('li', {class: 'empty'}, 'No meetings in this run.')); return; }
     run.meetings.forEach(function (m, i) {
       var r = RESULT[m.result] || RESULT.blocked_by_permissions;
-      var li = add(ol, el('li', {class: (i === selected ? 'sel ' : '') + (i >= shown ? 'future' : '')}));
-      var d = add(li, el('i', {class: 'dot'})); d.style.background = i < shown ? r.color : '#444c56';
+      var li = add(ol, el('li', {class: (i === selected ? 'sel ' : '') + (i >= shown && m.result !== 'in_progress' ? 'future' : '')}));
+      var d = add(li, el('i', {class: 'dot' + (m.result === 'in_progress' ? ' pulse' : '')}));
+      var vis = i < shown || m.result === 'in_progress';
+      d.style.background = vis ? r.color : '#444c56';
       add(li, el('span', {}, nameOf(m.a) + '  +  ' + nameOf(m.b)));
-      var res = add(li, el('span', {class: 'res'}, i < shown ? r.label : 'pending')); if (i < shown) res.style.color = r.color;
+      var res = add(li, el('span', {class: 'res'}, vis ? r.label : 'pending')); if (vis) res.style.color = r.color;
       li.addEventListener('click', function () { select(i); });
     });
   }
@@ -326,6 +344,7 @@
       }
       render();
     }
+    if (run.status === 'error') { busy = false; stopPolling(); showError(); render(); return; }
     if (!busy && run.status !== 'running') stopPolling();
   }
 
@@ -334,7 +353,11 @@
     busy = true; stop(); roundBase = run.run_id || null; renderProgress(); banner(''); startPolling();
     fetch(API + '/round', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}'})
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function () { return loadLive(); })
+      .then(function (r) {
+        // Full Run when synchronous; {run_id, status:'running'} when backgrounded: then just keep polling.
+        if (r && Array.isArray(r.meetings) && r.status !== 'running') return r;
+        return loadLive();
+      })
       .then(function (r) { busy = false; applyUpdate(r, true); })
       .catch(function (e) { busy = false; stopPolling(); banner('Could not run a round (' + e.message + '). Is the API running on ' + API + '?'); render(); });
   }
