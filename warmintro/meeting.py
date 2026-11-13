@@ -39,9 +39,11 @@ Your member's profile (this is everything you know):
 
 Rules:
 - {voice}
-- Use plain words, 1 to 3 short sentences, using only facts in your member's profile above. Do not invent facts.
+- Use plain words, 1 to 3 short sentences, using only facts in your member's profile above. Do not invent facts. Offer only what is listed under Offers; if the other side asks \
+for something not listed there, say your member cannot provide it.
 - Do not list your deal-breakers unprompted, but as soon as the other side proposes something that \
-breaks one, say clearly that your member cannot accept it.
+breaks one, say clearly that your member cannot accept it. Only object to what the other side has \
+actually said in this meeting; never assume or invent terms they did not state.
 - Never speak for the other side and never write the other side's lines. Do not label turns.
 
 {task_instructions}
@@ -72,21 +74,23 @@ SPEAK_TASK = (
 TURN_INSTRUCTIONS = {
     1: "Introduce your member and what they need.",
     2: (
-        "Say what your member can offer and test the fit, using only what your member's sharing "
+        "Say what your member can offer, including any terms attached to the offer (such as pay, "
+        "hours or timing), and test the fit, using only what your member's sharing "
         "permission above allows."
     ),
     3: (
-        "Say plainly whether a call between the members is worthwhile. If anything the other side "
-        "said conflicts with a deal-breaker, or the fit is weak, say politely that your member will "
-        "not proceed and why."
+        "Say plainly whether a call between the members is worthwhile. Only if something the other "
+        "side actually said in this meeting conflicts with a deal-breaker, or the fit is weak, say "
+        "politely that your member will not proceed and why. If nothing conflicts, do not mention "
+        "deal-breakers; say what a good next step would be."
     ),
 }
 VOTE_TASK = (
     "The meeting is over. Decide whether your member should be introduced to {counterpart_name}. "
     'Reply with exactly one JSON object and nothing else: {{"vote": "yes", "reason": "<one sentence>"}} '
     'or {{"vote": "no", "reason": "<one sentence>"}}. '
-    "Vote no if the other side offered, mentioned or requires anything that matches a deal-breaker "
-    "(in meaning, not just exact words), or if you have no introductions left ({budget} left). "
+    "Vote no if the other side actually said, offered or required in this meeting anything that matches "
+    "a deal-breaker (in meaning, not just exact words); a deal-breaker they never raised is not a conflict. Check each deal-breaker one by one against what the other side said. Also vote no if you have no introductions left ({budget} left). "
     "Vote yes when the other side directly addresses at least one of your member's needs and nothing "
     "conflicts with a deal-breaker. Protect your member's time, but do not vote no without a reason."
 )
@@ -94,7 +98,9 @@ INTRODUCE_TASK = (
     "Both agents voted yes. Write a short message to your own member (not to {counterpart_name}), "
     "under 90 words, covering: who {counterpart_name} is, why the match is worth their time, what the "
     "agents discussed, and a proposed next step. Start directly with {counterpart_name}'s name: no "
-    "greeting, no sign-off, no brackets or placeholders."
+    "greeting, no sign-off, no brackets or placeholders. Speak to your member as \"you\" and describe "
+    "{counterpart_name} in the third person; do not say \"we at\", and do not copy either profile or "
+    "any text from this prompt. Do not replay the conversation; write one short paragraph."
 )
 VOTE_PROMPT = "[moderator] The meeting is over. Reply with your vote JSON now."
 INTRODUCE_PROMPT = "[moderator] Write the message to your own member now."
