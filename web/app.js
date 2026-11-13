@@ -231,7 +231,7 @@
     card.hidden = !keys.length;
     if (!keys.length) return;
     add(box, el('div', {class: 'evidence'}, lastFeedback
-      ? 'After outcome "' + lastFeedback.outcome.replace('_', ' ') + '" for ' + nameOf(lastFeedback.meeting.a) + ' + ' + nameOf(lastFeedback.meeting.b) + '. Higher weight means the scout favors that kind of pairing.'
+      ? 'After outcome "' + lastFeedback.outcome.replace('_', ' ') + '" for ' + nameOf(lastFeedback.meeting.a) + ' + ' + nameOf(lastFeedback.meeting.b).replace(/\.$/, '') + '. Higher weight means the scout favors that kind of pairing.'
       : 'Scout weights before and after this round\'s recorded outcomes. Higher weight means the scout favors that kind of pairing.'));
     keys.sort(function (a, b) {
       var da = Math.abs(w(after, a) - w(before, a)), db = Math.abs(w(after, b) - w(before, b));
