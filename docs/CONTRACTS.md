@@ -20,9 +20,12 @@ All files carry `"synthetic": true` at the top level where it applies.
   "offers": ["plain-language offer", "..."],
   "deal_breakers": ["e.g. no unpaid pilots"],
   "intro_budget": 2,
-  "permissions": {"share_profile": true, "propose_meetings": true, "contact_member": true}
+  "permissions": {"share_profile": true, "propose_meetings": true, "contact_member": true},
+  "paused": false
 }
 ```
+
+`paused` is optional (absent means false). A paused member is skipped by the scout exactly like `propose_meetings: false`, but can still ask for something through `POST /ask`.
 
 Manufacturers are `small_business` or `corporation` with a manufacturing `sector`.
 
@@ -163,7 +166,18 @@ The run log's `resource_suggestions` maps each member id that appears in a meeti
 | `GET /resources` | | `{"synthetic": false, "note": "...", "resources": [Resource]}` (operationId `getResources`) |
 | `GET /members/{member_id}/resources` | | `{"member_id": "m004", "suggestions": [Suggestion], "ai_generated": true}`; 404 for an unknown member (operationId `suggestResources`) |
 
-CORS is open for `localhost` so the web page can call it.
+Member app endpoints (errors are `{"detail": "message"}`: 404 unknown member, 422 invalid input):
+
+| Method and path | Body | Returns |
+| --- | --- | --- |
+| `GET /members/{member_id}` | | `{"synthetic": true, "member": Member}` (operationId `getMember`) |
+| `PATCH /members/{member_id}` | any of `needs`, `offers`, `deal_breakers` (up to 6 non-empty strings, each at most 160 characters), `description` (at most 400), `intro_budget` (0 to 5), `permissions` (partial object of the three booleans), `paused` (bool). Other fields are rejected. | `{"synthetic": true, "member": Member}`; written atomically to `data/profiles.json` (operationId `updateMember`) |
+| `GET /members/{member_id}/activity` | | `{"synthetic": true, "ai_generated": true, "member_id", "stats": {"agents_met", "meetings", "yes_votes", "no_votes", "introductions"}, "meetings": [{"id", "result", "counterpart": {"id", "name", "type", "hub", "sector"}, "my_vote": Vote, "their_vote": Vote, "transcript": [Turn], "introductions": [Introduction to this member], "candidate": Candidate, "created_at"}], "introductions": [Introduction + "counterpart" + "meeting_id"]}`, both lists newest first (operationId `getMemberActivity`) |
+| `POST /ask` | `{"member_id", "request": "1-300 chars", "meet": true, "top_k": 3}` | `{"synthetic": true, "ai_generated": true, "request", "member_id", "candidates": [Candidate], "meeting": Meeting with introductions or null, "note"}`. With `meet` and a candidate, the top candidate gets one meeting, saved like any other. When nobody clears the fit threshold: 200, `candidates: []`, `meeting: null`, and a note (operationId `askAgent`; the only one of these four exported for Orchestrate) |
+
+Saved meetings carry an ISO `created_at`; older ones may lack it.
+
+CORS is open for `localhost`, `127.0.0.1`, `null` (file://) and `https://sohum-kapoor.github.io` (GET, POST, PATCH) so the web pages can call it.
 
 ## LLM provider (`warmintro/llm.py`)
 

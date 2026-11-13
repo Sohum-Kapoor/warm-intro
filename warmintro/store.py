@@ -3,6 +3,7 @@
 import json
 import os
 import tempfile
+from datetime import datetime
 from pathlib import Path
 from typing import Any, NotRequired, TypedDict
 
@@ -28,6 +29,7 @@ class Member(TypedDict):
     intro_budget: int
     permissions: Permissions
     demo: NotRequired[bool]
+    paused: NotRequired[bool]
 
 
 class Connection(TypedDict):
@@ -161,6 +163,13 @@ def load_members() -> list[Member]:
     return _read_data("profiles.json")["members"]
 
 
+def save_members(members: list[Member]) -> None:
+    """Rewrite profiles.json atomically, keeping every other key of the file."""
+    path = get_settings().data_dir / "profiles.json"
+    doc = _read_json(path)
+    _write_json(path, {**doc, "members": members})
+
+
 def load_history() -> list[Connection]:
     return _read_data("history.json")["connections"]
 
@@ -213,8 +222,13 @@ def next_meeting_id() -> str:
 
 def save_meeting(meeting: Meeting) -> None:
     meetings = _load_meetings()
+    meeting.setdefault("created_at", datetime.now().isoformat(timespec="seconds"))  # type: ignore[typeddict-item]
     meetings[meeting["id"]] = meeting
     _write_json(_meetings_path(), {"synthetic": True, "meetings": meetings})
+
+
+def load_all_meetings() -> list[Meeting]:
+    return list(_load_meetings().values())
 
 
 def get_meeting(meeting_id: str) -> Meeting | None:

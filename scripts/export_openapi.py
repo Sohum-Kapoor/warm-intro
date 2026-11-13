@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 # The tools the network agent may call. /health and anything else is dropped.
-TOOL_OPERATIONS = {"getMembers", "scout", "holdMeeting", "recordFeedback", "runRound", "getLatestRun", "getResources"}
+TOOL_OPERATIONS = {"getMembers", "scout", "holdMeeting", "recordFeedback", "runRound", "getLatestRun", "getResources", "askAgent"}
 
 
 def _is_null(schema: Any) -> bool:

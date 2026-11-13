@@ -109,7 +109,7 @@ def _vectors(members: list[Member], llm: LLM, extra: list[str] | None = None) ->
 
 
 def _can_propose(m: Member) -> bool:
-    return m["permissions"]["propose_meetings"]
+    return m["permissions"]["propose_meetings"] and not m.get("paused", False)
 
 
 def _passing(members: list[Member], vecs: Vectors) -> tuple[list[tuple], int]:
@@ -220,7 +220,9 @@ def scout(
     by_id = {m["id"]: m for m in members}
     if member_id not in by_id:
         raise KeyError(f"unknown member id: {member_id!r}")
-    if not _can_propose(by_id[member_id]):
+    asker = by_id[member_id]
+    # A paused member's agent stays quiet on its own, but an explicit request still searches.
+    if not (asker["permissions"]["propose_meetings"] if request else _can_propose(asker)):
         return []
     if request:
         found = _ask(by_id[member_id], request, members, weights, llm)

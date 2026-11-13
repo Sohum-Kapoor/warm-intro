@@ -24,9 +24,9 @@ app = FastAPI(
 )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["null"],  # the page may be opened from file://
+    allow_origins=["null", "https://sohum-kapoor.github.io"],  # file:// pages and the hosted member app
     allow_origin_regex=r"^http://(localhost|127\.0\.0\.1)(:\d+)?$",
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -57,6 +57,13 @@ class MeetingBody(BaseModel):
 class FeedbackBody(BaseModel):
     meeting_id: str = Field(description="Id of an earlier meeting, e.g. mt001.")
     outcome: str = Field(description="What happened after the introduction: pilot, hire, partnership or no_follow_up.")
+
+
+class AskBody(BaseModel):
+    member_id: str = Field(description="Id of the member who is asking, e.g. m004.")
+    request: str = Field(min_length=1, max_length=300, description="What the member wants, in plain words.")
+    meet: bool = Field(True, description="If true, the agent also holds a first meeting with the best match.")
+    top_k: int = Field(3, ge=1, le=20, description="How many candidates to return.")
 
 
 class RoundBody(BaseModel):
@@ -170,3 +177,135 @@ def get_latest_run() -> dict[str, Any]:
     if run is None:
         raise HTTPException(404, "no round has run yet; call runRound first")
     return dict(run)
+
+
+LIST_FIELDS = ("needs", "offers", "deal_breakers")
+PERMISSION_KEYS = ("share_profile", "propose_meetings", "contact_member")
+EDITABLE = {*LIST_FIELDS, "description", "intro_budget", "permissions", "paused"}
+
+
+def _find_member(members: list[store.Member], member_id: str) -> store.Member:
+    member = next((m for m in members if m["id"] == member_id), None)
+    if member is None:
+        raise KeyError(f"unknown member id: {member_id!r}")
+    return member
+
+
+def _apply_patch(member: store.Member, patch: dict[str, Any]) -> None:
+    """Validate every field first, then apply; raises ValueError (422) with a readable message."""
+    unknown = sorted(set(patch) - EDITABLE)
+    if unknown:
+        raise ValueError(f"cannot edit: {', '.join(unknown)}; editable fields are {', '.join(sorted(EDITABLE))}")
+    changes: dict[str, Any] = {}
+    for name in LIST_FIELDS:
+        if name not in patch:
+            continue
+        items = patch[name]
+        if not isinstance(items, list) or len(items) > 6:
+            raise ValueError(f"{name} must be a list of at most 6 items")
+        if not all(isinstance(i, str) and i.strip() and len(i.strip()) <= 160 for i in items):
+            raise ValueError(f"each item in {name} must be a non-empty string of at most 160 characters")
+        changes[name] = [i.strip() for i in items]
+    if "description" in patch:
+        text = patch["description"]
+        if not isinstance(text, str) or len(text) > 400:
+            raise ValueError("description must be a string of at most 400 characters")
+        changes["description"] = text.strip()
+    if "intro_budget" in patch:
+        budget = patch["intro_budget"]
+        if isinstance(budget, bool) or not isinstance(budget, int) or not 0 <= budget <= 5:
+            raise ValueError("intro_budget must be a whole number from 0 to 5")
+        changes["intro_budget"] = budget
+    if "paused" in patch:
+        if not isinstance(patch["paused"], bool):
+            raise ValueError("paused must be true or false")
+        changes["paused"] = patch["paused"]
+    if "permissions" in patch:
+        perms = patch["permissions"]
+        if not isinstance(perms, dict) or set(perms) - set(PERMISSION_KEYS) or not all(isinstance(v, bool) for v in perms.values()):
+            raise ValueError(f"permissions must be an object of true/false values for {', '.join(PERMISSION_KEYS)}")
+        changes["permissions"] = {**member["permissions"], **perms}
+    member.update(changes)  # type: ignore[typeddict-item]
+
+
+@app.get("/members/{member_id}", operation_id="getMember", summary="Get one member")
+def get_member(member_id: str) -> dict[str, Any]:
+    """Return one synthetic member's profile, including permissions and whether their agent is paused.
+    Unknown member ids return 404."""
+    return {"synthetic": True, "member": _find_member(store.load_members(), member_id)}
+
+
+@app.patch("/members/{member_id}", operation_id="updateMember", summary="Edit what an agent knows about its member")
+def update_member(member_id: str, patch: dict[str, Any]) -> dict[str, Any]:
+    """Edit any of needs, offers, deal_breakers (up to 6 non-empty strings of at most 160 characters each),
+    description (at most 400), intro_budget (0 to 5), permissions (partial) and paused. Invalid input returns
+    422 with {"detail": message}; unknown member ids return 404. Returns the updated member."""
+    members = store.load_members()
+    member = _find_member(members, member_id)
+    _apply_patch(member, patch)
+    store.save_members(members)
+    return {"synthetic": True, "member": member}
+
+
+def _counterpart(members: dict[str, store.Member], member_id: str) -> dict[str, Any]:
+    other = members.get(member_id)
+    keys = ("id", "name", "type", "hub", "sector")
+    return {k: other[k] for k in keys} if other else {"id": member_id, "name": member_id, "type": "", "hub": "", "sector": ""}  # type: ignore[literal-required]
+
+
+def _meeting_number(meeting: dict[str, Any]) -> int:
+    return int(meeting["id"][2:]) if meeting["id"][2:].isdigit() else 0
+
+
+@app.get("/members/{member_id}/activity", operation_id="getMemberActivity", summary="What a member's agent has been doing")
+def get_member_activity(member_id: str) -> dict[str, Any]:
+    """Every meeting this member's agent has held, newest first, with both votes, the transcript and the
+    introductions addressed to the member, plus counts. All of it is AI-generated. Unknown ids return 404."""
+    members = {m["id"]: m for m in store.load_members()}
+    if member_id not in members:
+        raise KeyError(f"unknown member id: {member_id!r}")
+    mine = sorted(
+        (m for m in store.load_all_meetings() if member_id in (m["a"], m["b"])), key=_meeting_number, reverse=True
+    )
+    meetings, introductions = [], []
+    for m in mine:
+        other_id = m["b"] if m["a"] == member_id else m["a"]
+        counterpart = _counterpart(members, other_id)
+        intros = [i for i in m.get("introductions", []) if i["to"] == member_id]  # type: ignore[attr-defined]
+        meetings.append({
+            "id": m["id"], "result": m["result"], "counterpart": counterpart,
+            "my_vote": m["votes"].get(member_id), "their_vote": m["votes"].get(other_id),
+            "transcript": m["transcript"], "introductions": intros, "candidate": m["candidate"],
+            "created_at": m.get("created_at"),
+        })  # fmt: skip
+        introductions += [{**i, "counterpart": counterpart, "meeting_id": m["id"]} for i in intros]
+    votes = [x["my_vote"]["vote"] for x in meetings if x["my_vote"]]
+    return {
+        "synthetic": True, "ai_generated": True, "member_id": member_id,
+        "stats": {
+            "agents_met": len({x["counterpart"]["id"] for x in meetings}), "meetings": len(meetings),
+            "yes_votes": votes.count("yes"), "no_votes": votes.count("no"), "introductions": len(introductions),
+        },
+        "meetings": meetings, "introductions": introductions,
+    }  # fmt: skip
+
+
+NO_FIT_NOTE = "No member is a strong enough fit yet; your agent will keep looking."
+
+
+@app.post("/ask", operation_id="askAgent", summary="Ask a member's agent to find and meet a match")
+def ask_agent(body: AskBody) -> dict[str, Any]:
+    """Ask one member's agent for something in plain words, such as 'a machine vision partner'. The agent
+    searches the community, ranks the members who fit, and (unless meet is false) holds a first meeting with
+    the best match, which may end in a warm introduction. If nobody clears the fit threshold it returns no
+    candidates, no meeting and a note saying so. Everything returned is AI-generated."""
+    found = scout_members(body.member_id, body.request, body.top_k)
+    meeting = run_meeting(body.member_id, found[0]["b"], candidate=found[0]) if found and body.meet else None
+    if found:
+        note = "Your agent held a first meeting with the best match." if meeting else "Here are the best matches."
+    else:
+        note = NO_FIT_NOTE
+    return {
+        "synthetic": True, "ai_generated": True, "request": body.request, "member_id": body.member_id,
+        "candidates": found, "meeting": meeting, "note": note,
+    }  # fmt: skip
