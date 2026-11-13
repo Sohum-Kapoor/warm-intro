@@ -8,8 +8,6 @@ Everything below is copy-pasteable. Never commit `.env`. Secrets never go in git
 | --- | --- |
 | Site | https://sohum-kapoor.github.io/warm-intro/ |
 | Member app | https://sohum-kapoor.github.io/warm-intro/site/app/ |
-| Full walkthrough | https://sohum-kapoor.github.io/warm-intro/site/full.html |
-| Scan view | https://sohum-kapoor.github.io/warm-intro/web/ |
 | API (hosted) | `<Code Engine URL, filled in after deploy>` (SK deploys it with `orchestrate/CODE_ENGINE.md`) |
 
 Check the API: `curl <API URL>/health` returns `{"ok":true,"provider":"watsonx"}`.

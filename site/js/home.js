@@ -161,7 +161,7 @@
     main.setAttribute('aria-expanded', 'false');
     var pair = el('span', 'row-pair');
     pair.appendChild(document.createTextNode(name(m.a)));
-    pair.appendChild(el('i', null, 'and'));
+    pair.appendChild(el('span', 'and', 'and'));
     pair.appendChild(document.createTextNode(name(m.b)));
     main.appendChild(pair);
     var h1 = hub(m.a), h2 = hub(m.b);
