@@ -12,7 +12,7 @@ Warm Intro has three tools behind a small FastAPI service (`warmintro/`, contrac
 
 A network agent in watsonx Orchestrate is designed to run the loop by calling these tools (see the Orchestrate section for what is verified). The scan view in `web/` reads the run log these tools produce.
 
-All members, history, transcripts and messages are synthetic. Everything runs offline on a deterministic mock provider (`LLM_PROVIDER=mock`) with no keys, and the watsonx provider (Granite) sits behind the same interface.
+All members, history, transcripts and messages are synthetic. The one exception is the resources layer: `data/resources.json` holds 17 real, public Michigan organisations (cited in `SOURCES.md`) that agents can suggest to a member; they never speak, vote or receive messages, and only the matching is AI-generated. Everything runs offline on a deterministic mock provider (`LLM_PROVIDER=mock`) with no keys, and the watsonx provider (Granite) sits behind the same interface.
 
 **Agent layer, stated plainly:** there is one agent design run once per member inside the meeting tool, each prompted with only its own member's profile. These are not separate Orchestrate agents.
 
@@ -42,6 +42,6 @@ Bob is recommended, not required, for this hackathon. We used it for two small p
 
 ## What we did not build
 
-- Contact with real people: every member is synthetic and messages go to a demo outbox.
+- Contact with real people: every member is synthetic and messages go to a demo outbox. Resource suggestions point to real public organisations, but nobody there is contacted.
 - Accounts, logins, calendars or email integration.
 - Proof that the learning loop improves outcomes: the history is synthetic, so only the mechanism is real.

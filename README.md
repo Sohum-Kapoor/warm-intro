@@ -6,7 +6,7 @@ Built at the Michigan DevFest AI Hackathon, Nov 13, 2026, by SK and Jesse. What 
 
 ![Scan view of the sample run](web/screenshot.png)
 
-**All members, history and messages in this repo are synthetic and AI-generated.** No real people or companies appear in the data.
+**All members, history, transcripts and messages in this repo are synthetic and AI-generated.** The one exception is the resources layer, `data/resources.json`: 17 real, public Michigan organisations, each cited from its own public page (see `SOURCES.md`). They never speak or vote; only the matching of members to them is AI-generated.
 
 ## Where things are
 
@@ -62,4 +62,4 @@ make serve    # API on localhost:8000
 
 ## Before submitting
 
-The repo is private while we build. Before 5:45 PM: check the history for secrets, then make it public (`gh repo edit --visibility public --accept-visibility-change-consequences`).
+The repo is public. Before submitting: check the history for secrets and personal contact details, and confirm `.env` is not tracked.

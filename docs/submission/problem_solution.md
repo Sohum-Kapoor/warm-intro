@@ -4,13 +4,13 @@
 
 ## The problem
 
-Michigan grows talent and companies, then loses them. A 2023 state council report ranked Michigan 49th in population growth, while the University of Michigan ranks among the top schools for undergraduate startup founders (PitchBook). Talent leaves, and ideas, companies and jobs follow.
+Michigan grows talent and companies, then loses them. A 2023 state council report ranked Michigan 49th in population growth, while the University of Michigan ranks among the top schools for undergraduate startup founders (PitchBook).
 
 The people who would give each other a reason to stay never meet. People meet whoever is in their sector, room and city. A student never meets the startup that would hire them, and a small manufacturer never meets the founder who could solve its problem.
 
 ## Who it is for
 
-Everyone in Michigan's economy: individuals, startups, small businesses and manufacturers, and corporations, across Detroit, Grand Rapids and Ann Arbor.
+Everyone in Michigan's economy: individuals, startups, small businesses, manufacturers and corporations, across Detroit, Grand Rapids and Ann Arbor.
 
 ## How people use it
 
@@ -23,7 +23,7 @@ Warm Intro is LiDAR for connections: it shows who is already around you that you
 5. Two yes votes make an introduction, and each agent writes to its own member with a proposed next step. Anything else ends there, and the reason is kept. Nothing reaches a member without two yes votes.
 6. Recorded outcomes update weights, so the next round favors connections that worked.
 
-A scan view draws the three hubs with members as dots and meetings as colored lines. Users open any meeting to read the transcript and both votes.
+A scan view draws the three hubs, members as dots and meetings as lines; open any meeting to read the transcript and votes.
 
 ## Why it is creative
 
@@ -31,8 +31,8 @@ Agents take the first meeting for you, and they can say no. A declined meeting, 
 
 ## How it uses AI
 
-Embeddings of every need and offer drive scoring. Language models give each agent its voice, vote and message. IBM Granite on watsonx.ai runs the live demo. A watsonx Orchestrate network agent is designed to run the loop. IBM Bob built two small tools: a run summarizer and a data validator. Each member's agent is one agent design run once per member inside the meeting tool, not a separate Orchestrate agent.
+Embeddings of every need and offer drive scoring. Language models give each agent its voice, vote and message, and match members to 17 real public Michigan resources; only the matching is AI-generated. IBM Granite on watsonx.ai runs the live demo. A watsonx Orchestrate network agent is designed to run the loop. IBM Bob built two small tools: a run summarizer and a data validator. Each member's agent is one agent design run once per member inside the meeting tool, not a separate Orchestrate agent.
 
 ## Limits
 
-Everything is synthetic; messages land in a demo outbox. Real members would opt in. The learning history is invented, so we claim no measured results.
+Members and history are synthetic; messages land in a demo outbox. Real members would opt in. The learning history is invented: no measured results.

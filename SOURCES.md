@@ -2,7 +2,7 @@
 
 ## Data
 
-Every member profile, past connection, transcript and message in this repository is synthetic and was generated for this hackathon. No client data, personal information, social media data or real company or person names are used.
+Every member profile, past connection, transcript and message in this repository is synthetic and was generated for this hackathon. No client data, personal information or social media data is used, and no real person is named. The one exception is the resources layer (`data/resources.json`): 17 real, public Michigan organisations, each cited from its own public page (listed below). They are resources, not members; they never speak, vote or receive messages. Only the matching of resources to members is AI-generated.
 
 ## AI tools used
 
@@ -27,11 +27,9 @@ Each was checked against its source on Nov 13, 2026.
 | University of Michigan is 8th in PitchBook's 2026 edition | https://ingeniusprep.com/blog/best-colleges-for-entrepreneurs-2025-rankings-of-top-founder-universities/ (table "Undergraduate founders (PitchBook 2026)", 8th) | Verified only through this secondary page; not checked against PitchBook itself. Safe wording: "top 10 in PitchBook's ranking by undergraduate founders". |
 | University of Michigan is "top 10 in the world" for producing startup founders (wording in `docs/PRD.md` pitch table) | None found. Both pages above rank universities in a PitchBook list; neither was checked for whether the list is worldwide or US-only. | UNVERIFIED — do not use in pitch. Drop "in the world". |
 
-## Websites used for data
+## Websites used for real organisation data (`data/resources.json`)
 
-None.
-
-## Websites used for real organisation data
+The same names and URLs are in `data/resources.json` (fields `url` and `source_page`).
 
 Date checked: 2026-11-13. Organisation-level public facts only, paraphrased; no individuals; terms of use checked where a terms page was found (TechTown and The Right Place permit home-page links only, so only home pages are linked).
 
