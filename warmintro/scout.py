@@ -10,8 +10,6 @@ from pathlib import Path
 
 from warmintro.config import (
     BIDIRECTIONAL_BONUS,
-    CONTRAST_NEED_MIN,
-    CONTRAST_OFFER_MAX,
     HUB_BONUS,
     NOVELTY_WEIGHT,
     get_settings,
@@ -147,6 +145,7 @@ def _best_pair(xs: list[str], ys: list[str], vecs: Vectors) -> tuple[float, str,
 
 def find_contrasts(members: list[Member], llm: LLM, top_k: int = 5) -> list[dict]:
     """Pairs working on the same problem (similar needs) with opposite approaches (dissimilar offers)."""
+    settings = get_settings()
     vecs = _vectors(members, llm)
     found = []
     for a, b in itertools.combinations([m for m in members if _can_propose(m)], 2):
@@ -154,7 +153,7 @@ def find_contrasts(members: list[Member], llm: LLM, top_k: int = 5) -> list[dict
             continue
         need_sim, need_a, need_b = _best_pair(a["needs"], b["needs"], vecs)
         offer_sim = _best_pair(a["offers"], b["offers"], vecs)[0]
-        if need_sim < CONTRAST_NEED_MIN or offer_sim > CONTRAST_OFFER_MAX:
+        if need_sim < settings.contrast_need_min or offer_sim > settings.contrast_offer_max:
             continue
         found.append(
             {

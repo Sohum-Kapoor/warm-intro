@@ -29,3 +29,18 @@ def test_settings_read_on_every_call(monkeypatch):
     assert config.get_settings().fit_threshold == 0.1
     monkeypatch.setenv("FIT_THRESHOLD", "0.2")
     assert config.get_settings().fit_threshold == 0.2
+
+
+def test_watsonx_selects_watsonx_thresholds(monkeypatch):
+    monkeypatch.delenv("FIT_THRESHOLD", raising=False)
+    monkeypatch.setenv("LLM_PROVIDER", "watsonx")
+    s = config.get_settings()
+    assert s.fit_threshold == config.FIT_THRESHOLDS["watsonx"] > config.FIT_THRESHOLD
+    assert (s.contrast_need_min, s.contrast_offer_max) == config.CONTRAST_THRESHOLDS["watsonx"]
+    monkeypatch.setenv("FIT_THRESHOLD", "0.9")  # env override still wins
+    assert config.get_settings().fit_threshold == 0.9
+    monkeypatch.setenv("LLM_PROVIDER", "mock")
+    monkeypatch.delenv("FIT_THRESHOLD")
+    s = config.get_settings()
+    assert s.fit_threshold == config.FIT_THRESHOLD
+    assert (s.contrast_need_min, s.contrast_offer_max) == (config.CONTRAST_NEED_MIN, config.CONTRAST_OFFER_MAX)
