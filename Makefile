@@ -17,3 +17,11 @@ round:
 
 serve:
 	$(PY) -m uvicorn warmintro.api:app --port 8000
+
+.PHONY: demo tunnel
+
+demo:
+	$(PY) -m warmintro.round --demo --out runs/demo.json
+
+tunnel:
+	cloudflared tunnel --url http://localhost:8000
