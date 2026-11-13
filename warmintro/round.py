@@ -11,7 +11,7 @@ from warmintro import feedback, store
 from warmintro.config import MAX_MEETINGS_PER_ROUND, get_settings
 from warmintro.llm import LLM, get_llm
 from warmintro.meeting import run_meeting
-from warmintro.scout import score_pairs, scout, select_meetings
+from warmintro.scout import find_contrasts, score_pairs, scout, select_meetings
 from warmintro.store import Candidate, Meeting, Run, Turn
 
 MAX_LOGGED_CANDIDATES = 40  # keeps the run file small; stats report the true counts
@@ -74,6 +74,7 @@ def run_round(
         "candidates": [],
         "meetings": [],
         "introductions": [],
+        "contrasts": [],
         "weights_before": weights_before,
         "weights_after": weights_before,
         "ai_generated": True,
@@ -89,6 +90,7 @@ def run_round(
             cands, stats = score_pairs(members, weights_before, llm)
             run["stats"].update(stats)
             chosen = select_meetings(cands, max_meetings=max_meetings)
+            run["contrasts"] = find_contrasts(members, llm)
         run["stats"]["passed_filter"] = len(cands)
         _snapshot(run, by_id, cands)
 

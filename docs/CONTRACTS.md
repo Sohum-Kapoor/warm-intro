@@ -72,6 +72,19 @@ Defaults in `warmintro/config.py`: `FIT_THRESHOLD` tuned so roughly 5–10% of p
 }
 ```
 
+## Contrast match
+
+Same problem, opposite approach: a pair whose needs are similar (`need_similarity >= CONTRAST_NEED_MIN`) but whose offers are not (`offer_similarity <= CONTRAST_OFFER_MAX`). No meeting is held for it; it is a label the scan view can draw.
+
+```json
+{
+  "a": "m004", "b": "m031", "label": "contrast",
+  "need_similarity": 0.577, "offer_similarity": 0.0,
+  "shared_need": {"a": "need of a", "b": "need of b"},
+  "approaches": {"a": "first offer of a", "b": "first offer of b"}
+}
+```
+
 ## Meeting
 
 ```json
@@ -108,6 +121,7 @@ Up to three turns per agent, alternating, `a` first. Each agent is prompted with
   "candidates": [ ],
   "meetings": [ ],
   "introductions": [ ],
+  "contrasts": [ ],
   "weights_before": { },
   "weights_after": { }
 }

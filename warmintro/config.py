@@ -18,6 +18,8 @@ TURNS_PER_AGENT = 3
 MAX_MEETINGS_PER_ROUND = 8
 WEIGHT_MIN = 0.5
 WEIGHT_MAX = 1.5
+CONTRAST_NEED_MIN = 0.35  # same problem: needs at least this similar
+CONTRAST_OFFER_MAX = 0.2  # opposite approach: offers no more similar than this
 
 
 @dataclass(frozen=True)

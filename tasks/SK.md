@@ -20,4 +20,4 @@ Paths: `warmintro/`, `data/`, `tests/`, `orchestrate/`, `scripts/`. Work top to 
 ## P1 (only after S6 works end to end)
 
 - [ ] **S12** Separate member agents in Orchestrate, one per member type (PRD R12).
-- [ ] **S13** Contrast matches (PRD R13).
+- [x] **S13** Contrast matches (PRD R13).

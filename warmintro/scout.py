@@ -8,7 +8,14 @@ import re
 from collections import Counter
 from pathlib import Path
 
-from warmintro.config import BIDIRECTIONAL_BONUS, HUB_BONUS, NOVELTY_WEIGHT, get_settings
+from warmintro.config import (
+    BIDIRECTIONAL_BONUS,
+    CONTRAST_NEED_MIN,
+    CONTRAST_OFFER_MAX,
+    HUB_BONUS,
+    NOVELTY_WEIGHT,
+    get_settings,
+)
 from warmintro.llm import LLM, get_llm
 from warmintro.store import Candidate, Evidence, Member, kind_of, load_members, load_weights, weight_key
 
@@ -132,6 +139,37 @@ def score_pairs(members: list[Member], weights: dict[str, float], llm: LLM) -> t
     candidates = [_finish(*p[:4], p[4], cutoff, weights) for p in passing]
     candidates.sort(key=lambda c: c["score"], reverse=True)
     return candidates, {"pairs_scored": pairs_scored, "passed_filter": len(candidates)}
+
+
+def _best_pair(xs: list[str], ys: list[str], vecs: Vectors) -> tuple[float, str, str]:
+    return max((_cos(vecs[x], vecs[y]), x, y) for x in xs for y in ys)
+
+
+def find_contrasts(members: list[Member], llm: LLM, top_k: int = 5) -> list[dict]:
+    """Pairs working on the same problem (similar needs) with opposite approaches (dissimilar offers)."""
+    vecs = _vectors(members, llm)
+    found = []
+    for a, b in itertools.combinations([m for m in members if _can_propose(m)], 2):
+        if not (a["needs"] and b["needs"] and a["offers"] and b["offers"]):
+            continue
+        need_sim, need_a, need_b = _best_pair(a["needs"], b["needs"], vecs)
+        offer_sim = _best_pair(a["offers"], b["offers"], vecs)[0]
+        if need_sim < CONTRAST_NEED_MIN or offer_sim > CONTRAST_OFFER_MAX:
+            continue
+        found.append(
+            {
+                "a": a["id"],
+                "b": b["id"],
+                "label": "contrast",
+                "need_similarity": round(need_sim, 3),
+                "offer_similarity": round(offer_sim, 3),
+                "shared_need": {"a": need_a, "b": need_b},
+                "approaches": {"a": a["offers"][0], "b": b["offers"][0]},
+                "_contrast": need_sim - offer_sim,
+            }
+        )
+    found.sort(key=lambda c: c["_contrast"], reverse=True)
+    return [{k: v for k, v in c.items() if k != "_contrast"} for c in found[:top_k]]
 
 
 def select_meetings(
