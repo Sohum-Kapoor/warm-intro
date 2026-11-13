@@ -267,7 +267,7 @@
     append(box, h('div', { class: 'outcome outcome-' + r[0] }, resultBadge(m.result), h('span', null, r[2])));
     if (intro) {
       append(box, h('div', { class: 'intro' },
-        h('div', { class: 'intro-head' }, h('span', { class: 'intro-icon', 'aria-hidden': 'true' }, '✉'),
+        h('div', { class: 'intro-head' },
           h('strong', null, viewer === S.memberId ? 'Message from your agent' : 'Message to ' + nameOf(viewer) + ' from their agent'), aiTag()),
         h('p', null, intro.message),
         viewer === S.memberId ? introActions(other) : null));
@@ -382,8 +382,7 @@
       input,
       h('button', { type: 'submit', class: 'btn btn-primary', disabled: S.askBusy }, S.askBusy ? 'Working…' : 'Ask agent'));
     var hero = h('section', { class: 'card hero', 'aria-labelledby': 'askTitle' },
-      h('p', { class: 'eyebrow' }, 'Ask your agent'),
-      h('h1', { id: 'askTitle' }, 'What should ', h('span', { class: 'serif' }, m ? m.name + '’s' : 'your'), ' agent find?'),
+      h('h1', { id: 'askTitle' }, 'What should ' + (m ? m.name + '’s' : 'your') + ' agent find?'),
       h('p', { class: 'lead', id: 'askHelp' }, 'Say it in plain words. Your agent scouts the network, takes the first meeting with the other member’s agent, and introduces you only if both agents vote yes.'),
       form,
       S.askError ? h('p', { class: 'field-error', role: 'alert' }, S.askError) : null,
@@ -457,7 +456,6 @@
   }
   function emptyState(title, text, withCreate) {
     return h('div', { class: 'card empty' },
-      h('div', { class: 'empty-art', 'aria-hidden': 'true' }, h('span'), h('span'), h('span')),
       h('h2', null, title), h('p', { class: 'muted' }, text),
       h('div', { class: 'empty-actions' },
         h('button', { type: 'button', class: 'btn btn-primary', onclick: function () { setTab('ask'); } }, 'Ask your agent'),
@@ -642,7 +640,7 @@
       profileEditor(d, onChange, { showPause: true }),
       bar);
     var head = h('div', { class: 'section-head' },
-      h('div', null, h('h1', null, 'What your agent knows about ', h('span', { class: 'serif' }, m.name)),
+      h('div', null, h('h1', null, 'What your agent knows about ' + m.name),
         h('p', { class: 'lead' }, 'This is everything your agent works from. Change it and your agent changes how it scouts, what it says in meetings, and how it votes.')),
       h('div', { class: 'who' }, avatar(m, 'lg'), h('div', null, h('strong', null, m.name), h('span', { class: 'muted small' }, metaLine(m)))));
     var aside = h('aside', { class: 'side' }, resourcesCard(), howCard());
@@ -697,7 +695,7 @@
     var o = S.onboard;
     if (!o) { openCreate(); o = S.onboard; }
     var head = h('div', { class: 'section-head' },
-      h('div', null, h('p', { class: 'eyebrow' }, 'Create your agent'), h('h1', null, 'An agent that takes the first meeting ', h('span', { class: 'serif' }, 'for you')),
+      h('div', null, h('h1', null, 'Create an agent that takes the first meeting for you'),
         h('p', { class: 'lead' }, 'Tell it who you are in your own words. It drafts a profile, you correct it, and it starts scouting Michigan’s network for you.')));
     var body;
     if (o.step === 1) body = createStep1(o);
