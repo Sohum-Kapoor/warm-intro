@@ -1,6 +1,6 @@
 # Warm Intro
 
-LiDAR for connections: an agent for every member of Michigan's innovation ecosystem. The agents scout for each other, hold the first meeting themselves, and bring their people in only when both agents vote yes. Each member's agent is one agent design run per member inside the meeting tool.
+Reimagining Michigan's innovation ecosystem so talent and companies stay. People leave Michigan and the Midwest for the coasts because they never meet the people and companies that would give them a reason to stay. The first step is an agent layer: every student, professional, startup, manufacturer and company gets an agent that finds the local connection worth making and takes the first meeting. The agents scout for each other, hold the first meeting themselves, and bring their people in only when both agents vote yes. Each member's agent is one agent design run per member inside the meeting tool.
 
 Built at the Michigan DevFest AI Hackathon, Nov 13, 2026, by SK and Jesse. What exists today: the Python backend (`warmintro/`, built to `docs/CONTRACTS.md`, mock provider by default and IBM Granite on watsonx.ai behind the same interface), a static scan view (`web/`) that plays back a run, and a cached Granite demo round (`runs/demo.json`).
 
