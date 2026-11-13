@@ -27,7 +27,7 @@ Before every push: `git pull --rebase`, and run the secrets scan in section 8.
 ## 3. Live mode
 
 - **Member app:** append `?api=<API URL>`, for example `https://sohum-kapoor.github.io/warm-intro/site/app/?api=https://<code-engine-url>`. Without it the app runs in demo mode from cached Granite runs.
-- **Scan view:** `?live=1` turns on live mode, but `web/app.js` has no `?api=` option. Line 4 hard-codes `var API = 'http://localhost:8000';` and every live call (`/runs/latest`, `/round`, `/feedback`) goes there. So `?live=1` works only against an API on your own laptop (fallback 2 below). To point it at Code Engine, change that one line to the Code Engine URL (it is in your lane, `web/`), or add a `?api=` override there, then push. Without a backend the scan view shows the sample run, or the cached Granite run at `?run=demo`.
+- **Scan view:** `?live=1` turns on live mode, but `web/app.js` has no `?api=` option. Line 4 hard-codes `var API = 'http://localhost:8000';` and every live call (`/runs/latest`, `/round`, `/feedback`) goes there. So `?live=1` works only against an API on your own laptop (fallback 2 below). To point it at Code Engine, change that one line to the Code Engine URL (it is in your lane, `web/`), or add a `?api=` override there, then push. Without a backend the scan view shows the sample run, or the cached Granite run at `?run=demo`. **Update:** the scan view now takes `?api=<url>` (http/https only, trailing slash stripped, falls back to `http://localhost:8000`), e.g. `web/?live=1&api=<Code Engine URL>`; the live badge shows the active host.
 
 ## 4. Fallbacks, in order
 

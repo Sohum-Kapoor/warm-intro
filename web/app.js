@@ -1,7 +1,14 @@
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
-  var API = 'http://localhost:8000';
+  var API = (function () {
+    var d = 'http://localhost:8000', m = /[?&]api=([^&#]*)/.exec(location.search);
+    if (!m) return d;
+    try {
+      var v = decodeURIComponent(m[1]).trim().replace(/\/+$/, '');
+      return /^https?:\/\/[^\s\/?#]+/i.test(v) ? v : d;
+    } catch (e) { return d; }
+  })();
   var HUBS = {
     grand_rapids: {label: 'Grand Rapids', x: 190, y: 210},
     detroit: {label: 'Detroit', x: 810, y: 210},
@@ -60,16 +67,16 @@
     });
   }
   function init() {
-    $('modeBadge').textContent = live ? 'live' : (demo ? 'demo' : 'sample');
+    $('modeBadge').textContent = live ? 'live (' + API.replace(/^https?:\/\//, '') + ')' : (demo ? 'demo' : 'sample');
     $('btnRound').disabled = !live;
     if (!live) $('btnRound').title = 'Open with ?live=1 and start the API to run a round';
     var p = live ? loadLive().catch(function (e) {
       if (e.message === 'HTTP 404') {
         banner('No round has run yet. Showing the sample run; press Run a round for a live one.');
-        $('modeBadge').textContent = 'live (no round yet)';
+        $('modeBadge').textContent = 'live (no round yet) ' + API.replace(/^https?:\/\//, '');
         return loadSample();
       }
-      banner('Live API unavailable (' + e.message + '). Showing the sample run instead. Start it with: make serve');
+      banner('Live API unavailable (' + e.message + '). Showing the sample run instead. Tried ' + API + '. Start it with: make serve');
       $('modeBadge').textContent = 'sample (fallback)';
       $('btnRound').disabled = true;
       return loadSample();
