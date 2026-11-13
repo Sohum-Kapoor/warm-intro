@@ -1,0 +1,294 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Warm Intro",
+    "version": "0.1.0",
+    "description": "Agents hold short first meetings for community members and propose warm introductions. All members and meetings are synthetic; all transcripts, votes and messages are AI-generated."
+  },
+  "servers": [
+    {
+      "url": "https://REPLACE-WITH-TUNNEL-URL.trycloudflare.com"
+    }
+  ],
+  "paths": {
+    "/members": {
+      "get": {
+        "summary": "List all community members",
+        "description": "List every synthetic community member with their needs, offers and deal-breakers.\nCall this first to find member ids before scouting or holding a meeting.",
+        "operationId": "getMembers",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Getmembers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scout": {
+      "post": {
+        "summary": "Find the best matches for one member",
+        "description": "Rank other members by how well their offers fit this member's needs. Give a request to search for a\none-off need in plain words instead of the member's stored needs. Returns scored candidates, best first.\nDoes not hold any meeting; use holdMeeting on a candidate pair next.",
+        "operationId": "scout",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScoutBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Scout"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meeting": {
+      "post": {
+        "summary": "Hold one first meeting between two members' agents",
+        "description": "Have the two members' AI agents hold a short first meeting, then vote on an introduction.\nReturns the transcript, both votes, the result (introduced, declined or blocked_by_permissions) and, if\nboth voted yes, the introduction messages for each member.",
+        "operationId": "holdMeeting",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MeetingBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Holdmeeting"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "post": {
+        "summary": "Record what came of an introduction",
+        "description": "Tell the system what happened after an introduced meeting (pilot, hire, partnership or no_follow_up).\nThis nudges the scoring weights so future rounds favour the kinds of matches that worked.\nReturns the weights before and after.",
+        "operationId": "recordFeedback",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Recordfeedback"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/round": {
+      "post": {
+        "summary": "Run a full introduction round",
+        "description": "Run a whole round: score every pair of members, hold meetings for the best pairs, and write the\nintroductions. With background=true it returns {run_id, status: running} at once (a real-model round\ntakes minutes); then poll getLatestRun until status is complete. Only one round can run at a time (409).",
+        "operationId": "runRound",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "$ref": "#/components/schemas/RoundBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Runround"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/latest": {
+      "get": {
+        "summary": "Get the most recent round's run log",
+        "description": "Return the latest run log: stats, candidates, meetings with transcripts and votes, introductions and\nthe scoring weights before and after. While status is running the log fills in meeting by meeting.",
+        "operationId": "getLatestRun",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Getlatestrun"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FeedbackBody": {
+        "properties": {
+          "meeting_id": {
+            "type": "string",
+            "title": "Meeting Id",
+            "description": "Id of an earlier meeting, e.g. mt001."
+          },
+          "outcome": {
+            "type": "string",
+            "title": "Outcome",
+            "description": "What happened after the introduction: pilot, hire, partnership or no_follow_up."
+          }
+        },
+        "type": "object",
+        "required": [
+          "meeting_id",
+          "outcome"
+        ],
+        "title": "FeedbackBody"
+      },
+      "MeetingBody": {
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "A",
+            "description": "Id of the first member; their agent speaks first."
+          },
+          "b": {
+            "type": "string",
+            "title": "B",
+            "description": "Id of the second member."
+          }
+        },
+        "type": "object",
+        "required": [
+          "a",
+          "b"
+        ],
+        "title": "MeetingBody"
+      },
+      "RoundBody": {
+        "properties": {
+          "member_ids": {
+            "title": "Member Ids",
+            "description": "Restrict the round to these members; default is everyone.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "nullable": true
+          },
+          "max_meetings": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Max Meetings",
+            "description": "Most meetings to hold.",
+            "default": 8
+          },
+          "request": {
+            "title": "Request",
+            "description": "Ask mode: a need in plain words. Needs requester too.",
+            "type": "string",
+            "nullable": true
+          },
+          "requester": {
+            "title": "Requester",
+            "description": "Ask mode: id of the member who asks.",
+            "type": "string",
+            "nullable": true
+          },
+          "background": {
+            "type": "boolean",
+            "title": "Background",
+            "description": "If true, return at once with the run id and let the round finish in the background.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "RoundBody"
+      },
+      "ScoutBody": {
+        "properties": {
+          "member_id": {
+            "type": "string",
+            "title": "Member Id",
+            "description": "Id of the member to find matches for, e.g. m004."
+          },
+          "request": {
+            "title": "Request",
+            "description": "Optional one-off need in plain words, e.g. 'a machine vision partner'.",
+            "type": "string",
+            "nullable": true
+          },
+          "top_k": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 1.0,
+            "title": "Top K",
+            "description": "How many candidates to return.",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "required": [
+          "member_id"
+        ],
+        "title": "ScoutBody"
+      }
+    }
+  }
+}

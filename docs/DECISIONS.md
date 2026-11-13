@@ -2,6 +2,8 @@
 
 One line per decision the PRD and contracts don't settle. Newest first. Format: `time — agent id — decision — why — rejected alternative`.
 
+- 12:27 — sk-sohums-macbook-pro-5 — Orchestrate path is OpenAPI tools over a cloudflared tunnel URL; exporter converts FastAPI 3.1 to 3.0.3 with only the six tool operations — SaaS cannot reach localhost, no ibmcloud/docker installed, docs say OpenAPI must be 3.0 — Code Engine (unverified setup commands), Python @tool wrappers (allowlist unverified)
+- 12:27 — sk-sohums-macbook-pro-5 — Agent YAML refers to tools by operationId (camelCase) and `llm: groq/openai/gpt-oss-120b`, is_schedulable left off — docs say operationId becomes the tool name; model is the documented IBM Cloud default — claiming scheduling we cannot show
 - 12:24 — sk-sohums-macbook-pro-5 — POST /round with background=true holds a single module lock and returns {run_id, status: running}; a second round gets 409 — Orchestrate's ~40 s tool timeout vs minutes-long real-model rounds — queueing rounds
 - 12:24 — sk-sohums-macbook-pro-5 — Round saves latest.json as running after every turn (the in-flight meeting has result 'in_progress') and as status 'error' with the message if it fails — the page polls while running and must not wait forever — saving only after each meeting
 - 12:24 — sk-sohums-macbook-pro-5 — Each declined meeting nudges data/weights.json immediately (record_decline), so make round/demo change the weights file; scoring uses weights_before for the whole round — matches the learning-loop spec — recomputing candidates mid-round
