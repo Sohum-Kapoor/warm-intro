@@ -125,7 +125,7 @@ def test_bad_json_once_then_good_uses_the_good_vote():
     good = '```json\n{"vote": "yes", "reason": "Clear fit. Extra sentence."}\n```'
     llm = Scripted(["garbage", good, good])
     m = run_meeting(a_id, b_id, llm=llm)
-    assert m["votes"][a_id] == {"vote": "yes", "reason": "Clear fit."}
+    assert m["votes"][a_id] == {"vote": "yes", "reason": "Clear fit. Extra sentence."}
     assert m["votes"][b_id]["vote"] == "yes"
     assert m["result"] == "introduced"
 
@@ -190,3 +190,26 @@ def test_parse_vote_rejects_bad_shapes():
     assert parse_vote('{"vote": "yes", "reason": "  "}') is None
     assert parse_vote("[1]") is None
     assert parse_vote('Sure: {"vote": "NO", "reason": "Too early"}') == {"vote": "no", "reason": "Too early"}
+
+
+def test_parse_vote_keeps_abbreviations_and_cuts_long_reasons_at_a_sentence_end():
+    assert parse_vote('{"vote": "no", "reason": "No. Unpaid, e.g. equity only."}')["reason"] == "No. Unpaid, e.g. equity only."
+    long = "First sentence here. " + "word " * 60 + "ends here. Tail."
+    reason = parse_vote(json.dumps({"vote": "no", "reason": long}))["reason"]
+    assert reason == "First sentence here." and len(reason) < 200
+
+
+def test_vote_and_introduction_end_with_moderator_message_and_names_prefix_counterpart():
+    a_id, b_id = yes_members()
+    rec = []
+
+    class Spy(MockLLM):
+        def chat(self, system, messages, json_mode=False):
+            rec.append(messages)
+            return super().chat(system, messages, json_mode)
+
+    run_meeting(a_id, b_id, llm=Spy())
+    assert rec[-1][-1]["content"].startswith("[moderator]")
+    assert any(m["content"].startswith("[moderator]") for m in rec[-3])
+    users = [m["content"] for m in rec[-1][1:-1] if m["role"] == "user"]
+    assert users and all(":" in u[:40] for u in users)

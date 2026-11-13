@@ -13,13 +13,15 @@ from warmintro.config import TURNS_PER_AGENT
 from warmintro.llm import LLM, get_llm
 from warmintro.store import Candidate, Introduction, Meeting, Member, Turn, Vote
 
-DEFAULT_VOTE_REASON = "My agent could not produce a valid vote, so it declines by default."
+DEFAULT_VOTE_REASON = "My agent could not reach a clear decision, so it declines by default."
 NO_PERMISSION_REASON = "My member's permissions don't allow this agent to hold meetings."
 NO_COMMENT = "(no comment)"
+MAX_REASON_CHARS = 200
 
 SYSTEM_TEMPLATE = """\
 You are an AI agent representing ONE member of a community network in a first meeting with the \
-agent of another member. You represent {subject} only. You are an AI agent, never claim to be human.
+agent of another member. You represent {subject} only. You are an AI agent, never claim to be the \
+member or a human.
 
 Your job is to protect your member's time, not to make a deal. Most meetings should not lead to an \
 introduction. Every "yes" vote spends one of the {budget} introduction(s) your member has left this round.
@@ -31,14 +33,16 @@ Your member's profile (this is everything you know):
 - Description: {description}
 - Needs: {needs}
 - Offers: {offers}
-- Deal-breakers (if the meeting hits any of these, the answer is no): {deal_breakers}
+- Deal-breakers (if the other side offers, mentions or requires any of these, the answer is no): {deal_breakers}
+- Introductions left this round: {budget}
 - Sharing: {sharing}
 
 Rules:
 - {voice}
-- Use plain words. Do not invent facts that are not in the profile above.
-- Do not recite your deal-breakers to the other side, but never agree to anything that breaks one.
-- Never speak for the other side and never write the other side's lines.
+- Use plain words, 1 to 3 short sentences, using only facts in your member's profile above. Do not invent facts.
+- Do not list your deal-breakers unprompted, but as soon as the other side proposes something that \
+breaks one, say clearly that your member cannot accept it.
+- Never speak for the other side and never write the other side's lines. Do not label turns.
 
 {task_instructions}
 
@@ -47,8 +51,14 @@ The line block below is machine-readable context for the meeting tool. Do not re
 {context}
 </context>"""
 
-VOICE_ORG = 'Speak as "we" (the organisation). Say "my member" only if you must refer to the contact person.'
-VOICE_PERSON = 'Speak in the first person about your member ("my member", "I represent ...").'
+VOICE_ORG = (
+    'Refer to the organisation you represent as "we at <name>" (for example "we at Tern Aerial"). '
+    "Never claim to be a person."
+)
+VOICE_PERSON = (
+    "Refer to your member in the third person, by name (for example \"I represent Priya; she is looking "
+    "for ...\"). You are the agent, not the member."
+)
 SHARE_OPEN = "You may share the profile above with the other agent."
 SHARE_CLOSED = (
     "Your member has NOT agreed to share their profile. Beyond sector and needs, reveal nothing "
@@ -56,22 +66,38 @@ SHARE_CLOSED = (
 )
 
 SPEAK_TASK = (
-    "Your task now: say your next turn in the meeting, in 2-3 sentences. Turn {turn} of {turns}: "
-    "turn 1, introduce your member and what they need; turn 2, say what they can offer and test fit; "
-    "turn 3, say plainly whether a call between the members seems worthwhile and a next step. "
-    "Reply with the spoken text only."
+    "Your task now: say your next turn in the meeting (turn {turn} of {turns}). {turn_instruction} "
+    "Reply with the spoken text only: no turn labels, and do not write any other turn."
 )
+TURN_INSTRUCTIONS = {
+    1: "Introduce your member and what they need.",
+    2: (
+        "Say what your member can offer and test the fit, using only what your member's sharing "
+        "permission above allows."
+    ),
+    3: (
+        "Say plainly whether a call between the members is worthwhile. If anything the other side "
+        "said conflicts with a deal-breaker, or the fit is weak, say politely that your member will "
+        "not proceed and why."
+    ),
+}
 VOTE_TASK = (
     "The meeting is over. Decide whether your member should be introduced to {counterpart_name}. "
-    'Reply with exactly one JSON object and nothing else: {{"vote": "yes" | "no", "reason": "<one sentence>"}}. '
-    "Vote no if any deal-breaker is hit, if you have no introductions left ({budget} left), or if the "
-    "meeting would not clearly serve your member. Vote yes only if it clearly serves them."
+    'Reply with exactly one JSON object and nothing else: {{"vote": "yes", "reason": "<one sentence>"}} '
+    'or {{"vote": "no", "reason": "<one sentence>"}}. '
+    "Vote no if the other side offered, mentioned or requires anything that matches a deal-breaker "
+    "(in meaning, not just exact words), or if you have no introductions left ({budget} left). "
+    "Vote yes when the other side directly addresses at least one of your member's needs and nothing "
+    "conflicts with a deal-breaker. Protect your member's time, but do not vote no without a reason."
 )
 INTRODUCE_TASK = (
-    "Both agents voted yes. Write a short message to your member, under 90 words, covering: who "
-    "{counterpart_name} is, why the match is worth their time, what the agents discussed, and a "
-    "proposed next step. Plain text, no greeting line, no placeholders."
+    "Both agents voted yes. Write a short message to your own member (not to {counterpart_name}), "
+    "under 90 words, covering: who {counterpart_name} is, why the match is worth their time, what the "
+    "agents discussed, and a proposed next step. Start directly with {counterpart_name}'s name: no "
+    "greeting, no sign-off, no brackets or placeholders."
 )
+VOTE_PROMPT = "[moderator] The meeting is over. Reply with your vote JSON now."
+INTRODUCE_PROMPT = "[moderator] Write the message to your own member now."
 
 
 def _names(items: list[str]) -> str:
@@ -81,7 +107,9 @@ def _names(items: list[str]) -> str:
 def build_system(member: Member, task: str, budget: int, turn: int, counterpart: Member) -> str:
     is_org = member["type"] != "individual"
     instructions = {
-        "speak": SPEAK_TASK.format(turn=turn, turns=TURNS_PER_AGENT),
+        "speak": SPEAK_TASK.format(
+            turn=turn, turns=TURNS_PER_AGENT, turn_instruction=TURN_INSTRUCTIONS.get(turn, TURN_INSTRUCTIONS[3])
+        ),
         "vote": VOTE_TASK.format(counterpart_name=counterpart["name"], budget=budget),
         "introduce": INTRODUCE_TASK.format(counterpart_name=counterpart["name"]),
     }[task]
@@ -117,8 +145,19 @@ def _messages(transcript: list[Turn], me: str, counterpart: Member, first: bool)
     )
     messages = [{"role": "user", "content": opener}]
     for t in transcript:
-        messages.append({"role": "assistant" if t["speaker"] == me else "user", "content": t["text"]})
+        if t["speaker"] == me:
+            messages.append({"role": "assistant", "content": t["text"]})
+        else:
+            messages.append({"role": "user", "content": f"{counterpart['name']}: {t['text']}"})
     return messages
+
+
+def _trim_reason(reason: str) -> str:
+    """Keep a short reason whole; cut a long one at the last sentence end before the limit."""
+    if len(reason) < MAX_REASON_CHARS:
+        return reason
+    ends = [m.end() for m in re.finditer(r"[.!?](?=\s|$)", reason[:MAX_REASON_CHARS])]
+    return reason[: ends[-1]] if ends else reason[:MAX_REASON_CHARS].rstrip()
 
 
 def parse_vote(raw: str) -> Vote | None:
@@ -136,9 +175,7 @@ def parse_vote(raw: str) -> Vote | None:
     reason = data.get("reason")
     if vote not in ("yes", "no") or not isinstance(reason, str) or not reason.strip():
         return None
-    reason = " ".join(reason.split())
-    sentence = re.match(r".*?[.!?](?=\s|$)", reason)
-    return {"vote": vote, "reason": sentence.group(0) if sentence else reason}
+    return {"vote": vote, "reason": _trim_reason(" ".join(reason.split()))}
 
 
 def _cast_vote(llm: LLM, member: Member, counterpart: Member, budget: int, messages: list[dict]) -> Vote:
@@ -146,7 +183,7 @@ def _cast_vote(llm: LLM, member: Member, counterpart: Member, budget: int, messa
         return {"vote": "no", "reason": "No introductions left this round."}
     system = build_system(member, "vote", budget, TURNS_PER_AGENT, counterpart)
     for _ in range(2):
-        parsed = parse_vote(llm.chat(system, messages, json_mode=True))
+        parsed = parse_vote(llm.chat(system, [*messages, {"role": "user", "content": VOTE_PROMPT}], json_mode=True))
         if parsed:
             return parsed
     return {"vote": "no", "reason": DEFAULT_VOTE_REASON}
@@ -214,7 +251,7 @@ def run_meeting(
                 "meeting_id": meeting["id"],
                 "to": me["id"],
                 "from_agent": f"agent:{me['id']}",
-                "message": llm.chat(system, msgs).strip(),
+                "message": llm.chat(system, [*msgs, {"role": "user", "content": INTRODUCE_PROMPT}]).strip(),
                 "ai_generated": True,
             }
             meeting["introductions"].append(intro)  # type: ignore[typeddict-item]

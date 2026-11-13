@@ -8,6 +8,14 @@ from typing import Any, Protocol
 
 EMBED_DIM = 256
 CONTEXT_RE = re.compile(r"<context>\s*(\{.*?\})\s*</context>", re.DOTALL)
+# The block plus the sentence introducing it; the real model gets the readable profile instead.
+CONTEXT_STRIP_RE = re.compile(
+    r"(?:^[^\n]*machine-readable context[^\n]*\n)?[ \t]*<context>.*?</context>[ \t]*", re.DOTALL | re.MULTILINE
+)
+
+
+def strip_context(system: str) -> str:
+    return CONTEXT_STRIP_RE.sub("", system).rstrip()
 
 # Negators are stop words on purpose: "no unpaid pilots" must match "an unpaid pilot site".
 STOP_WORDS = frozenset(
@@ -160,7 +168,7 @@ class WatsonxLLM:
         return self._embeddings.embed_documents(texts)
 
     def chat(self, system: str, messages: list[dict], json_mode: bool = False) -> str:
-        full = [{"role": "system", "content": system}, *messages]
+        full = [{"role": "system", "content": strip_context(system)}, *messages]
         # max_tokens is deprecated in the REST docs; max_completion_tokens is current.
         params: dict[str, Any] = {"temperature": 0.3, "max_completion_tokens": 300}
         if json_mode:

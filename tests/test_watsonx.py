@@ -89,6 +89,18 @@ def test_chat_puts_system_first(sdk):
     assert call["params"] == {"temperature": 0.3, "max_completion_tokens": 300}
 
 
+def test_context_block_is_stripped_before_the_sdk_call(sdk):
+    llm = WatsonxLLM()
+    system = (
+        "Profile text.\n\nThe line block below is machine-readable context for the meeting tool. "
+        'Do not repeat it.\n<context>\n{"task": "vote"}\n</context>'
+    )
+    llm.chat(system, [])
+    sent = llm._model.calls[0]["messages"][0]["content"]
+    assert "<context>" not in sent and "task" not in sent and "machine-readable" not in sent
+    assert sent == "Profile text."
+
+
 def test_json_mode_sets_response_format(sdk):
     llm = WatsonxLLM()
     llm.chat("SYS", [], json_mode=True)
