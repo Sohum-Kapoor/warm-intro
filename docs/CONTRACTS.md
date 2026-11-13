@@ -186,6 +186,13 @@ Onboarding endpoints ("Create your agent"). User-created members are real input,
 
 Saved meetings carry an ISO `created_at`; older ones may lack it.
 
+Public-deployment guards (`warmintro/guard.py`; errors are `{"detail": "message"}`):
+
+- `WARMINTRO_ADMIN_KEY` (optional env var), sent as the request header `X-Admin-Key`. When it is set, `PATCH /members/{id}` on a member without `user_created: true` returns **403** `"This is a seeded demo member; edits need the presenter key. Create your own agent to edit freely."` unless the header matches. User-created members stay editable without a key. When it is unset nothing changes.
+- `POST /admin/reset` (header `X-Admin-Key`, no body) restores `profiles.json`, `weights.json`, `meetings.json` and `latest.json` to their state at process start and returns `{"ok": true}`. 403 with a wrong or missing key, 404 when no key is configured, 409 while a round runs. Not in the OpenAPI schema.
+- Rate limits on `POST /round`, `/ask`, `/meeting`, `/onboard/draft`, `/onboard` and `/scout` with a `request`: 10 per minute per client IP (leftmost `X-Forwarded-For`, else the socket address), `WARMINTRO_HOURLY_LLM_CAP` (default 300) per rolling hour overall, and 60 s between round starts. A valid `X-Admin-Key` skips the per-IP limit only. Over a limit: **429** `"Your agent is busy; try again in N seconds."` with a `Retry-After: N` header. GET endpoints are never limited. `WARMINTRO_RATE_LIMITS=off` disables the limits (tests).
+- CORS allows the `X-Admin-Key` request header and exposes `Retry-After`.
+
 CORS is open for `localhost`, `127.0.0.1`, `null` (file://) and `https://sohum-kapoor.github.io` (GET, POST, PATCH) so the web pages can call it.
 
 ## LLM provider (`warmintro/llm.py`)

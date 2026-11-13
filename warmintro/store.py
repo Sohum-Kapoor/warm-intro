@@ -134,6 +134,11 @@ class Run(TypedDict):
     weights_after: dict[str, float]
     ai_generated: bool
 
+# (dir, name) pairs that make up the demo state; POST /admin/reset restores them
+RESET_FILES = (
+    ("data", "profiles.json"), ("data", "weights.json"), ("runs", "meetings.json"), ("runs", "latest.json"),
+)
+
 
 def _write_json(path: Path, payload: Any) -> None:
     """Atomic write: the web page polls these files while a round runs."""

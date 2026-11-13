@@ -19,6 +19,7 @@ Needs: an IBM Cloud account, the public repo `https://github.com/Sohum-Kapoor/wa
    - `WATSONX_PROJECT_ID`
    - `WATSONX_CHAT_MODEL`
    - `WATSONX_EMBED_MODEL`
+   - `WARMINTRO_ADMIN_KEY`: the presenter key. SK generates it with `python3 -c "import secrets;print(secrets.token_urlsafe(16))"` and never commits it. It protects the seeded demo members and `/admin/reset`, and lifts the per-IP rate limit for whoever sends it. Optional: `WARMINTRO_HOURLY_LLM_CAP` (default 300 model-calling requests per hour).
 
    Then **Create**. ([Secrets](https://cloud.ibm.com/docs/codeengine?topic=codeengine-secret))
 8. Reference the secret: in the application, **Environment variables** tab > **Add** > **Reference full secret** > pick `warmintro-env` (leave prefix empty so the names stay exactly as above) > **Add**, then **Save**. Deploy the change with **New revision** > **Save and deploy**; the app restarts to read new variables. (Same page.) During creation the page only says "modify runtime settings and environment variables", so doing it right after the first deploy is the safe path.

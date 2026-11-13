@@ -2,6 +2,7 @@ import os
 
 # A person's .env may say watsonx; set before warmintro (and load_dotenv) is imported.
 os.environ["LLM_PROVIDER"] = "mock"
+os.environ["WARMINTRO_RATE_LIMITS"] = "off"  # tests/test_guard.py turns them on
 
 import shutil  # noqa: E402
 from pathlib import Path  # noqa: E402

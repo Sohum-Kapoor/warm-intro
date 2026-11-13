@@ -4,12 +4,12 @@ import threading
 from datetime import datetime
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from warmintro import feedback, onboard, store
+from warmintro import feedback, guard, onboard, store
 from warmintro.config import MAX_MEETINGS_PER_ROUND, get_settings
 from warmintro.llm import get_llm
 from warmintro.meeting import run_meeting
@@ -27,10 +27,12 @@ app.add_middleware(
     allow_origins=["null", "https://sohum-kapoor.github.io"],  # file:// pages and the hosted member app
     allow_origin_regex=r"^http://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=["*", "X-Admin-Key"],
+    expose_headers=["Retry-After"],
 )
 
 _round_lock = threading.Lock()  # one round at a time
+guard.take_snapshot()  # pristine demo state for POST /admin/reset
 
 
 @app.exception_handler(KeyError)
@@ -110,15 +112,17 @@ def suggest_resources(member_id: str) -> dict[str, Any]:
 
 
 @app.post("/scout", operation_id="scout", summary="Find the best matches for one member")
-def scout(body: ScoutBody) -> dict[str, Any]:
+def scout(body: ScoutBody, request: Request) -> dict[str, Any]:
     """Rank other members by how well their offers fit this member's needs. Give a request to search for a
     one-off need in plain words instead of the member's stored needs. Returns scored candidates, best first.
     Does not hold any meeting; use holdMeeting on a candidate pair next."""
+    if body.request:  # only a one-off request embeds new text
+        guard.limit_llm(request)
     found = scout_members(body.member_id, body.request, body.top_k)
     return {"synthetic": True, "candidates": found}
 
 
-@app.post("/meeting", operation_id="holdMeeting", summary="Hold one first meeting between two members' agents")
+@app.post("/meeting", dependencies=[Depends(guard.limit_llm)], operation_id="holdMeeting", summary="Hold one first meeting between two members' agents")
 def hold_meeting(body: MeetingBody) -> dict[str, Any]:
     """Have the two members' AI agents hold a short first meeting, then vote on an introduction.
     Returns the transcript, both votes, the result (introduced, declined or blocked_by_permissions) and, if
@@ -151,7 +155,7 @@ def _background(body: RoundBody, run_id: str) -> None:
         _round_lock.release()
 
 
-@app.post("/round", operation_id="runRound", summary="Run a full introduction round")
+@app.post("/round", dependencies=[Depends(guard.limit_round)], operation_id="runRound", summary="Run a full introduction round")
 def run_round_endpoint(body: RoundBody | None = None) -> dict[str, Any]:
     """Run a whole round: score every pair of members, hold meetings for the best pairs, and write the
     introductions. With background=true it returns {run_id, status: running} at once (a real-model round
@@ -181,6 +185,7 @@ def get_latest_run() -> dict[str, Any]:
 
 LIST_FIELDS = ("needs", "offers", "deal_breakers")
 PERMISSION_KEYS = ("share_profile", "propose_meetings", "contact_member")
+SEEDED_MEMBER_NOTE = "This is a seeded demo member; edits need the presenter key. Create your own agent to edit freely."
 EDITABLE = {*LIST_FIELDS, "description", "intro_budget", "permissions", "paused"}
 
 
@@ -236,12 +241,16 @@ def get_member(member_id: str) -> dict[str, Any]:
 
 
 @app.patch("/members/{member_id}", operation_id="updateMember", summary="Edit what an agent knows about its member")
-def update_member(member_id: str, patch: dict[str, Any]) -> dict[str, Any]:
+def update_member(
+    member_id: str, patch: dict[str, Any], x_admin_key: str | None = Header(None)
+) -> dict[str, Any]:
     """Edit any of needs, offers, deal_breakers (up to 6 non-empty strings of at most 160 characters each),
     description (at most 400), intro_budget (0 to 5), permissions (partial) and paused. Invalid input returns
     422 with {"detail": message}; unknown member ids return 404. Returns the updated member."""
     members = store.load_members()
     member = _find_member(members, member_id)
+    if get_settings().admin_key and not member.get("user_created") and not guard.is_admin(x_admin_key):
+        raise HTTPException(403, SEEDED_MEMBER_NOTE)
     _apply_patch(member, patch)
     store.save_members(members)
     return {"synthetic": True, "member": member}
@@ -250,7 +259,7 @@ def update_member(member_id: str, patch: dict[str, Any]) -> dict[str, Any]:
 _member_lock = threading.Lock()  # next-id assignment and the profiles.json rewrite must not interleave
 
 
-@app.post("/onboard/draft", operation_id="draftProfile", summary="Turn a person's own words into a draft profile")
+@app.post("/onboard/draft", dependencies=[Depends(guard.limit_llm)], operation_id="draftProfile", summary="Turn a person's own words into a draft profile")
 def draft_profile(body: dict[str, Any]) -> dict[str, Any]:
     """Body: name (1-80 chars), type (individual, startup, small_business or corporation), hub (detroit,
     grand_rapids or ann_arbor) and about (20-1200 chars: who they are, what they need, what they can offer).
@@ -286,7 +295,7 @@ def _new_member(body: dict[str, Any], member_id: str) -> store.Member:
     return member
 
 
-@app.post("/onboard", operation_id="createMember", summary="Go live: save a reviewed draft as a new member")
+@app.post("/onboard", dependencies=[Depends(guard.limit_llm)], operation_id="createMember", summary="Go live: save a reviewed draft as a new member")
 def create_member(body: dict[str, Any]) -> dict[str, Any]:
     """Body: a draft profile from draftProfile, possibly edited (needs, offers, deal_breakers: up to 6 items of
     at most 160 characters; description at most 400; intro_budget 0-5). Assigns the next member id, marks the
@@ -346,7 +355,7 @@ def get_member_activity(member_id: str) -> dict[str, Any]:
 NO_FIT_NOTE = "No member is a strong enough fit yet; your agent will keep looking."
 
 
-@app.post("/ask", operation_id="askAgent", summary="Ask a member's agent to find and meet a match")
+@app.post("/ask", dependencies=[Depends(guard.limit_llm)], operation_id="askAgent", summary="Ask a member's agent to find and meet a match")
 def ask_agent(body: AskBody) -> dict[str, Any]:
     """Ask one member's agent for something in plain words, such as 'a machine vision partner'. The agent
     searches the community, ranks the members who fit, and (unless meet is false) holds a first meeting with
@@ -362,3 +371,21 @@ def ask_agent(body: AskBody) -> dict[str, Any]:
         "synthetic": True, "ai_generated": True, "request": body.request, "member_id": body.member_id,
         "candidates": found, "meeting": meeting, "note": note,
     }  # fmt: skip
+
+
+@app.post("/admin/reset", operation_id="adminReset", summary="Restore the demo state (presenter key)", include_in_schema=False)
+def admin_reset(x_admin_key: str | None = Header(None)) -> dict[str, bool]:
+    """Restore profiles, weights, meetings and the latest run to how they were when the process started.
+    404 when no WARMINTRO_ADMIN_KEY is configured; 403 without the right X-Admin-Key."""
+    if not get_settings().admin_key:
+        raise HTTPException(404, "Not found")
+    if not guard.is_admin(x_admin_key):
+        raise HTTPException(403, "This needs the presenter key.")
+    if not _round_lock.acquire(blocking=False):  # never overwrite files a round is writing
+        raise HTTPException(409, "a round is running; reset after it completes")
+    try:
+        with _member_lock:
+            guard.restore_snapshot()
+    finally:
+        _round_lock.release()
+    return {"ok": True}

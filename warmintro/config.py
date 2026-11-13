@@ -48,6 +48,9 @@ class Settings:
     watsonx_project_id: str | None
     watsonx_chat_model_id: str | None
     watsonx_embedding_model_id: str | None
+    admin_key: str | None = None  # WARMINTRO_ADMIN_KEY: presenter key; unset = no guards on edits
+    hourly_llm_cap: int = 300  # WARMINTRO_HOURLY_LLM_CAP
+    rate_limits: bool = True  # WARMINTRO_RATE_LIMITS=off disables them (tests)
 
 
 def get_settings() -> Settings:
@@ -71,4 +74,7 @@ def get_settings() -> Settings:
         watsonx_project_id=env.get("WATSONX_PROJECT_ID") or None,
         watsonx_chat_model_id=env.get("WATSONX_CHAT_MODEL") or None,
         watsonx_embedding_model_id=env.get("WATSONX_EMBED_MODEL") or None,
+        admin_key=env.get("WARMINTRO_ADMIN_KEY") or None,
+        hourly_llm_cap=int(env.get("WARMINTRO_HOURLY_LLM_CAP") or 300),
+        rate_limits=(env.get("WARMINTRO_RATE_LIMITS") or "on").lower() != "off",
     )

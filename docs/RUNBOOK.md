@@ -64,6 +64,15 @@ The beats, timings and narration are in `docs/submission/video_script.md` (you o
 - **409 "a round is already running"**: a round is in flight (rounds take minutes on Granite). Poll `GET <API URL>/runs/latest` until `status` is `complete`, then start another. If the API was restarted mid-round, restart it again (or redeploy) to clear the lock. Note the hosted container's `runs/` and `data/weights.json` reset on restart (ephemeral storage).
 - **First scout is slow** on watsonx: it embeds about 600 texts once per container start.
 
+## 7b. Security
+
+The hosted API has no logins, so it is guarded two ways (`warmintro/guard.py`):
+
+- **Presenter key.** `WARMINTRO_ADMIN_KEY` goes to Jesse privately (never in git, Linear or chat logs). With it set, the seeded demo members cannot be edited without it, and members people create with "Create your agent" stay freely editable. The app's live mode takes the key in a field or `?key=`; use it only in the presenter's own browser, never in a shared link.
+- **Rate limits.** Model-calling requests are capped at 10 per minute per visitor and 300 per hour overall; a round can start once a minute. Over the limit the API answers 429 "Your agent is busy; try again in N seconds." The presenter key lifts the per-visitor limit, not the hourly cap.
+- **Reset before the pitch:** `curl -X POST -H "X-Admin-Key: <key>" <API URL>/admin/reset` restores the members, weights, meetings and latest run to how the app started. It answers `{"ok": true}` (409 if a round is running).
+- **After judging, turn the app off:** in Code Engine set min instances to 0, or delete the app.
+
 ## 8. Never commit `.env`
 
 ```bash
