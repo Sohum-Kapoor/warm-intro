@@ -1,7 +1,7 @@
 window.WARM_INTRO = {
   "synthetic": true,
   "ai_generated": true,
-  "generated_at": "2026-11-13T14:22:33-05:00",
+  "generated_at": "2026-11-13T14:24:05-05:00",
   "provider": "watsonx",
   "chat_model": "ibm/granite-4-h-small",
   "embed_model": "ibm/granite-embedding-278m-multilingual",
@@ -5069,10 +5069,11 @@ window.WARM_INTRO = {
         "lean manufacturing training for a small plant",
         "ISO or quality system certification for a supplier",
         "Six Sigma coaching for a production team",
-        "cost reduction analysis for a machine shop"
+        "cost reduction analysis for a machine shop",
+        "quality management system consulting and continuous improvement for a parts supplier"
       ],
       "url": "https://www.the-center.org/",
-      "source_page": "https://www.the-center.org/",
+      "source_page": "https://www.the-center.org/, https://www.the-center.org/Our-Services/Operational-Excellence/Quality-systems",
       "terms_note": "Only a privacy policy link found; nothing found that forbids referencing or linking. Site formerly mmtc.org."
     },
     {
