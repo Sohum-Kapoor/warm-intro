@@ -1,0 +1,12 @@
+{
+  "individual-startup|complementary": 1.32,
+  "small_business-startup|unexpected": 1.24,
+  "corporation-corporation|complementary": 0.76,
+  "startup-startup|unexpected": 1.16,
+  "individual-small_business|complementary": 1.16,
+  "corporation-startup|complementary": 1.0,
+  "corporation-small_business|unexpected": 0.84,
+  "corporation-individual|complementary": 0.92,
+  "individual-individual|unexpected": 0.92,
+  "small_business-small_business|complementary": 1.16
+}

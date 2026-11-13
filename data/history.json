@@ -1,0 +1,405 @@
+{
+  "synthetic": true,
+  "connections": [
+    {
+      "id": "h001",
+      "a": "m021",
+      "b": "m022",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-01-12"
+    },
+    {
+      "id": "h002",
+      "a": "m039",
+      "b": "m032",
+      "kind": "small_business-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "pilot",
+      "date": "2026-01-20"
+    },
+    {
+      "id": "h003",
+      "a": "m047",
+      "b": "m051",
+      "kind": "corporation-corporation",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-01-28"
+    },
+    {
+      "id": "h004",
+      "a": "m013",
+      "b": "m031",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "hire",
+      "date": "2026-02-03"
+    },
+    {
+      "id": "h005",
+      "a": "m023",
+      "b": "m024",
+      "kind": "startup-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-02-09"
+    },
+    {
+      "id": "h006",
+      "a": "m011",
+      "b": "m046",
+      "kind": "individual-small_business",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-02-11"
+    },
+    {
+      "id": "h007",
+      "a": "m037",
+      "b": "m032",
+      "kind": "small_business-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "pilot",
+      "date": "2026-02-18"
+    },
+    {
+      "id": "h008",
+      "a": "m052",
+      "b": "m025",
+      "kind": "corporation-startup",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "pilot",
+      "date": "2026-02-26"
+    },
+    {
+      "id": "h009",
+      "a": "m048",
+      "b": "m055",
+      "kind": "corporation-corporation",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-03-02"
+    },
+    {
+      "id": "h010",
+      "a": "m020",
+      "b": "m028",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-03-09"
+    },
+    {
+      "id": "h011",
+      "a": "m053",
+      "b": "m043",
+      "kind": "corporation-small_business",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-03-16"
+    },
+    {
+      "id": "h012",
+      "a": "m035",
+      "b": "m023",
+      "kind": "small_business-startup",
+      "label": "unexpected",
+      "cross_hub": false,
+      "outcome": "pilot",
+      "date": "2026-03-24"
+    },
+    {
+      "id": "h013",
+      "a": "m010",
+      "b": "m057",
+      "kind": "corporation-individual",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-03-30"
+    },
+    {
+      "id": "h014",
+      "a": "m025",
+      "b": "m027",
+      "kind": "startup-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-04-02"
+    },
+    {
+      "id": "h015",
+      "a": "m016",
+      "b": "m018",
+      "kind": "individual-individual",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-04-08"
+    },
+    {
+      "id": "h016",
+      "a": "m012",
+      "b": "m026",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-04-14"
+    },
+    {
+      "id": "h017",
+      "a": "m054",
+      "b": "m058",
+      "kind": "corporation-corporation",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-04-21"
+    },
+    {
+      "id": "h018",
+      "a": "m050",
+      "b": "m022",
+      "kind": "corporation-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "pilot",
+      "date": "2026-04-30"
+    },
+    {
+      "id": "h019",
+      "a": "m036",
+      "b": "m040",
+      "kind": "small_business-small_business",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-05-05"
+    },
+    {
+      "id": "h020",
+      "a": "m009",
+      "b": "m029",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-05-06"
+    },
+    {
+      "id": "h021",
+      "a": "m059",
+      "b": "m045",
+      "kind": "corporation-small_business",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-05-12"
+    },
+    {
+      "id": "h022",
+      "a": "m017",
+      "b": "m039",
+      "kind": "individual-small_business",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-05-19"
+    },
+    {
+      "id": "h023",
+      "a": "m034",
+      "b": "m030",
+      "kind": "small_business-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "pilot",
+      "date": "2026-05-27"
+    },
+    {
+      "id": "h024",
+      "a": "m056",
+      "b": "m057",
+      "kind": "corporation-corporation",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-06-10"
+    },
+    {
+      "id": "h025",
+      "a": "m014",
+      "b": "m027",
+      "kind": "individual-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "hire",
+      "date": "2026-06-17"
+    },
+    {
+      "id": "h026",
+      "a": "m012",
+      "b": "m015",
+      "kind": "individual-individual",
+      "label": "unexpected",
+      "cross_hub": false,
+      "outcome": "no_follow_up",
+      "date": "2026-06-25"
+    },
+    {
+      "id": "h027",
+      "a": "m026",
+      "b": "m028",
+      "kind": "startup-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-06-30"
+    },
+    {
+      "id": "h028",
+      "a": "m018",
+      "b": "m049",
+      "kind": "corporation-individual",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-07-01"
+    },
+    {
+      "id": "h029",
+      "a": "m044",
+      "b": "m031",
+      "kind": "small_business-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-07-08"
+    },
+    {
+      "id": "h030",
+      "a": "m009",
+      "b": "m036",
+      "kind": "individual-small_business",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "hire",
+      "date": "2026-07-14"
+    },
+    {
+      "id": "h031",
+      "a": "m056",
+      "b": "m030",
+      "kind": "corporation-startup",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-07-22"
+    },
+    {
+      "id": "h032",
+      "a": "m050",
+      "b": "m049",
+      "kind": "corporation-corporation",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "partnership",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "h033",
+      "a": "m033",
+      "b": "m045",
+      "kind": "small_business-small_business",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "partnership",
+      "date": "2026-08-12"
+    },
+    {
+      "id": "h034",
+      "a": "m060",
+      "b": "m042",
+      "kind": "corporation-small_business",
+      "label": "unexpected",
+      "cross_hub": false,
+      "outcome": "no_follow_up",
+      "date": "2026-08-19"
+    },
+    {
+      "id": "h035",
+      "a": "m024",
+      "b": "m031",
+      "kind": "startup-startup",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "h036",
+      "a": "m019",
+      "b": "m033",
+      "kind": "individual-small_business",
+      "label": "complementary",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-09-02"
+    },
+    {
+      "id": "h037",
+      "a": "m059",
+      "b": "m029",
+      "kind": "corporation-startup",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "no_follow_up",
+      "date": "2026-09-15"
+    },
+    {
+      "id": "h038",
+      "a": "m020",
+      "b": "m013",
+      "kind": "individual-individual",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-09-23"
+    },
+    {
+      "id": "h039",
+      "a": "m054",
+      "b": "m041",
+      "kind": "corporation-small_business",
+      "label": "unexpected",
+      "cross_hub": true,
+      "outcome": "no_follow_up",
+      "date": "2026-10-06"
+    },
+    {
+      "id": "h040",
+      "a": "m011",
+      "b": "m053",
+      "kind": "corporation-individual",
+      "label": "complementary",
+      "cross_hub": false,
+      "outcome": "no_follow_up",
+      "date": "2026-10-13"
+    }
+  ]
+}
