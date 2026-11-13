@@ -1,0 +1,12 @@
+# Files IBM Bob must not read or send anywhere.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*apikey*
+*credentials*.json
+.venv/
+venv/
+node_modules/
+.cache/

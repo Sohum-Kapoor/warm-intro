@@ -1,0 +1,34 @@
+# Secrets: never commit. IBM scans public repos and suspends accounts for exposed credentials.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*apikey*
+*credentials*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+
+# Local caches and run output (the cached demo round is kept)
+.cache/
+data/.embeddings_cache/
+runs/*
+!runs/demo.json
+!runs/.gitkeep
+
+# OS and editors
+.DS_Store
+.idea/
+.vscode/
