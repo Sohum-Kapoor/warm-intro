@@ -120,6 +120,61 @@ class MockLLM:
         )
 
 
+class WatsonxLLM:
+    """IBM watsonx.ai (Granite) behind the LLM protocol. Docs checked: orchestrate/NOTES.md."""
+
+    def __init__(self) -> None:
+        from warmintro.config import get_settings
+
+        s = get_settings()
+        required = {
+            "WATSONX_APIKEY": s.watsonx_api_key,
+            "WATSONX_URL": s.watsonx_url,
+            "WATSONX_PROJECT_ID": s.watsonx_project_id,
+            "WATSONX_CHAT_MODEL": s.watsonx_chat_model_id,
+            "WATSONX_EMBED_MODEL": s.watsonx_embedding_model_id,
+        }
+        missing = [name for name, value in required.items() if not value]
+        if missing:
+            raise RuntimeError(f"watsonx provider needs these variables set in .env: {', '.join(missing)}")
+
+        # Lazy so the mock path never needs the SDK.
+        from ibm_watsonx_ai import Credentials
+        from ibm_watsonx_ai.foundation_models import Embeddings, ModelInference
+        from ibm_watsonx_ai.metanames import EmbedTextParamsMetaNames
+
+        credentials = Credentials(url=s.watsonx_url, api_key=s.watsonx_api_key)
+        self._embeddings = Embeddings(
+            model_id=s.watsonx_embedding_model_id,
+            credentials=credentials,
+            project_id=s.watsonx_project_id,
+            params={EmbedTextParamsMetaNames.TRUNCATE_INPUT_TOKENS: 512},
+        )
+        self._model = ModelInference(
+            model_id=s.watsonx_chat_model_id,
+            credentials=credentials,
+            project_id=s.watsonx_project_id,
+        )
+
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        return self._embeddings.embed_documents(texts)
+
+    def chat(self, system: str, messages: list[dict], json_mode: bool = False) -> str:
+        full = [{"role": "system", "content": system}, *messages]
+        # max_tokens is deprecated in the REST docs; max_completion_tokens is current.
+        params: dict[str, Any] = {"temperature": 0.3, "max_completion_tokens": 300}
+        if json_mode:
+            params["response_format"] = {"type": "json_object"}
+        try:
+            resp = self._model.chat(messages=full, params=params)
+        except Exception as exc:
+            if "response_format" not in params or "response_format" not in str(exc).lower():
+                raise
+            del params["response_format"]
+            resp = self._model.chat(messages=full, params=params)
+        return resp["choices"][0]["message"]["content"]
+
+
 def get_llm(provider: str | None = None) -> LLM:
     if provider is None:
         from warmintro.config import get_settings
@@ -128,5 +183,5 @@ def get_llm(provider: str | None = None) -> LLM:
     if provider == "mock":
         return MockLLM()
     if provider == "watsonx":
-        raise NotImplementedError("watsonx provider arrives in task S7")
+        return WatsonxLLM()
     raise ValueError(f"unknown LLM provider: {provider!r}")

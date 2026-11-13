@@ -118,10 +118,11 @@ def test_bad_context_json_and_unknown_task_raise():
         llm.chat(system("dance", MEMBER), [])
 
 
-def test_get_llm():
+def test_get_llm(monkeypatch):
     assert isinstance(get_llm("mock"), MockLLM)
     assert isinstance(get_llm(), MockLLM)  # conftest forces LLM_PROVIDER=mock
-    with pytest.raises(NotImplementedError):
+    monkeypatch.delenv("WATSONX_APIKEY", raising=False)
+    with pytest.raises(RuntimeError, match="WATSONX_APIKEY"):
         get_llm("watsonx")
     with pytest.raises(ValueError):
         get_llm("nope")

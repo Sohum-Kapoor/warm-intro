@@ -7,7 +7,7 @@ dependencies = ["fastapi", "uvicorn", "python-dotenv"]
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx"]
-watsonx = ["ibm-watsonx-ai"]
+watsonx = ["ibm-watsonx-ai==1.9.1"]
 
 [build-system]
 requires = ["setuptools>=68"]
