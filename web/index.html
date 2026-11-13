@@ -25,6 +25,7 @@
   <aside>
     <div class="card"><h2>Meetings <span class="ai-tag">AI-generated</span></h2><ol id="meetingList" class="mlist"></ol></div>
     <div class="card grow" id="detail"></div>
+    <div class="card" id="weightsCard" hidden><h2>Scout weights <span class="ai-tag">before / after</span></h2><div id="weights"></div></div>
     <div class="card"><h2>Outbox <span class="ai-tag">AI-generated messages</span></h2><div id="outbox"></div></div>
   </aside>
 </main>
@@ -34,7 +35,10 @@
   <button id="btnPlay" class="primary" title="Play / pause">&#9654; Play</button>
   <button id="btnFwd" title="Step forward">Next &#9654;</button>
   <span id="progress" class="progress"></span>
+  <span id="runInd" class="runind" hidden><i></i> running&hellip;</span>
   <span class="spacer"></span>
+  <button id="btnSpeed" title="Playback speed">1&times;</button>
+  <button id="btnPitch" title="Full-screen pitch mode (f)">&#9974; Pitch</button>
   <button id="btnRound" title="Run a round (live mode only)">Run a round</button>
 </footer>
 <script src="fixtures/sample_run.js"></script>

@@ -20,6 +20,8 @@
   };
   var live = /[?&]live=1/.test(location.search);
   var run = null, shown = 0, selected = -1, timer = null, playing = false, busy = false;
+  var speed = 1, userPaused = false, pollTimer = null, pollBusy = false, roundBase = null, lastFeedback = null;
+  var STEP_MS = 1800, DRAW_MS = 1400, SPEEDS = [0.5, 1, 2];
   var pos = {}, byId = {};
   var $ = function (id) { return document.getElementById(id); };
 
@@ -58,15 +60,26 @@
       $('btnRound').disabled = true;
       return loadSample();
     }) : loadSample();
-    p.then(function (r) { setRun(r); play(); });
+    p.then(function (r) {
+      setRun(r); play();
+      if (live && run.status === 'running') startPolling();
+    });
   }
 
-  function setRun(r) {
-    run = r && typeof r === 'object' ? r : {};
-    run.members = arr(run.members); run.meetings = arr(run.meetings); run.introductions = arr(run.introductions);
+  function normalize(r) {
+    r = r && typeof r === 'object' ? r : {};
+    r.members = arr(r.members); r.meetings = arr(r.meetings); r.introductions = arr(r.introductions);
+    return r;
+  }
+  function index() {
     byId = {};
     run.members.forEach(function (m) { byId[m.id] = m; });
-    layout(); shown = 0; selected = -1;
+  }
+  function isRunning() { return busy || run.status === 'running'; }
+  function setRun(r) {
+    run = normalize(r);
+    lastFeedback = null; userPaused = false;
+    index(); layout(); shown = 0; selected = -1;
     if (!run.members.length) banner('This run has no members to show.');
     render();
   }
@@ -119,7 +132,7 @@
       var len = Math.hypot(b.x - a.x, b.y - a.y) * 1.2;
       var g = add(lines, el('g', {}, null, 1));
       var p = add(g, el('path', {d: d, stroke: col, 'stroke-width': i === selected ? 5 : 3, class: 'mline' + (i === animateIdx ? ' draw' : ''), opacity: selected >= 0 && i !== selected ? 0.55 : 1}, null, 1));
-      if (i === animateIdx) p.style.setProperty('--len', len);
+      if (i === animateIdx) { p.style.setProperty('--len', len); p.style.setProperty('--dur', (DRAW_MS / speed / 1000) + 's'); }
       var hit = add(g, el('path', {d: d, class: 'hit'}, null, 1));
       hit.addEventListener('click', function () { select(i); });
       var t = el('title', {}, nameOf(m.a) + ' + ' + nameOf(m.b) + ': ' + m.result, 1); hit.appendChild(t);
@@ -170,6 +183,7 @@
     var t = add(box, el('div', {}, nameOf(m.a) + ' + ' + nameOf(m.b) + '  '));
     t.style.fontWeight = '700';
     var rs = add(t, el('span', {class: 'res'}, r.label)); rs.style.color = r.color;
+    if (arr(m.blocked).length) add(box, el('div', {class: 'evidence'}, 'Blocked by permissions: ' + m.blocked.map(nameOf).join(', ') + ' (no introduction sent).'));
     var cand = m.candidate || (run.candidates || []).filter(function (c) { return c.a === m.a && c.b === m.b; })[0];
     if (cand) {
       var ev = (cand.evidence || [])[0];
@@ -182,6 +196,7 @@
       add(d, el('div', {}, tn.text || ''));
     });
     var vs = add(box, el('div', {class: 'votes'}));
+    var oc = null;
     [m.a, m.b].forEach(function (id) {
       var v = (m.votes || {})[id];
       var d = add(vs, el('div', {class: 'vote ' + (v ? v.vote : '')}));
@@ -189,7 +204,54 @@
       add(d, el('div', {class: 'v'}, v ? 'Vote: ' + v.vote : 'No vote'));
       if (v) add(d, el('div', {}, v.reason || ''));
     });
+    if (live && m.result === 'introduced') {
+      oc = add(box, el('div', {class: 'outcomes'}));
+      add(oc, el('div', {class: 'evidence'}, 'Record an outcome (updates the weights):'));
+      ['pilot', 'hire', 'partnership', 'no_follow_up'].forEach(function (o) {
+        var b = add(oc, el('button', {class: 'oc'}, o.replace('_', ' ')));
+        b.addEventListener('click', function () { sendFeedback(m, o, b); });
+      });
+    }
   }
+  function sendFeedback(m, outcome, btn) {
+    btn.disabled = true;
+    fetch(API + '/feedback', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({meeting_id: m.id, outcome: outcome})})
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (f) { lastFeedback = {meeting: m, outcome: outcome, before: f.weights_before, after: f.weights_after}; renderWeights(); banner(''); })
+      .catch(function (e) { btn.disabled = false; banner('Could not record the outcome (' + e.message + ').'); });
+  }
+  // J6: before/after weights (CONTRACTS: key "kind|label", multiplier clamped 0.5-1.5, missing = 1.0)
+  function renderWeights() {
+    var card = $('weightsCard'), box = $('weights'); box.textContent = '';
+    var before = lastFeedback ? lastFeedback.before : run.weights_before;
+    var after = lastFeedback ? lastFeedback.after : run.weights_after;
+    before = before && typeof before === 'object' ? before : {};
+    after = after && typeof after === 'object' ? after : {};
+    var keys = Object.keys(before).concat(Object.keys(after).filter(function (k) { return !(k in before); }));
+    card.hidden = !keys.length;
+    if (!keys.length) return;
+    add(box, el('div', {class: 'evidence'}, lastFeedback
+      ? 'After outcome "' + lastFeedback.outcome.replace('_', ' ') + '" for ' + nameOf(lastFeedback.meeting.a) + ' + ' + nameOf(lastFeedback.meeting.b) + '. Higher weight means the scout favors that kind of pairing.'
+      : 'Scout weights before and after this round\'s recorded outcomes. Higher weight means the scout favors that kind of pairing.'));
+    keys.sort(function (a, b) {
+      var da = Math.abs(w(after, a) - w(before, a)), db = Math.abs(w(after, b) - w(before, b));
+      return db - da || (a < b ? -1 : 1);
+    });
+    keys.forEach(function (k) {
+      var b = w(before, k), a = w(after, k), d = a - b;
+      var row = add(box, el('div', {class: 'wrow' + (Math.abs(d) > 0.0005 ? ' changed' : '')}));
+      add(row, el('div', {class: 'wkey'}, k.replace('|', ' / ')));
+      var bars = add(row, el('div', {class: 'wbars'}));
+      [['before', b], ['after', a]].forEach(function (p) {
+        var t = add(bars, el('div', {class: 'wbar ' + p[0]})), f = add(t, el('i'));
+        f.style.width = Math.max(2, Math.min(100, (p[1] - 0.5) * 100)) + '%';
+        if (p[0] === 'after' && d) f.style.background = d > 0 ? 'var(--ok)' : 'var(--bad)';
+      });
+      var num = add(row, el('div', {class: 'wnum'}, b.toFixed(2) + ' \u2192 ' + a.toFixed(2) + (d ? '  (' + (d > 0 ? '+' : '') + d.toFixed(2) + ')' : '  (unchanged)')));
+      if (d) num.style.color = d > 0 ? 'var(--ok)' : 'var(--bad)';
+    });
+  }
+  function w(o, k) { return typeof o[k] === 'number' ? o[k] : 1; }
   function renderOutbox() {
     var box = $('outbox'); box.textContent = '';
     var visible = {};
@@ -203,8 +265,10 @@
     });
   }
   function renderProgress() {
-    $('progress').textContent = 'Meeting ' + shown + ' of ' + run.meetings.length;
-    $('btnPlay').innerHTML = playing ? '&#10074;&#10074; Pause' : (shown >= run.meetings.length && shown > 0 ? '&#8634; Replay' : '&#9654; Play');
+    $('progress').textContent = 'Meeting ' + shown + ' of ' + run.meetings.length + (isRunning() ? '+' : '');
+    $('runInd').hidden = !(pollTimer || busy);
+    $('btnSpeed').textContent = speed + '\u00d7';
+    $('btnPlay').innerHTML = playing ? '&#10074;&#10074; Pause' : (shown >= run.meetings.length && shown > 0 && !isRunning() ? '&#8634; Replay' : '&#9654; Play');
     $('btnBack').disabled = shown === 0;
     $('btnFwd').disabled = shown >= run.meetings.length;
     $('btnRestart').disabled = shown === 0 && !playing;
@@ -212,16 +276,16 @@
     if (busy) $('btnRound').disabled = true; else if (live && !/unavailable/.test($('banner').textContent)) $('btnRound').disabled = false;
   }
   function render(animateIdx) {
-    renderStats(); renderLegend(); renderMap(animateIdx); renderList(); renderDetail(); renderOutbox(); renderProgress();
+    renderStats(); renderLegend(); renderMap(animateIdx); renderList(); renderDetail(); renderOutbox(); renderWeights(); renderProgress();
   }
 
   // ---- replay ----
   function select(i) { if (i >= shown) shown = i + 1; selected = i; render(); }
   function stop() { playing = false; clearInterval(timer); timer = null; }
   function forward() {
-    if (shown >= run.meetings.length) { stop(); render(); return; }
+    if (shown >= run.meetings.length) { if (!isRunning()) stop(); render(); return; }
     shown++; selected = shown - 1; render(shown - 1);
-    if (shown >= run.meetings.length) stop(), renderProgress();
+    if (shown >= run.meetings.length && !isRunning()) stop(), renderProgress();
   }
   function back() { if (shown > 0) { shown--; selected = shown - 1; render(); } }
   function play() {
@@ -229,30 +293,78 @@
     if (!run.meetings.length) { render(); return; }
     if (shown >= run.meetings.length) { shown = 0; selected = -1; }
     playing = true; render();
-    timer = setInterval(forward, 3200);
+    userPaused = false;
+    timer = setInterval(forward, STEP_MS / speed);
     if (shown === 0) forward();
   }
-  function restart() { stop(); shown = 0; selected = -1; render(); }
+  function setSpeed() {
+    speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+    if (playing) { clearInterval(timer); timer = setInterval(forward, STEP_MS / speed); }
+    renderProgress();
+  }
+  function restart() { stop(); userPaused = true; shown = 0; selected = -1; render(); }
+
+  // ---- live polling (backend rewrites runs/latest after each meeting; status running|complete) ----
+  function startPolling() { if (!pollTimer) { pollTimer = setInterval(pollOnce, 1500); renderProgress(); } }
+  function stopPolling() { clearInterval(pollTimer); pollTimer = null; renderProgress(); }
+  function pollOnce() {
+    if (pollBusy) return;
+    pollBusy = true;
+    loadLive().then(function (r) { pollBusy = false; applyUpdate(r, false); }, function () { pollBusy = false; });
+  }
+  function applyUpdate(r, final) {
+    r = normalize(r);
+    // While a round is starting, latest still holds the previous run: ignore it.
+    if (busy && !final && roundBase !== null && r.run_id === roundBase) return;
+    if (r.run_id && run.run_id && r.run_id !== run.run_id) { setRun(r); play(); }
+    else {
+      var grew = r.members.length !== run.members.length;
+      run = r;
+      if (grew) { index(); layout(); }
+      if (!playing && !userPaused && shown < run.meetings.length) {
+        playing = true; timer = setInterval(forward, STEP_MS / speed);
+      }
+      render();
+    }
+    if (!busy && run.status !== 'running') stopPolling();
+  }
 
   function runRound() {
     if (!live || busy) return;
-    busy = true; stop(); renderProgress(); banner('');
+    busy = true; stop(); roundBase = run.run_id || null; renderProgress(); banner(''); startPolling();
     fetch(API + '/round', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}'})
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(function () { return loadLive(); })
-      .then(function (r) { busy = false; setRun(r); play(); })
-      .catch(function (e) { busy = false; banner('Could not run a round (' + e.message + '). Is the API running on ' + API + '?'); render(); });
+      .then(function (r) { busy = false; applyUpdate(r, true); })
+      .catch(function (e) { busy = false; stopPolling(); banner('Could not run a round (' + e.message + '). Is the API running on ' + API + '?'); render(); });
   }
 
-  $('btnPlay').addEventListener('click', function () { playing ? (stop(), render()) : play(); });
-  $('btnFwd').addEventListener('click', function () { stop(); forward(); render(); });
-  $('btnBack').addEventListener('click', function () { stop(); back(); });
+  $('btnPlay').addEventListener('click', function () { playing ? (userPaused = true, stop(), render()) : play(); });
+  $('btnSpeed').addEventListener('click', setSpeed);
+  $('btnPitch').addEventListener('click', togglePitch);
+  // Pitch mode hides the chrome; real fullscreen where the browser allows it, else just the layout.
+  function togglePitch() {
+    var on = !document.body.classList.contains('pitch');
+    document.body.classList.toggle('pitch', on);
+    var d = document.documentElement;
+    try {
+      if (on && d.requestFullscreen) d.requestFullscreen().catch(function () {});
+      else if (!on && document.fullscreenElement && document.exitFullscreen) document.exitFullscreen();
+    } catch (e) { /* layout-only fallback */ }
+  }
+  document.addEventListener('fullscreenchange', function () {
+    if (!document.fullscreenElement) document.body.classList.remove('pitch');
+  });
+  $('btnFwd').addEventListener('click', function () { userPaused = true; stop(); forward(); render(); });
+  $('btnBack').addEventListener('click', function () { userPaused = true; stop(); back(); });
   $('btnRestart').addEventListener('click', restart);
   $('btnRound').addEventListener('click', runRound);
   document.addEventListener('keydown', function (e) {
     if (e.key === ' ') { e.preventDefault(); $('btnPlay').click(); }
     else if (e.key === 'ArrowRight') $('btnFwd').click();
     else if (e.key === 'ArrowLeft') $('btnBack').click();
+    else if (e.key === 'f' || e.key === 'F') togglePitch();
+    else if (e.key === 'Escape' && document.body.classList.contains('pitch')) togglePitch();
   });
   init();
 })();

@@ -6,3 +6,4 @@ One line per decision the PRD and contracts don't settle. Newest first. Format: 
 - 11:45 — planning — Python and FastAPI for the tools — the IBM SDKs are Python, and FastAPI produces an OpenAPI description for free — Node.
 - 11:45 — planning — Commit straight to `main`, no pull requests — speed for a one-day build — branches with review.
 - 11:45 — planning — Repo private until the 5:30 PM secrets check — IBM suspends accounts for exposed credentials — public from the start.
+- 12:20 — jesse-Jessechg-44 — live mode polls `GET /runs/latest` every 1.5s while `status` is running and appends new meetings without restarting; the weights panel renders `weights_before/after` from the run (or the `POST /feedback` response after an outcome button) and hides when absent — a push stream or websocket needs backend work.
