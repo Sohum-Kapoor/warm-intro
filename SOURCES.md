@@ -30,3 +30,27 @@ Each was checked against its source on Nov 13, 2026.
 ## Websites used for data
 
 None.
+
+## Websites used for real organisation data
+
+Date checked: 2026-11-13. Organisation-level public facts only, paraphrased; no individuals; terms of use checked where a terms page was found (TechTown and The Right Place permit home-page links only, so only home pages are linked).
+
+| Organisation | URL | Source page |
+| --- | --- | --- |
+| TechTown Detroit | https://techtowndetroit.org/ | https://techtowndetroit.org/about/ |
+| Detroit Economic Growth Corporation | https://degc.org/ | https://www.degc.org/about |
+| Newlab Detroit | https://www.newlab.com/locations/detroit | https://www.newlab.com/locations/detroit |
+| Michigan Central | https://michigancentral.com/ | https://michigancentral.com/about/ |
+| Detroit at Work | https://detroitatwork.com/ | https://detroitatwork.com/ |
+| Automation Alley | https://automationalley.com/ | https://automationalley.com/about/ |
+| Wayne State University Division of Research & Innovation | https://research.wayne.edu/ | https://research.wayne.edu/industry-relations |
+| The Right Place | https://www.rightplace.org/ | https://www.rightplace.org/ |
+| Start Garden | https://startgarden.com/ | https://startgarden.com/programs/ |
+| Hello West Michigan | https://www.hellowestmichigan.com/ | https://www.hellowestmichigan.com/ |
+| Ann Arbor SPARK | https://www.annarborusa.org/ | https://www.annarborusa.org/ |
+| Michigan Economic Development Corporation | https://www.michiganbusiness.org/ | https://www.michiganbusiness.org/ |
+| Michigan Small Business Development Center | https://michigansbdc.org/ | https://michigansbdc.org/ |
+| The Center (Michigan Manufacturing Technology Center) | https://www.the-center.org/ | https://www.the-center.org/ |
+| Michigan Works! Association | https://www.michiganworks.org/ | https://www.michiganworks.org/our-system/ |
+| MSU Innovation Center | https://innovationcenter.msu.edu/ | https://innovationcenter.msu.edu/ |
+| Michigan Women Forward | https://www.miwf.org/ | https://www.miwf.org/ |

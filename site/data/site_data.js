@@ -1,7 +1,7 @@
 window.WARM_INTRO = {
   "synthetic": true,
   "ai_generated": true,
-  "generated_at": "2026-11-13T14:09:37-05:00",
+  "generated_at": "2026-11-13T14:22:33-05:00",
   "provider": "watsonx",
   "chat_model": "ibm/granite-4-h-small",
   "embed_model": "ibm/granite-embedding-278m-multilingual",
@@ -21,7 +21,17 @@ window.WARM_INTRO = {
         "a stamping production line for pilots of camera inspection hardware",
         "prototype stamping runs of 500 to 5000 brackets"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "unpaid trials",
+        "stopping production for installs"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m002",
@@ -38,7 +48,17 @@ window.WARM_INTRO = {
         "camera surface defect inspection for stamped parts that mounts on a running line",
         "labelled defect image sets from earlier tests"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "sharing our source code",
+        "pilots longer than twelve weeks"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m003",
@@ -55,7 +75,17 @@ window.WARM_INTRO = {
         "robotics student who can engineer flight path planning software 15 hours a week",
         "path planning coursework and simulation code"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "unpaid roles",
+        "full-time hours during the semester"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m004",
@@ -72,7 +102,17 @@ window.WARM_INTRO = {
         "hands-on flight software roles on a small drone team",
         "equity in the company, with the first roles unpaid until the spring round"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "paying full price before a working demo",
+        "handing over our flight logs"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m005",
@@ -89,7 +129,17 @@ window.WARM_INTRO = {
         "a multi-plant manufacturer pilot site with real inbound shipments",
         "introductions to our supplier network"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "pilots without a signed data agreement",
+        "startups without a security audit"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m006",
@@ -106,7 +156,17 @@ window.WARM_INTRO = {
         "brand launch strategy and packaging story for food and beverage products",
         "naming and shelf placement experience"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "exclusivity that blocks other clients",
+        "equity as the only pay"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m007",
@@ -123,7 +183,17 @@ window.WARM_INTRO = {
         "a new food brand with a product ready to launch and room for a first marketing hire",
         "tasting panels and recipe testing"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "dropping our organic certification",
+        "minimum orders above ten pallets"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m008",
@@ -140,7 +210,17 @@ window.WARM_INTRO = {
         "live shipment tracking for inbound parts across several plants, tied to dispatch records",
         "late delivery alerts for plant schedulers"
       ],
-      "demo": true
+      "demo": true,
+      "deal_breakers": [
+        "exclusive contracts",
+        "building custom features for free"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m009",
@@ -156,7 +236,16 @@ window.WARM_INTRO = {
       "offers": [
         "parametric chair modelling and rendering",
         "wood joinery drawings"
-      ]
+      ],
+      "deal_breakers": [
+        "owning no credit for the design"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m010",
@@ -172,7 +261,16 @@ window.WARM_INTRO = {
       "offers": [
         "bedside workflow review from ten years of nursing",
         "plain-language patient handout writing"
-      ]
+      ],
+      "deal_breakers": [
+        "tools that store patient names"
+      ],
+      "intro_budget": 1,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m011",
@@ -188,7 +286,16 @@ window.WARM_INTRO = {
       "offers": [
         "journeyman TIG welding on stainless and aluminum",
         "weld inspection and fit-up checks"
-      ]
+      ],
+      "deal_breakers": [
+        "night shifts only"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m012",
@@ -204,7 +311,16 @@ window.WARM_INTRO = {
       "offers": [
         "soil sampling and nutrient lab analysis",
         "cover crop seed mix planning"
-      ]
+      ],
+      "deal_breakers": [
+        "trials that skip permission from landowners"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m013",
@@ -220,7 +336,16 @@ window.WARM_INTRO = {
       "offers": [
         "backend API development in Go",
         "database schema design for telemetry"
-      ]
+      ],
+      "deal_breakers": [
+        "weekday hours"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m014",
@@ -236,7 +361,16 @@ window.WARM_INTRO = {
       "offers": [
         "spreadsheet modelling and bookkeeping clean-up",
         "monthly close checklists"
-      ]
+      ],
+      "deal_breakers": [
+        "handling cash"
+      ],
+      "intro_budget": 1,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m015",
@@ -252,7 +386,16 @@ window.WARM_INTRO = {
       "offers": [
         "dispatch scheduling for refrigerated freight",
         "driver recruiting and route planning"
-      ]
+      ],
+      "deal_breakers": [
+        "loads without a signed rate sheet"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m016",
@@ -268,7 +411,16 @@ window.WARM_INTRO = {
       "offers": [
         "science curriculum writing and lesson piloting",
         "classroom feedback on student software"
-      ]
+      ],
+      "deal_breakers": [
+        "tools that need student email accounts"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m017",
@@ -284,7 +436,16 @@ window.WARM_INTRO = {
       "offers": [
         "finite element analysis of racing parts",
         "sponsor logo placement and event exposure"
-      ]
+      ],
+      "deal_breakers": [
+        "parts delivered after the race season"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m018",
@@ -300,7 +461,16 @@ window.WARM_INTRO = {
       "offers": [
         "federal and state workforce grant writing",
         "budget narrative drafting"
-      ]
+      ],
+      "deal_breakers": [
+        "fees paid only if funded"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m019",
@@ -316,7 +486,16 @@ window.WARM_INTRO = {
       "offers": [
         "ISO 9001 audit preparation and corrective action coaching",
         "supplier scorecard design"
-      ]
+      ],
+      "deal_breakers": [
+        "on-site work more than two days a week"
+      ],
+      "intro_budget": 1,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": false
+      }
     },
     {
       "id": "m020",
@@ -332,7 +511,16 @@ window.WARM_INTRO = {
       "offers": [
         "demand forecasting models in Python",
         "dashboard prototypes in a notebook"
-      ]
+      ],
+      "deal_breakers": [
+        "data she must sign away"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m021",
@@ -348,7 +536,16 @@ window.WARM_INTRO = {
       "offers": [
         "usability testing and interview studies",
         "onboarding flow critique"
-      ]
+      ],
+      "deal_breakers": [
+        "studies with no budget for participants"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m022",
@@ -364,7 +561,16 @@ window.WARM_INTRO = {
       "offers": [
         "medication refill reminder app with pharmacy tracking",
         "plain-language patient messaging templates"
-      ]
+      ],
+      "deal_breakers": [
+        "selling patient lists"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m023",
@@ -380,7 +586,16 @@ window.WARM_INTRO = {
       "offers": [
         "foundry sand reclamation that cuts landfill fees",
         "monthly sand quality reports"
-      ]
+      ],
+      "deal_breakers": [
+        "pilots that move waste off-site"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m024",
@@ -396,7 +611,16 @@ window.WARM_INTRO = {
       "offers": [
         "adaptive math practice software for grades six to eight",
         "teacher dashboards for skill gaps"
-      ]
+      ],
+      "deal_breakers": [
+        "selling student data"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m025",
@@ -412,7 +636,16 @@ window.WARM_INTRO = {
       "offers": [
         "second-life battery packs for backup power",
         "state-of-health reports on used cells"
-      ]
+      ],
+      "deal_breakers": [
+        "warranty claims without testing records"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m026",
@@ -428,7 +661,16 @@ window.WARM_INTRO = {
       "offers": [
         "gentle robotic berry picking arms",
         "harvest timing analytics"
-      ]
+      ],
+      "deal_breakers": [
+        "testing outside daylight hours"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m027",
@@ -444,7 +686,16 @@ window.WARM_INTRO = {
       "offers": [
         "invoice matching software that reads scanned PDFs",
         "automatic coding of vendor bills"
-      ]
+      ],
+      "deal_breakers": [
+        "storing bank logins"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m028",
@@ -460,7 +711,16 @@ window.WARM_INTRO = {
       "offers": [
         "cash flow forecasting for small shops",
         "late payment warnings for owners"
-      ]
+      ],
+      "deal_breakers": [
+        "lender exclusivity"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m029",
@@ -476,7 +736,16 @@ window.WARM_INTRO = {
       "offers": [
         "3D printed sand molds for short run castings",
         "pattern-free prototype castings in a week"
-      ]
+      ],
+      "deal_breakers": [
+        "orders without drawings"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m030",
@@ -492,7 +761,16 @@ window.WARM_INTRO = {
       "offers": [
         "compostable seaweed-based food trays",
         "shelf-life test data on tray materials"
-      ]
+      ],
+      "deal_breakers": [
+        "plastic liners"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m031",
@@ -508,7 +786,16 @@ window.WARM_INTRO = {
       "offers": [
         "hands-free voice logging of shop floor downtime",
         "noise-tolerant speech models"
-      ]
+      ],
+      "deal_breakers": [
+        "recording conversations without notice"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m032",
@@ -524,7 +811,16 @@ window.WARM_INTRO = {
       "offers": [
         "oven energy monitoring that flags waste heat",
         "monthly savings reports"
-      ]
+      ],
+      "deal_breakers": [
+        "site visits without notice"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m033",
@@ -540,7 +836,16 @@ window.WARM_INTRO = {
       "offers": [
         "progressive die design and build for tight tolerance parts",
         "die repair within three days"
-      ]
+      ],
+      "deal_breakers": [
+        "rush jobs with no drawings"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m034",
@@ -556,7 +861,16 @@ window.WARM_INTRO = {
       "offers": [
         "injection molding runs up to 200,000 housings",
         "mold maintenance with a one-day turnaround"
-      ]
+      ],
+      "deal_breakers": [
+        "resin shipped without certificates"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m035",
@@ -572,7 +886,16 @@ window.WARM_INTRO = {
       "offers": [
         "low-pressure aluminum castings for pumps and housings",
         "pattern storage for returning customers"
-      ]
+      ],
+      "deal_breakers": [
+        "contracts that bar other buyers"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m036",
@@ -588,7 +911,16 @@ window.WARM_INTRO = {
       "offers": [
         "custom walnut conference tables",
         "furniture refinishing for schools"
-      ]
+      ],
+      "deal_breakers": [
+        "lumber with no origin papers"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m037",
@@ -604,7 +936,16 @@ window.WARM_INTRO = {
       "offers": [
         "frozen dough and laminated pastry production for grocers",
         "bakery test kitchen time for new recipes"
-      ]
+      ],
+      "deal_breakers": [
+        "allergen mix-ups"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m038",
@@ -620,7 +961,16 @@ window.WARM_INTRO = {
       "offers": [
         "test acreage for orchard and berry robots",
         "fresh-pick quality scoring by the pallet"
-      ]
+      ],
+      "deal_breakers": [
+        "machines that crush fruit"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m039",
@@ -636,7 +986,16 @@ window.WARM_INTRO = {
       "offers": [
         "CNC machining apprenticeship with paid first year",
         "prototype and racing parts machined at cost for students"
-      ]
+      ],
+      "deal_breakers": [
+        "unpaid apprenticeships"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m040",
@@ -652,7 +1011,16 @@ window.WARM_INTRO = {
       "offers": [
         "custom corrugated boxes and die cut inserts",
         "warehouse kitting for small brands"
-      ]
+      ],
+      "deal_breakers": [
+        "jobs under 500 boxes"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m041",
@@ -668,7 +1036,16 @@ window.WARM_INTRO = {
       "offers": [
         "industrial design, 3D visuals and packaging graphics",
         "design sprints for new product lines"
-      ]
+      ],
+      "deal_breakers": [
+        "work with no creative credit"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m042",
@@ -684,7 +1061,16 @@ window.WARM_INTRO = {
       "offers": [
         "refrigerated trucking between the three metro areas",
         "dock-to-dock delivery windows"
-      ]
+      ],
+      "deal_breakers": [
+        "loads over 44,000 pounds"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m043",
@@ -700,7 +1086,16 @@ window.WARM_INTRO = {
       "offers": [
         "bookkeeping and tax preparation for machine shops",
         "year-end inventory counts"
-      ]
+      ],
+      "deal_breakers": [
+        "clients who pay in cash only"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m044",
@@ -716,7 +1111,16 @@ window.WARM_INTRO = {
       "offers": [
         "taproom event space for startup demos",
         "limited-run beers for corporate events"
-      ]
+      ],
+      "deal_breakers": [
+        "events after midnight"
+      ],
+      "intro_budget": 1,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m045",
@@ -732,7 +1136,16 @@ window.WARM_INTRO = {
       "offers": [
         "wire harness assembly for e-bike and tractor makers",
         "connector sourcing for small runs"
-      ]
+      ],
+      "deal_breakers": [
+        "engineering changes after release"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m046",
@@ -748,7 +1161,16 @@ window.WARM_INTRO = {
       "offers": [
         "stainless fabrication for food equipment",
         "orbital welding of sanitary tube"
-      ]
+      ],
+      "deal_breakers": [
+        "carbon steel only jobs"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m047",
@@ -764,7 +1186,16 @@ window.WARM_INTRO = {
       "offers": [
         "volume purchase contracts for brackets and housings",
         "ramp-up engineering support for new suppliers"
-      ]
+      ],
+      "deal_breakers": [
+        "suppliers without quality certificates"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m048",
@@ -780,7 +1211,16 @@ window.WARM_INTRO = {
       "offers": [
         "milk and cheese supply contracts for grocers",
         "farm visits for food startups"
-      ]
+      ],
+      "deal_breakers": [
+        "uncooled shipments"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m049",
@@ -796,7 +1236,16 @@ window.WARM_INTRO = {
       "offers": [
         "teacher training network across forty districts",
         "classroom pilots with feedback surveys"
-      ]
+      ],
+      "deal_breakers": [
+        "tools that cannot export grades"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m050",
@@ -812,7 +1261,16 @@ window.WARM_INTRO = {
       "offers": [
         "clinic sites for digital health pilots",
         "nurse advisors for workflow review"
-      ]
+      ],
+      "deal_breakers": [
+        "apps that store records outside the network"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m051",
@@ -828,7 +1286,16 @@ window.WARM_INTRO = {
       "offers": [
         "small business credit lines with fast approval",
         "branch space for financial workshops"
-      ]
+      ],
+      "deal_breakers": [
+        "loan referrals with fees"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m052",
@@ -844,7 +1311,16 @@ window.WARM_INTRO = {
       "offers": [
         "pilot sites on substation land",
         "rebate programs for efficiency upgrades"
-      ]
+      ],
+      "deal_breakers": [
+        "equipment without safety listings"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": false,
+        "contact_member": true
+      }
     },
     {
       "id": "m053",
@@ -860,7 +1336,16 @@ window.WARM_INTRO = {
       "offers": [
         "cut-to-length steel coil for stamping shops",
         "next-day delivery on standard gauges"
-      ]
+      ],
+      "deal_breakers": [
+        "orders without purchase numbers"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m054",
@@ -876,7 +1361,16 @@ window.WARM_INTRO = {
       "offers": [
         "bulk furniture orders for schools and campuses",
         "showroom space for new designers"
-      ]
+      ],
+      "deal_breakers": [
+        "materials with no traceability"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m055",
@@ -892,7 +1386,16 @@ window.WARM_INTRO = {
       "offers": [
         "warehouse space near the rail yard",
         "rail to truck transfer service"
-      ]
+      ],
+      "deal_breakers": [
+        "unannounced dock arrivals"
+      ],
+      "intro_budget": 2,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m056",
@@ -908,7 +1411,16 @@ window.WARM_INTRO = {
       "offers": [
         "private label canned vegetable contracts",
         "plant tours for packaging startups"
-      ]
+      ],
+      "deal_breakers": [
+        "packaging that taints flavor"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m057",
@@ -924,7 +1436,16 @@ window.WARM_INTRO = {
       "offers": [
         "enterprise scheduling software licenses",
         "summer internships with mentors"
-      ]
+      ],
+      "deal_breakers": [
+        "unlicensed use of our code"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m058",
@@ -940,7 +1461,16 @@ window.WARM_INTRO = {
       "offers": [
         "architecture and interiors for plants and offices",
         "site planning for new factories"
-      ]
+      ],
+      "deal_breakers": [
+        "fixed-fee jobs with open scope"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m059",
@@ -956,7 +1486,16 @@ window.WARM_INTRO = {
       "offers": [
         "recycled polypropylene resin pellets",
         "material test sheets for molders"
-      ]
+      ],
+      "deal_breakers": [
+        "contaminated feedstock"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     },
     {
       "id": "m060",
@@ -972,7 +1511,16 @@ window.WARM_INTRO = {
       "offers": [
         "bus fleet test routes in two cities",
         "transit schedule data feeds"
-      ]
+      ],
+      "deal_breakers": [
+        "hardware that blocks the driver view"
+      ],
+      "intro_budget": 3,
+      "permissions": {
+        "share_profile": true,
+        "propose_meetings": true,
+        "contact_member": true
+      }
     }
   ],
   "demo_run": {
@@ -4237,29 +4785,499 @@ window.WARM_INTRO = {
       }
     }
   ],
+  "resources": [
+    {
+      "id": "r01",
+      "name": "TechTown Detroit",
+      "hub": "detroit",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "small_business"
+      ],
+      "description": "Detroit nonprofit running programs, coaching, coworking and competitions for tech startups and small businesses, including mobility and health-tech tracks.",
+      "helps_with": [
+        "a business coach for a Detroit corner shop",
+        "pitch competition prize money for a new retail business",
+        "coworking desk for a tech startup",
+        "back-office HR and finance setup for a small company"
+      ],
+      "url": "https://techtowndetroit.org/",
+      "source_page": "https://techtowndetroit.org/about/",
+      "terms_note": "Terms of Service (techtowndetroit.org/terms-of-service/) bans deep-linking to any page other than the home page without written permission; so only the home page is linked here."
+    },
+    {
+      "id": "r02",
+      "name": "Detroit Economic Growth Corporation",
+      "hub": "detroit",
+      "category": "economic_development",
+      "serves": [
+        "small_business",
+        "corporation",
+        "startup"
+      ],
+      "description": "The City of Detroit's economic development body, working on business expansion, retention, incentives, land and small business services in Detroit.",
+      "helps_with": [
+        "tax incentives for expanding a plant inside Detroit",
+        "finding commercial land in Detroit for a new facility",
+        "matching funds for a neighborhood storefront",
+        "selling to the City of Detroit as a local supplier"
+      ],
+      "url": "https://degc.org/",
+      "source_page": "https://www.degc.org/about",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r03",
+      "name": "Newlab Detroit",
+      "hub": "detroit",
+      "category": "accelerator",
+      "serves": [
+        "startup",
+        "corporation"
+      ],
+      "description": "Venture platform at Michigan Central that gives startups prototyping labs and pilot opportunities, and works with large companies on critical technologies, especially mobility.",
+      "helps_with": [
+        "prototyping lab access for a hardware startup",
+        "first pilot customer for a mobility technology",
+        "testing a drone or aerial technology outdoors",
+        "a large company seeking startups to pilot a new technology"
+      ],
+      "url": "https://www.newlab.com/locations/detroit",
+      "source_page": "https://www.newlab.com/locations/detroit",
+      "terms_note": "No terms page found (only a privacy policy link); nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r04",
+      "name": "Michigan Central",
+      "hub": "detroit",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "corporation",
+        "individual"
+      ],
+      "description": "Detroit mobility innovation campus around the restored train station, with talent development, pilot programs and a training fund alongside community and event space.",
+      "helps_with": [
+        "a pilot site to test a mobility product in a real city",
+        "training for jobs in the mobility industry",
+        "a partner campus for a corporate innovation team",
+        "a venue to host an industry event"
+      ],
+      "url": "https://michigancentral.com/",
+      "source_page": "https://michigancentral.com/about/",
+      "terms_note": "Terms (michigancentral.com/terms-conditions/) allow linking if you do not frame, in-line or copy site content; this dataset only links."
+    },
+    {
+      "id": "r05",
+      "name": "Detroit at Work",
+      "hub": "detroit",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "small_business",
+        "corporation"
+      ],
+      "description": "City of Detroit job and training portal listing jobs, free training, job fairs and career centers, with services for employers and business owners.",
+      "helps_with": [
+        "free training for an in-demand trade in Detroit",
+        "a job fair to find local hires",
+        "resume writing and ID help for a job seeker",
+        "local hiring help for a Detroit employer"
+      ],
+      "url": "https://detroitatwork.com/",
+      "source_page": "https://detroitatwork.com/",
+      "terms_note": "Terms and Conditions page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r06",
+      "name": "Automation Alley",
+      "hub": "detroit",
+      "category": "manufacturing_support",
+      "serves": [
+        "small_business",
+        "corporation"
+      ],
+      "description": "Southeast Michigan technology and manufacturing nonprofit helping manufacturers adopt Industry 4.0 technologies through roundtables, playbooks, case studies and international trade missions.",
+      "helps_with": [
+        "Industry 4.0 digital transformation plan for a small plant",
+        "an international trade mission for a manufacturer",
+        "adopting robotics and additive manufacturing on the shop floor",
+        "cybersecurity basics for a manufacturing company"
+      ],
+      "url": "https://automationalley.com/",
+      "source_page": "https://automationalley.com/about/",
+      "terms_note": "Terms and privacy page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r07",
+      "name": "Wayne State University Division of Research & Innovation",
+      "hub": "detroit",
+      "category": "university_program",
+      "serves": [
+        "corporation",
+        "startup",
+        "individual"
+      ],
+      "description": "Wayne State's research office connects industry with university research, facilities, student talent and continuing education, via its technology commercialization and entrepreneurship units.",
+      "helps_with": [
+        "licensing a university-developed technology",
+        "a research partnership with a university lab for a company",
+        "hiring Wayne State students or alumni",
+        "a university program to commercialize a medical invention"
+      ],
+      "url": "https://research.wayne.edu/",
+      "source_page": "https://research.wayne.edu/industry-relations",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r08",
+      "name": "The Right Place",
+      "hub": "grand_rapids",
+      "category": "economic_development",
+      "serves": [
+        "corporation",
+        "small_business",
+        "startup"
+      ],
+      "description": "Economic development organization for Greater Grand Rapids helping companies with site location, incentives, supply chain connections, manufacturing innovation and international business.",
+      "helps_with": [
+        "choosing a site for a new West Michigan facility",
+        "state and local incentives for an expansion",
+        "supply chain partners for a food processor",
+        "exporting from West Michigan"
+      ],
+      "url": "https://www.rightplace.org/",
+      "source_page": "https://www.rightplace.org/",
+      "terms_note": "Terms of Use (rightplace.org/legal/terms-of-use) permit linking only to the home page, without implying endorsement; so only the home page is linked."
+    },
+    {
+      "id": "r09",
+      "name": "Start Garden",
+      "hub": "grand_rapids",
+      "category": "accelerator",
+      "serves": [
+        "startup",
+        "individual",
+        "small_business"
+      ],
+      "description": "Grand Rapids entrepreneurship organization running pitch competitions, maker spaces and kitchen incubators, with a coalition offering grants, loans and first-customer contracts.",
+      "helps_with": [
+        "a $5,000 grant from a pitch night for a new idea",
+        "a shared commercial kitchen for a food startup",
+        "a maker space to build a first prototype",
+        "first-customer contracts for an early-stage company"
+      ],
+      "url": "https://startgarden.com/",
+      "source_page": "https://startgarden.com/programs/",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r10",
+      "name": "Hello West Michigan",
+      "hub": "grand_rapids",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "corporation"
+      ],
+      "description": "West Michigan job board and relocation site where job seekers share resumes and member employers post openings, with information about living in the region.",
+      "helps_with": [
+        "a job in West Michigan after relocating",
+        "posting openings to West Michigan candidates",
+        "moving to Grand Rapids for work",
+        "recruiting experienced hires to West Michigan"
+      ],
+      "url": "https://www.hellowestmichigan.com/",
+      "source_page": "https://www.hellowestmichigan.com/",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r11",
+      "name": "Ann Arbor SPARK",
+      "hub": "ann_arbor",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "small_business",
+        "corporation"
+      ],
+      "description": "Southeast Michigan economic development group offering entrepreneur boot camp, startup grants, coworking, coaching, funding access and business expansion consulting.",
+      "helps_with": [
+        "an entrepreneur boot camp to test a startup idea",
+        "startup milestone grants in Washtenaw County",
+        "lab or office space for a growing company",
+        "site selection consulting for a company relocating to Michigan"
+      ],
+      "url": "https://www.annarborusa.org/",
+      "source_page": "https://www.annarborusa.org/",
+      "terms_note": "No terms page link found on the page read; nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r12",
+      "name": "Michigan Economic Development Corporation",
+      "hub": "statewide",
+      "category": "economic_development",
+      "serves": [
+        "startup",
+        "small_business",
+        "corporation"
+      ],
+      "description": "State economic development agency covering small business, startup R&D funding, commercialization, talent, manufacturing and a site selection database for companies.",
+      "helps_with": [
+        "R&D funding for a new technology startup",
+        "a site selection database search for a new plant",
+        "guidance on state financing for a small business",
+        "commercialization partners for a space or energy startup"
+      ],
+      "url": "https://www.michiganbusiness.org/",
+      "source_page": "https://www.michiganbusiness.org/",
+      "terms_note": "A Terms and Conditions page exists (/about-medc/terms-and-conditions/) but could not be opened (HTTP 403); restrictions unknown."
+    },
+    {
+      "id": "r13",
+      "name": "Michigan Small Business Development Center",
+      "hub": "statewide",
+      "category": "small_business_support",
+      "serves": [
+        "small_business",
+        "startup",
+        "individual"
+      ],
+      "description": "Statewide network offering no-cost consulting and training to people starting, growing or selling a small business, with market research, export and cybersecurity services.",
+      "helps_with": [
+        "free consulting to write a business plan",
+        "market research for a new product",
+        "export help for a small manufacturer",
+        "buying or selling an existing small business"
+      ],
+      "url": "https://michigansbdc.org/",
+      "source_page": "https://michigansbdc.org/",
+      "terms_note": "Disclaimer page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r14",
+      "name": "The Center (Michigan Manufacturing Technology Center)",
+      "hub": "statewide",
+      "category": "manufacturing_support",
+      "serves": [
+        "small_business",
+        "corporation"
+      ],
+      "description": "Michigan manufacturer assistance organization with regional offices, offering lean, Six Sigma, quality, Industry 4.0, cybersecurity and food-processing consulting and training.",
+      "helps_with": [
+        "lean manufacturing training for a small plant",
+        "ISO or quality system certification for a supplier",
+        "Six Sigma coaching for a production team",
+        "cost reduction analysis for a machine shop"
+      ],
+      "url": "https://www.the-center.org/",
+      "source_page": "https://www.the-center.org/",
+      "terms_note": "Only a privacy policy link found; nothing found that forbids referencing or linking. Site formerly mmtc.org."
+    },
+    {
+      "id": "r15",
+      "name": "Michigan Works! Association",
+      "hub": "statewide",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "small_business",
+        "corporation"
+      ],
+      "description": "Association of Michigan's statewide workforce development system, with business services, apprenticeship programs and skilled-immigrant integration, linking to local Michigan Works! agencies.",
+      "helps_with": [
+        "a registered apprenticeship program for a company",
+        "finding the local Michigan Works agency",
+        "recognition of an immigrant professional's skills in Michigan",
+        "employer talent and hiring services"
+      ],
+      "url": "https://www.michiganworks.org/",
+      "source_page": "https://www.michiganworks.org/our-system/",
+      "terms_note": "Legal page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r16",
+      "name": "MSU Innovation Center",
+      "hub": "statewide",
+      "category": "university_program",
+      "serves": [
+        "startup",
+        "corporation",
+        "individual"
+      ],
+      "description": "Michigan State University's hub for corporate partnerships, tech transfer and commercialization, and startup support for faculty and students.",
+      "helps_with": [
+        "licensing a university patent to a company",
+        "turning a student research project into a startup",
+        "sponsored research with a state university",
+        "investment-ready business plan for a campus spinout"
+      ],
+      "url": "https://innovationcenter.msu.edu/",
+      "source_page": "https://innovationcenter.msu.edu/",
+      "terms_note": "Privacy statement only found; nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r17",
+      "name": "Michigan Women Forward",
+      "hub": "statewide",
+      "category": "small_business_support",
+      "serves": [
+        "small_business",
+        "startup",
+        "individual"
+      ],
+      "description": "Nonprofit giving women entrepreneurs small business loans, classes, coaching and a pitch competition.",
+      "helps_with": [
+        "a small business loan for a woman-owned company",
+        "coaching for a first-time founder",
+        "a pitch competition for women entrepreneurs",
+        "small business classes on running finances"
+      ],
+      "url": "https://www.miwf.org/",
+      "source_page": "https://www.miwf.org/",
+      "terms_note": "Terms page (miwf.org/terms/) read; no restriction on referencing or linking found."
+    }
+  ],
+  "resources_note": "Real, public Michigan organisations. Each line paraphrases the organisation's own website, checked 2026-11-13. They are resources, not members: they never speak or vote; agents only point members to them.",
+  "resource_suggestions": {
+    "m001": [],
+    "m002": [],
+    "m003": [],
+    "m004": [],
+    "m005": [],
+    "m006": [
+      {
+        "resource_id": "r09",
+        "name": "Start Garden",
+        "url": "https://startgarden.com/",
+        "hub": "grand_rapids",
+        "category": "accelerator",
+        "for_need": "an early food or beverage brand to build from the start",
+        "matched": "a shared commercial kitchen for a food startup",
+        "similarity": 0.736
+      }
+    ],
+    "m007": [
+      {
+        "resource_id": "r09",
+        "name": "Start Garden",
+        "url": "https://startgarden.com/",
+        "hub": "grand_rapids",
+        "category": "accelerator",
+        "for_need": "brand launch strategy and packaging story for a new food product",
+        "matched": "a shared commercial kitchen for a food startup",
+        "similarity": 0.714
+      },
+      {
+        "resource_id": "r13",
+        "name": "Michigan Small Business Development Center",
+        "url": "https://michigansbdc.org/",
+        "hub": "statewide",
+        "category": "small_business_support",
+        "for_need": "brand launch strategy and packaging story for a new food product",
+        "matched": "market research for a new product",
+        "similarity": 0.714
+      }
+    ],
+    "m008": [
+      {
+        "resource_id": "r03",
+        "name": "Newlab Detroit",
+        "url": "https://www.newlab.com/locations/detroit",
+        "hub": "detroit",
+        "category": "accelerator",
+        "for_need": "a large manufacturer to pilot live shipment tracking across several plants",
+        "matched": "a large company seeking startups to pilot a new technology",
+        "similarity": 0.709
+      }
+    ],
+    "m010": [],
+    "m014": [
+      {
+        "resource_id": "r17",
+        "name": "Michigan Women Forward",
+        "url": "https://www.miwf.org/",
+        "hub": "statewide",
+        "category": "small_business_support",
+        "for_need": "an internship in manufacturing cost accounting",
+        "matched": "small business classes on running finances",
+        "similarity": 0.715
+      },
+      {
+        "resource_id": "r15",
+        "name": "Michigan Works! Association",
+        "url": "https://www.michiganworks.org/",
+        "hub": "statewide",
+        "category": "workforce",
+        "for_need": "an internship in manufacturing cost accounting",
+        "matched": "a registered apprenticeship program for a company",
+        "similarity": 0.708
+      }
+    ],
+    "m017": [],
+    "m020": [],
+    "m022": [],
+    "m024": [],
+    "m028": [
+      {
+        "resource_id": "r01",
+        "name": "TechTown Detroit",
+        "url": "https://techtowndetroit.org/",
+        "hub": "detroit",
+        "category": "incubator",
+        "for_need": "a lending partner for shops that need working capital",
+        "matched": "a business coach for a Detroit corner shop",
+        "similarity": 0.728
+      },
+      {
+        "resource_id": "r02",
+        "name": "Detroit Economic Growth Corporation",
+        "url": "https://degc.org/",
+        "hub": "detroit",
+        "category": "economic_development",
+        "for_need": "a lending partner for shops that need working capital",
+        "matched": "matching funds for a neighborhood storefront",
+        "similarity": 0.724
+      }
+    ],
+    "m044": [
+      {
+        "resource_id": "r08",
+        "name": "The Right Place",
+        "url": "https://www.rightplace.org/",
+        "hub": "grand_rapids",
+        "category": "economic_development",
+        "for_need": "a bottle supplier with short lead times",
+        "matched": "supply chain partners for a food processor",
+        "similarity": 0.715
+      }
+    ],
+    "m049": []
+  },
   "learning": {
     "outcomes_recorded": [
       {
-        "key": "individual-startup|complementary",
-        "outcome": "pilot",
-        "times": 3,
-        "meeting_pair": [
-          "m007",
-          "m006"
-        ]
-      },
-      {
         "key": "small_business-startup|unexpected",
-        "outcome": "no_follow_up",
+        "outcome": "pilot",
         "times": 3,
         "meeting_pair": [
           "m002",
           "m001"
         ]
+      },
+      {
+        "key": "individual-startup|complementary",
+        "outcome": "no_follow_up",
+        "times": 3,
+        "meeting_pair": [
+          "m007",
+          "m006"
+        ]
       }
     ],
     "weights_before": {
-      "individual-startup|complementary": 1.26,
+      "individual-startup|complementary": 1.32,
       "small_business-startup|unexpected": 1.24,
       "corporation-corporation|complementary": 0.76,
       "startup-startup|unexpected": 1.16,
@@ -4271,8 +5289,8 @@ window.WARM_INTRO = {
       "small_business-small_business|complementary": 1.16
     },
     "weights_after": {
-      "individual-startup|complementary": 1.5,
-      "small_business-startup|unexpected": 1.0,
+      "individual-startup|complementary": 1.08,
+      "small_business-startup|unexpected": 1.48,
       "corporation-corporation|complementary": 0.76,
       "startup-startup|unexpected": 1.16,
       "individual-small_business|complementary": 1.16,
@@ -4288,7 +5306,7 @@ window.WARM_INTRO = {
         "b": "m004",
         "a_name": "Priya N.",
         "b_name": "Tern Aerial",
-        "score": 1.517,
+        "score": 1.59,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4297,7 +5315,7 @@ window.WARM_INTRO = {
         "b": "m006",
         "a_name": "Oatwhistle Foods",
         "b_name": "Marcus D.",
-        "score": 1.451,
+        "score": 1.52,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4315,7 +5333,7 @@ window.WARM_INTRO = {
         "b": "m022",
         "a_name": "Amara O.",
         "b_name": "Marrowbright Health",
-        "score": 1.197,
+        "score": 1.254,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4333,7 +5351,7 @@ window.WARM_INTRO = {
         "b": "m028",
         "a_name": "Sofia T.",
         "b_name": "Ledgerwren",
-        "score": 1.075,
+        "score": 1.126,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4342,7 +5360,7 @@ window.WARM_INTRO = {
         "b": "m014",
         "a_name": "Ledgerwren",
         "b_name": "Jasmine P.",
-        "score": 1.071,
+        "score": 1.122,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4356,6 +5374,15 @@ window.WARM_INTRO = {
         "label": "complementary"
       },
       {
+        "a": "m024",
+        "b": "m016",
+        "a_name": "Cobblestone Learning",
+        "b_name": "Nora B.",
+        "score": 1.039,
+        "kind": "individual-startup",
+        "label": "complementary"
+      },
+      {
         "a": "m007",
         "b": "m041",
         "a_name": "Oatwhistle Foods",
@@ -4363,24 +5390,24 @@ window.WARM_INTRO = {
         "score": 1.023,
         "kind": "small_business-startup",
         "label": "unexpected"
-      },
-      {
-        "a": "m051",
-        "b": "m028",
-        "a_name": "Stonebridge Credit Union",
-        "b_name": "Ledgerwren",
-        "score": 1.017,
-        "kind": "corporation-startup",
-        "label": "complementary"
       }
     ],
     "ranking_after": [
+      {
+        "a": "m002",
+        "b": "m001",
+        "a_name": "Lumen Sight",
+        "b_name": "Kestrel Stamping",
+        "score": 1.655,
+        "kind": "small_business-startup",
+        "label": "unexpected"
+      },
       {
         "a": "m003",
         "b": "m004",
         "a_name": "Priya N.",
         "b_name": "Tern Aerial",
-        "score": 1.806,
+        "score": 1.301,
         "kind": "individual-startup",
         "label": "complementary"
       },
@@ -4389,54 +5416,27 @@ window.WARM_INTRO = {
         "b": "m006",
         "a_name": "Oatwhistle Foods",
         "b_name": "Marcus D.",
-        "score": 1.727,
+        "score": 1.243,
         "kind": "individual-startup",
         "label": "complementary"
       },
       {
-        "a": "m010",
-        "b": "m022",
-        "a_name": "Amara O.",
-        "b_name": "Marrowbright Health",
-        "score": 1.425,
-        "kind": "individual-startup",
-        "label": "complementary"
+        "a": "m007",
+        "b": "m041",
+        "a_name": "Oatwhistle Foods",
+        "b_name": "Greywing Studio",
+        "score": 1.221,
+        "kind": "small_business-startup",
+        "label": "unexpected"
       },
       {
-        "a": "m020",
+        "a": "m044",
         "b": "m028",
-        "a_name": "Sofia T.",
+        "a_name": "Saltmarsh Brewing",
         "b_name": "Ledgerwren",
-        "score": 1.28,
-        "kind": "individual-startup",
-        "label": "complementary"
-      },
-      {
-        "a": "m028",
-        "b": "m014",
-        "a_name": "Ledgerwren",
-        "b_name": "Jasmine P.",
-        "score": 1.275,
-        "kind": "individual-startup",
-        "label": "complementary"
-      },
-      {
-        "a": "m024",
-        "b": "m016",
-        "a_name": "Cobblestone Learning",
-        "b_name": "Nora B.",
-        "score": 1.181,
-        "kind": "individual-startup",
-        "label": "complementary"
-      },
-      {
-        "a": "m026",
-        "b": "m012",
-        "a_name": "Heron Harvest Robotics",
-        "b_name": "Hannah S.",
-        "score": 1.161,
-        "kind": "individual-startup",
-        "label": "complementary"
+        "score": 1.191,
+        "kind": "small_business-startup",
+        "label": "unexpected"
       },
       {
         "a": "m005",
@@ -4448,22 +5448,40 @@ window.WARM_INTRO = {
         "label": "complementary"
       },
       {
-        "a": "m014",
-        "b": "m027",
-        "a_name": "Jasmine P.",
-        "b_name": "Quartzfold",
-        "score": 1.155,
+        "a": "m049",
+        "b": "m024",
+        "a_name": "Northmarsh Learning Group",
+        "b_name": "Cobblestone Learning",
+        "score": 1.043,
+        "kind": "corporation-startup",
+        "label": "complementary"
+      },
+      {
+        "a": "m010",
+        "b": "m022",
+        "a_name": "Amara O.",
+        "b_name": "Marrowbright Health",
+        "score": 1.026,
         "kind": "individual-startup",
         "label": "complementary"
       },
       {
-        "a": "m002",
-        "b": "m001",
-        "a_name": "Lumen Sight",
-        "b_name": "Kestrel Stamping",
-        "score": 1.118,
+        "a": "m051",
+        "b": "m028",
+        "a_name": "Stonebridge Credit Union",
+        "b_name": "Ledgerwren",
+        "score": 1.017,
+        "kind": "corporation-startup",
+        "label": "complementary"
+      },
+      {
+        "a": "m040",
+        "b": "m030",
+        "a_name": "Cordwain Packaging",
+        "b_name": "Kelpline Packaging",
+        "score": 0.975,
         "kind": "small_business-startup",
-        "label": "unexpected"
+        "label": "complementary"
       }
     ]
   }

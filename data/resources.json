@@ -1,0 +1,358 @@
+{
+  "synthetic": false,
+  "note": "Real, public Michigan organisations. Each line paraphrases the organisation's own website, checked 2026-11-13. They are resources, not members: they never speak or vote; agents only point members to them.",
+  "resources": [
+    {
+      "id": "r01",
+      "name": "TechTown Detroit",
+      "hub": "detroit",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "small_business"
+      ],
+      "description": "Detroit nonprofit running programs, coaching, coworking and competitions for tech startups and small businesses, including mobility and health-tech tracks.",
+      "helps_with": [
+        "a business coach for a Detroit corner shop",
+        "pitch competition prize money for a new retail business",
+        "coworking desk for a tech startup",
+        "back-office HR and finance setup for a small company"
+      ],
+      "url": "https://techtowndetroit.org/",
+      "source_page": "https://techtowndetroit.org/about/",
+      "terms_note": "Terms of Service (techtowndetroit.org/terms-of-service/) bans deep-linking to any page other than the home page without written permission; so only the home page is linked here."
+    },
+    {
+      "id": "r02",
+      "name": "Detroit Economic Growth Corporation",
+      "hub": "detroit",
+      "category": "economic_development",
+      "serves": [
+        "small_business",
+        "corporation",
+        "startup"
+      ],
+      "description": "The City of Detroit's economic development body, working on business expansion, retention, incentives, land and small business services in Detroit.",
+      "helps_with": [
+        "tax incentives for expanding a plant inside Detroit",
+        "finding commercial land in Detroit for a new facility",
+        "matching funds for a neighborhood storefront",
+        "selling to the City of Detroit as a local supplier"
+      ],
+      "url": "https://degc.org/",
+      "source_page": "https://www.degc.org/about",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r03",
+      "name": "Newlab Detroit",
+      "hub": "detroit",
+      "category": "accelerator",
+      "serves": [
+        "startup",
+        "corporation"
+      ],
+      "description": "Venture platform at Michigan Central that gives startups prototyping labs and pilot opportunities, and works with large companies on critical technologies, especially mobility.",
+      "helps_with": [
+        "prototyping lab access for a hardware startup",
+        "first pilot customer for a mobility technology",
+        "testing a drone or aerial technology outdoors",
+        "a large company seeking startups to pilot a new technology"
+      ],
+      "url": "https://www.newlab.com/locations/detroit",
+      "source_page": "https://www.newlab.com/locations/detroit",
+      "terms_note": "No terms page found (only a privacy policy link); nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r04",
+      "name": "Michigan Central",
+      "hub": "detroit",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "corporation",
+        "individual"
+      ],
+      "description": "Detroit mobility innovation campus around the restored train station, with talent development, pilot programs and a training fund alongside community and event space.",
+      "helps_with": [
+        "a pilot site to test a mobility product in a real city",
+        "training for jobs in the mobility industry",
+        "a partner campus for a corporate innovation team",
+        "a venue to host an industry event"
+      ],
+      "url": "https://michigancentral.com/",
+      "source_page": "https://michigancentral.com/about/",
+      "terms_note": "Terms (michigancentral.com/terms-conditions/) allow linking if you do not frame, in-line or copy site content; this dataset only links."
+    },
+    {
+      "id": "r05",
+      "name": "Detroit at Work",
+      "hub": "detroit",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "small_business",
+        "corporation"
+      ],
+      "description": "City of Detroit job and training portal listing jobs, free training, job fairs and career centers, with services for employers and business owners.",
+      "helps_with": [
+        "free training for an in-demand trade in Detroit",
+        "a job fair to find local hires",
+        "resume writing and ID help for a job seeker",
+        "local hiring help for a Detroit employer"
+      ],
+      "url": "https://detroitatwork.com/",
+      "source_page": "https://detroitatwork.com/",
+      "terms_note": "Terms and Conditions page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r06",
+      "name": "Automation Alley",
+      "hub": "detroit",
+      "category": "manufacturing_support",
+      "serves": [
+        "small_business",
+        "corporation"
+      ],
+      "description": "Southeast Michigan technology and manufacturing nonprofit helping manufacturers adopt Industry 4.0 technologies through roundtables, playbooks, case studies and international trade missions.",
+      "helps_with": [
+        "Industry 4.0 digital transformation plan for a small plant",
+        "an international trade mission for a manufacturer",
+        "adopting robotics and additive manufacturing on the shop floor",
+        "cybersecurity basics for a manufacturing company"
+      ],
+      "url": "https://automationalley.com/",
+      "source_page": "https://automationalley.com/about/",
+      "terms_note": "Terms and privacy page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r07",
+      "name": "Wayne State University Division of Research & Innovation",
+      "hub": "detroit",
+      "category": "university_program",
+      "serves": [
+        "corporation",
+        "startup",
+        "individual"
+      ],
+      "description": "Wayne State's research office connects industry with university research, facilities, student talent and continuing education, via its technology commercialization and entrepreneurship units.",
+      "helps_with": [
+        "licensing a university-developed technology",
+        "a research partnership with a university lab for a company",
+        "hiring Wayne State students or alumni",
+        "a university program to commercialize a medical invention"
+      ],
+      "url": "https://research.wayne.edu/",
+      "source_page": "https://research.wayne.edu/industry-relations",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r08",
+      "name": "The Right Place",
+      "hub": "grand_rapids",
+      "category": "economic_development",
+      "serves": [
+        "corporation",
+        "small_business",
+        "startup"
+      ],
+      "description": "Economic development organization for Greater Grand Rapids helping companies with site location, incentives, supply chain connections, manufacturing innovation and international business.",
+      "helps_with": [
+        "choosing a site for a new West Michigan facility",
+        "state and local incentives for an expansion",
+        "supply chain partners for a food processor",
+        "exporting from West Michigan"
+      ],
+      "url": "https://www.rightplace.org/",
+      "source_page": "https://www.rightplace.org/",
+      "terms_note": "Terms of Use (rightplace.org/legal/terms-of-use) permit linking only to the home page, without implying endorsement; so only the home page is linked."
+    },
+    {
+      "id": "r09",
+      "name": "Start Garden",
+      "hub": "grand_rapids",
+      "category": "accelerator",
+      "serves": [
+        "startup",
+        "individual",
+        "small_business"
+      ],
+      "description": "Grand Rapids entrepreneurship organization running pitch competitions, maker spaces and kitchen incubators, with a coalition offering grants, loans and first-customer contracts.",
+      "helps_with": [
+        "a $5,000 grant from a pitch night for a new idea",
+        "a shared commercial kitchen for a food startup",
+        "a maker space to build a first prototype",
+        "first-customer contracts for an early-stage company"
+      ],
+      "url": "https://startgarden.com/",
+      "source_page": "https://startgarden.com/programs/",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r10",
+      "name": "Hello West Michigan",
+      "hub": "grand_rapids",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "corporation"
+      ],
+      "description": "West Michigan job board and relocation site where job seekers share resumes and member employers post openings, with information about living in the region.",
+      "helps_with": [
+        "a job in West Michigan after relocating",
+        "posting openings to West Michigan candidates",
+        "moving to Grand Rapids for work",
+        "recruiting experienced hires to West Michigan"
+      ],
+      "url": "https://www.hellowestmichigan.com/",
+      "source_page": "https://www.hellowestmichigan.com/",
+      "terms_note": "No terms page found; nothing checked forbids referencing or linking."
+    },
+    {
+      "id": "r11",
+      "name": "Ann Arbor SPARK",
+      "hub": "ann_arbor",
+      "category": "incubator",
+      "serves": [
+        "startup",
+        "small_business",
+        "corporation"
+      ],
+      "description": "Southeast Michigan economic development group offering entrepreneur boot camp, startup grants, coworking, coaching, funding access and business expansion consulting.",
+      "helps_with": [
+        "an entrepreneur boot camp to test a startup idea",
+        "startup milestone grants in Washtenaw County",
+        "lab or office space for a growing company",
+        "site selection consulting for a company relocating to Michigan"
+      ],
+      "url": "https://www.annarborusa.org/",
+      "source_page": "https://www.annarborusa.org/",
+      "terms_note": "No terms page link found on the page read; nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r12",
+      "name": "Michigan Economic Development Corporation",
+      "hub": "statewide",
+      "category": "economic_development",
+      "serves": [
+        "startup",
+        "small_business",
+        "corporation"
+      ],
+      "description": "State economic development agency covering small business, startup R&D funding, commercialization, talent, manufacturing and a site selection database for companies.",
+      "helps_with": [
+        "R&D funding for a new technology startup",
+        "a site selection database search for a new plant",
+        "guidance on state financing for a small business",
+        "commercialization partners for a space or energy startup"
+      ],
+      "url": "https://www.michiganbusiness.org/",
+      "source_page": "https://www.michiganbusiness.org/",
+      "terms_note": "A Terms and Conditions page exists (/about-medc/terms-and-conditions/) but could not be opened (HTTP 403); restrictions unknown."
+    },
+    {
+      "id": "r13",
+      "name": "Michigan Small Business Development Center",
+      "hub": "statewide",
+      "category": "small_business_support",
+      "serves": [
+        "small_business",
+        "startup",
+        "individual"
+      ],
+      "description": "Statewide network offering no-cost consulting and training to people starting, growing or selling a small business, with market research, export and cybersecurity services.",
+      "helps_with": [
+        "free consulting to write a business plan",
+        "market research for a new product",
+        "export help for a small manufacturer",
+        "buying or selling an existing small business"
+      ],
+      "url": "https://michigansbdc.org/",
+      "source_page": "https://michigansbdc.org/",
+      "terms_note": "Disclaimer page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r14",
+      "name": "The Center (Michigan Manufacturing Technology Center)",
+      "hub": "statewide",
+      "category": "manufacturing_support",
+      "serves": [
+        "small_business",
+        "corporation"
+      ],
+      "description": "Michigan manufacturer assistance organization with regional offices, offering lean, Six Sigma, quality, Industry 4.0, cybersecurity and food-processing consulting and training.",
+      "helps_with": [
+        "lean manufacturing training for a small plant",
+        "ISO or quality system certification for a supplier",
+        "Six Sigma coaching for a production team",
+        "cost reduction analysis for a machine shop"
+      ],
+      "url": "https://www.the-center.org/",
+      "source_page": "https://www.the-center.org/",
+      "terms_note": "Only a privacy policy link found; nothing found that forbids referencing or linking. Site formerly mmtc.org."
+    },
+    {
+      "id": "r15",
+      "name": "Michigan Works! Association",
+      "hub": "statewide",
+      "category": "workforce",
+      "serves": [
+        "individual",
+        "small_business",
+        "corporation"
+      ],
+      "description": "Association of Michigan's statewide workforce development system, with business services, apprenticeship programs and skilled-immigrant integration, linking to local Michigan Works! agencies.",
+      "helps_with": [
+        "a registered apprenticeship program for a company",
+        "finding the local Michigan Works agency",
+        "recognition of an immigrant professional's skills in Michigan",
+        "employer talent and hiring services"
+      ],
+      "url": "https://www.michiganworks.org/",
+      "source_page": "https://www.michiganworks.org/our-system/",
+      "terms_note": "Legal page read; no restriction on referencing or linking found."
+    },
+    {
+      "id": "r16",
+      "name": "MSU Innovation Center",
+      "hub": "statewide",
+      "category": "university_program",
+      "serves": [
+        "startup",
+        "corporation",
+        "individual"
+      ],
+      "description": "Michigan State University's hub for corporate partnerships, tech transfer and commercialization, and startup support for faculty and students.",
+      "helps_with": [
+        "licensing a university patent to a company",
+        "turning a student research project into a startup",
+        "sponsored research with a state university",
+        "investment-ready business plan for a campus spinout"
+      ],
+      "url": "https://innovationcenter.msu.edu/",
+      "source_page": "https://innovationcenter.msu.edu/",
+      "terms_note": "Privacy statement only found; nothing found that forbids referencing or linking."
+    },
+    {
+      "id": "r17",
+      "name": "Michigan Women Forward",
+      "hub": "statewide",
+      "category": "small_business_support",
+      "serves": [
+        "small_business",
+        "startup",
+        "individual"
+      ],
+      "description": "Nonprofit giving women entrepreneurs small business loans, classes, coaching and a pitch competition.",
+      "helps_with": [
+        "a small business loan for a woman-owned company",
+        "coaching for a first-time founder",
+        "a pitch competition for women entrepreneurs",
+        "small business classes on running finances"
+      ],
+      "url": "https://www.miwf.org/",
+      "source_page": "https://www.miwf.org/",
+      "terms_note": "Terms page (miwf.org/terms/) read; no restriction on referencing or linking found."
+    }
+  ]
+}

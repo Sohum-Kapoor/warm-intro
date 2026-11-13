@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from warmintro import feedback, store  # noqa: E402
+from warmintro import feedback, resources, store  # noqa: E402
 from warmintro.config import get_settings  # noqa: E402
 from warmintro.llm import get_llm  # noqa: E402
 from warmintro.meeting import run_meeting  # noqa: E402
@@ -62,7 +62,11 @@ def build_learning(network_run: dict, members: list, llm) -> dict:
 
     start = store.load_weights()
     before = _ranking(members, start, llm)
-    for pos in intro:
+    # the hero pair (Lumen Sight x Kestrel Stamping) gets the positive outcomes; a different kind|label gets the negative ones
+    heroes = [m for m in intro if {m["a"], m["b"]} == {"m001", "m002"}]
+    if not heroes:
+        raise RuntimeError("hero pair m001 x m002 was not introduced in the network round")
+    for pos in heroes:
         for neg in intro:
             if key(pos) == key(neg):
                 continue
@@ -98,6 +102,9 @@ def main() -> int:
     else:
         network_run = run_round(max_meetings=8, mode="proactive", llm=llm)
         _cache("network").write_text(json.dumps(network_run))
+    for m in network_run["meetings"]:  # a reused round was not re-held: make sure its meetings are in this runs dir
+        if store.get_meeting(m["id"]) is None:
+            store.save_meeting(m)
     print("network:", network_run["stats"], flush=True)
 
     if args.reuse_asks and _cache("asks").exists():
@@ -114,6 +121,14 @@ def main() -> int:
             print("ask:", requester, [c["b"] for c in cands], meeting and meeting["result"], flush=True)
         _cache("asks").write_text(json.dumps(asks))
 
+    resource_list = store.load_resources()
+    wanted = {m["a"] for m in network_run["meetings"]} | {m["b"] for m in network_run["meetings"]}
+    wanted |= {a["requester"] for a in asks} | {f"m00{i}" for i in range(1, 9)}
+    by_id = {m["id"]: m for m in members}
+    suggestions = {mid: resources.suggest(by_id[mid], resource_list, llm, k=2) for mid in sorted(wanted) if mid in by_id}
+    for mid in (f"m00{i}" for i in range(1, 9)):
+        print("suggest:", mid, by_id[mid]["name"], [(x["name"], x["similarity"]) for x in suggestions[mid]], flush=True)
+
     learning = build_learning(network_run, members, llm)
     data = {
         "synthetic": True,
@@ -122,10 +137,13 @@ def main() -> int:
         "provider": "watsonx",
         "chat_model": s.watsonx_chat_model_id,
         "embed_model": s.watsonx_embedding_model_id,
-        "members": [{k: m[k] for k in ("id", "name", "type", "hub", "sector", "description", "needs", "offers", "demo") if k in m} for m in members],
+        "members": [{k: m[k] for k in ("id", "name", "type", "hub", "sector", "description", "needs", "offers", "demo", "deal_breakers", "intro_budget", "permissions") if k in m} for m in members],
         "demo_run": json.loads((ROOT / "runs" / "demo.json").read_text()),
         "network_run": network_run,
         "asks": asks,
+        "resources": store.load_resources_doc()["resources"],
+        "resources_note": store.load_resources_doc()["note"],
+        "resource_suggestions": suggestions,
         "learning": learning,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)

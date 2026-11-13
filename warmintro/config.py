@@ -27,7 +27,7 @@ CONTRAST_OFFER_MAX = 0.2  # opposite approach: offers no more similar than this
 # watsonx: need >= 0.68 (about the top 8% of pairs), offer <= 0.50 (about the 20th percentile band).
 CONTRAST_THRESHOLDS = {"mock": (CONTRAST_NEED_MIN, CONTRAST_OFFER_MAX), "watsonx": (0.68, 0.50)}
 # Minimum cosine for a resource suggestion. PROVISIONAL: mock is a guess; watsonx not yet tuned on real data.
-RESOURCE_MIN_SIMILARITIES = {"mock": 0.2, "watsonx": 0.65}
+RESOURCE_MIN_SIMILARITIES = {"mock": 0.2, "watsonx": 0.70}
 RESOURCE_HUB_BONUS = 0.02  # ranking tie-break only; the reported similarity stays raw
 
 
