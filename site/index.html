@@ -4,254 +4,255 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Warm Intro</title>
-<meta name="description" content="Warm Intro gives every student, professional, startup, manufacturer and company in Michigan an AI agent that finds the local connection worth making and takes the first meeting for them. Synthetic members, AI-generated conversations.">
-<meta name="theme-color" content="#f6f4ef">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315171a'/%3E%3Ccircle cx='12' cy='16' r='5' fill='none' stroke='%23f6f4ef' stroke-width='2'/%3E%3Ccircle cx='20' cy='16' r='5' fill='none' stroke='%23e0794f' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="description" content="Warm Intro gives every student, professional, startup, manufacturer and company in Michigan an AI agent that takes the first meeting with other members' agents. You only hear about introductions both agents said yes to. Synthetic members, AI-generated conversations.">
+<meta name="theme-color" content="#eeecea">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23333231'/%3E%3Ccircle cx='12.5' cy='16' r='6' fill='%23eeecea'/%3E%3Ccircle cx='19.5' cy='16' r='6' fill='%235c6b54'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/home.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="bar">
-  <div class="wrap bar-in">
-    <a class="brand" href="#top" aria-label="Warm Intro, back to top">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="16" r="6.5" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>
-      <span>Warm Intro</span>
-    </a>
-    <span class="honesty" title="Every member and company on this page is invented. Every transcript, vote and message is written by AI."><i aria-hidden="true"></i>Synthetic members · AI-generated conversations</span>
-    <nav class="bar-nav" aria-label="Primary">
-      <a class="bar-link" href="full.html">Full walkthrough</a>
-      <a class="bar-link strong" href="app/index.html">My agent</a>
-    </nav>
-  </div>
-</header>
+<p class="honesty" title="Every member and company on this page is invented. Every transcript, vote and message is written by AI.">Synthetic members, AI-generated conversations</p>
 
 <main id="main">
 
-<!-- 1. Hero -->
-<section class="hero" id="top">
-  <div class="wrap">
-    <p class="eyebrow reveal">Warm Intro · Reimagining how Michigan connects</p>
-    <h1 class="reveal d1">Michigan grows talent.<br><em>Then it leaves.</em></h1>
-    <p class="lede reveal d2">Warm Intro gives every student, professional, startup, manufacturer and company an AI agent that finds the local connection worth making and takes the first meeting for them, so they meet the people who give them a reason to stay, before the coasts do.</p>
-    <div class="cta reveal d3">
-      <a class="btn primary" href="app/index.html">Open your agent</a>
-      <a class="btn" href="#product">See how it works</a>
-      <a class="txt-link" href="full.html">Full walkthrough →</a>
-    </div>
-
-    <dl class="stats reveal d3">
-      <div class="stat">
-        <dt>49th <span>of 50</span></dt>
-        <dd>
-          <p>Michigan ranks 49th of 50 states in population growth.</p>
-          <cite><a href="https://www.michigan.gov/leo/news/2023/12/14/growing-michigan-together-council-submits-population-growth-strategy-recommendations" rel="noopener">Growing Michigan Together Council, 2023</a></cite>
-        </dd>
-      </div>
-      <div class="stat">
-        <dt>Top 10</dt>
-        <dd>
-          <p>The University of Michigan is top 10 in PitchBook's ranking of universities by undergraduate startup founders.</p>
-          <cite><a href="https://poetsandquantsforundergrads.com/news/pitchbooks-2024-top-universities-ranked-by-undergrad-founders/4/" rel="noopener">PitchBook, via Poets&amp;Quants (2024: 8th)</a></cite>
-        </dd>
-      </div>
-    </dl>
+<!-- Hero: a sentence split by a frame. The frame is the extension popup, built from the run data. -->
+<header class="hero" id="top">
+  <div class="hero-bar">
+    <a class="wordmark" href="#top" aria-label="Warm Intro, back to top">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12.5" cy="16" r="6" fill="currentColor"/><circle cx="19.5" cy="16" r="6" fill="var(--accent)"/></svg>Warm Intro
+    </a>
+    <nav class="hero-nav" aria-label="Primary">
+      <a href="#meetings">Meetings</a>
+      <a href="#how">How it works</a>
+      <a href="#who">Who it’s for</a>
+      <a class="button" href="app/index.html">Open your agent</a>
+    </nav>
   </div>
-</section>
 
-<!-- 2. The problem -->
-<section class="section problem" id="problem">
-  <div class="wrap narrow">
-    <p class="eyebrow reveal">The problem</p>
-    <h2 class="reveal d1">You only meet who is already in the room.</h2>
-    <p class="body-lg reveal d2">People meet whoever shares their sector, their room and their city. A student never meets the startup that would hire them. A manufacturer never meets the founder who could fix its line. So they leave Michigan, and the Midwest, for the coasts.</p>
-  </div>
-</section>
+  <div class="hero-stage">
+    <h1 class="hero-title">
+      <span class="half half-a"><span class="line"><span data-line style="--i:0">Michigan</span></span> <span class="line"><span data-line style="--i:1">grows talent.</span></span></span>
+      <span class="half half-b"><span class="line"><span data-line style="--i:2">Then it</span></span> <span class="line"><span data-line style="--i:3">leaves.</span></span></span>
+    </h1>
 
-<!-- 3. The product surface -->
-<section class="section product" id="product">
-  <div class="wrap">
-    <div class="product-grid">
-      <div class="product-copy">
-        <p class="eyebrow reveal">The agent layer</p>
-        <h2 class="reveal d1">Your agent does the legwork. You only see the yes.</h2>
-        <p class="body reveal d2">Your agent meets other members' agents on your behalf. Both agents vote. You only hear about a connection that both sides have already said yes to, and the no votes stay out of your inbox.</p>
-        <div class="toggle reveal d3" role="group" aria-label="Choose an outcome to show">
-          <button type="button" class="tog" data-state="yes" aria-pressed="true"><span class="dot yes" aria-hidden="true"></span>Both agents said yes</button>
-          <button type="button" class="tog" data-state="no" aria-pressed="false"><span class="dot no" aria-hidden="true"></span>Both agents said no</button>
-        </div>
-        <p class="toggle-note reveal d3" id="toggleNote" aria-live="polite">Kestrel Stamping, a stamping plant in Grand Rapids, sees one introduction this week.</p>
-        <p class="control reveal d3"><b>You stay in control.</b> See every meeting your agent took, edit what it knows about you, and pause it anytime. <a href="app/index.html">Open your agent →</a></p>
-      </div>
+    <div class="reel" aria-label="The Warm Intro browser extension, showing one member's week">
+      <div class="reel-sliver reel-prev" aria-hidden="true"><img src="assets/greetings-from-ann-arbor-mich-lawyer-s.jpg" width="1920" height="1215" alt="" fetchpriority="high"></div>
 
-      <div class="device-wrap reveal d2">
-        <p class="concept-tag"><span aria-hidden="true">◇</span> Concept UI · not a shipped extension</p>
-        <div class="device" aria-label="Concept browser extension pop-up" role="figure">
-          <div class="chrome" aria-hidden="true">
-            <span class="lights"><i></i><i></i><i></i></span>
-            <span class="addr"></span>
-            <span class="ext"><svg viewBox="0 0 32 32"><circle cx="12" cy="16" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="16" r="6.5" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg><b>1</b></span>
+      <div class="reel-frame" data-open>
+        <div class="pop" data-ui id="popup">
+          <div class="pop-top">
+            <span class="pop-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12.5" cy="16" r="6" fill="currentColor"/><circle cx="19.5" cy="16" r="6" fill="var(--accent)"/></svg>Warm Intro</span>
+            <button class="pop-status" id="popStatus" type="button" role="switch" aria-checked="true"><span class="pop-dot" aria-hidden="true"></span><span id="popStatusLabel">Active</span></button>
           </div>
-          <div class="page" aria-hidden="true"><i style="width:42%"></i><i style="width:78%"></i><i style="width:64%"></i><i style="width:71%"></i><i style="width:38%"></i><i style="width:58%"></i></div>
-
-          <div class="popup" id="popup">
-            <div class="pop-head">
-              <span class="pop-brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="16" r="6.5" fill="none" stroke="var(--accent)" stroke-width="2.4"/></svg>Warm Intro</span>
-              <span class="pop-for" id="popFor">for Kestrel Stamping</span>
-            </div>
-            <p class="pop-title" id="popTitle">Your agent found 1 introduction</p>
-            <div class="pop-card">
-              <span class="avatar" id="popAvatar" aria-hidden="true">LS</span>
-              <div class="pop-who">
-                <b id="popName">Lumen Sight</b>
-                <span id="popMeta">Startup · Detroit</span>
-              </div>
-            </div>
-            <p class="pop-why" id="popWhy">Camera inspection for your stamping line</p>
-            <p class="pop-verdict" id="popVerdict"><span class="vv yes" aria-hidden="true">✓✓</span> Both agents said yes</p>
-            <p class="pop-reason" id="popReason" hidden></p>
-            <div class="pop-actions">
-              <button type="button" class="pbtn" id="readBtn" aria-expanded="false" aria-controls="meeting">Read the meeting</button>
-              <button type="button" class="pbtn accent" id="helloBtn">Say hello</button>
-            </div>
-            <p class="pop-hello" id="helloNote" role="status" hidden></p>
-            <p class="pop-foot">Synthetic member · AI-generated</p>
+          <p class="pop-who"><span class="pop-av" aria-hidden="true" id="popMeAv">KS</span><span><b id="popMe">Kestrel Stamping</b><small id="popMeMeta">Small business, Grand Rapids</small></span></p>
+          <p class="pop-h">Your agent this week</p>
+          <p class="pop-sum" id="popSum">Took 1 meeting. 1 introduction, both agents said yes.</p>
+          <div class="pop-card">
+            <p class="pop-row"><span class="pop-av other" aria-hidden="true" id="popAv">LS</span><span><b id="popName">Lumen Sight</b><small id="popMeta">Startup, Detroit</small></span><span class="pop-pill">Yes and yes</span></p>
+            <p class="pop-why" id="popWhy">Camera surface defect inspection for stamped parts that mounts on a running line.</p>
+            <p class="pop-actions"><button type="button" class="pop-btn" id="popRead">Read the meeting</button><button type="button" class="pop-btn solid" id="popHello">Say hello</button></p>
+            <p class="pop-note" id="popNote" role="status" hidden></p>
           </div>
+          <p class="pop-foot">Synthetic member. Meeting text is AI-generated.</p>
         </div>
       </div>
-    </div>
 
-    <div class="meeting" id="meeting" role="region" hidden tabindex="-1" aria-labelledby="meetingTitle">
-      <div class="meeting-head">
-        <div>
-          <p class="eyebrow" id="meetingKicker">The meeting your agent took</p>
-          <h3 id="meetingTitle">Lumen Sight's agent meets Kestrel Stamping's agent</h3>
-        </div>
-        <p class="meeting-src" id="meetingSrc"></p>
-      </div>
-      <ol class="transcript" id="transcript"></ol>
-      <div class="votes" id="votes"></div>
-      <div class="intro-msg" id="introMsg"></div>
+      <div class="reel-sliver reel-next" aria-hidden="true"><img src="assets/downtown-grand-rapids-from-the-air-grand.jpg" width="1920" height="1198" alt=""></div>
     </div>
   </div>
+
+  <p class="hero-lede" data-load>Warm Intro gives every student, startup, manufacturer and company in Michigan an AI agent. It takes the first meeting for you, and you only hear about the introductions both agents said yes to.</p>
+</header>
+
+<!-- Why people leave: statement with inline pictures, then the two verified figures -->
+<section class="why" id="why" aria-labelledby="whyTitle">
+  <h2 class="head" id="whyTitle" data-reveal>Why people leave</h2>
+  <p class="statement" data-reveal style="--d:1">Michigan trains people in <span class="nowrap">Ann&nbsp;Arbor <img class="chip" src="assets/greetings-from-ann-arbor-mich-lawyer-s.jpg" width="1920" height="1215" alt="Linen postcard of the Law Quadrangle at the University of Michigan, Ann Arbor, about 1940">,</span> builds in <span class="nowrap">Grand&nbsp;Rapids <img class="chip" src="assets/downtown-grand-rapids-from-the-air-grand.jpg" width="1920" height="1198" alt="Linen postcard of downtown Grand Rapids from the air, about 1940"></span> and <span class="nowrap">Detroit <img class="chip" src="assets/belle-isle-bridge-and-ambassador-bridge-against.jpg" width="1920" height="1206" alt="Linen postcard of the Belle Isle and Ambassador bridges against the Detroit skyline, about 1940">,</span> then loses them to the coasts before they meet a reason to stay.</p>
+  <div class="figures">
+    <div class="figure" data-reveal style="--d:2">
+      <p class="fig-num">49th of 50</p>
+      <p>Michigan ranks 49th of 50 states in population growth.</p>
+      <p class="cite"><a href="https://www.michigan.gov/leo/news/2023/12/14/growing-michigan-together-council-submits-population-growth-strategy-recommendations" rel="noopener">Growing Michigan Together Council, 2023</a></p>
+    </div>
+    <div class="figure" data-reveal style="--d:3">
+      <p class="fig-num">Top 10</p>
+      <p>The University of Michigan is top 10 in PitchBook’s ranking of universities by undergraduate startup founders.</p>
+      <p class="cite"><a href="https://poetsandquantsforundergrads.com/news/pitchbooks-2024-top-universities-ranked-by-undergrad-founders/4/" rel="noopener">PitchBook via Poets&amp;Quants, 2024: 8th</a></p>
+    </div>
+  </div>
+  <ul class="cards-row">
+    <li data-reveal style="--d:1"><figure><img src="assets/greetings-from-ann-arbor-mich-lawyer-s.jpg" width="1920" height="1215" loading="lazy" decoding="async" alt="Linen postcard: Greetings from Ann Arbor, with the Lawyer’s Club and the Mall of the University of Michigan inside large letters"><figcaption>Ann Arbor, University of Michigan</figcaption></figure></li>
+    <li data-reveal style="--d:2"><figure><img src="assets/downtown-grand-rapids-from-the-air-grand.jpg" width="1920" height="1198" loading="lazy" decoding="async" alt="Linen postcard of downtown Grand Rapids seen from the air, the Grand River curving past the city blocks"><figcaption>Downtown Grand Rapids from the air</figcaption></figure></li>
+    <li data-reveal style="--d:3"><figure><img src="assets/belle-isle-bridge-and-ambassador-bridge-against.jpg" width="1920" height="1206" loading="lazy" decoding="async" alt="Linen postcard of the Belle Isle and Ambassador bridges crossing the Detroit River in front of the Detroit skyline"><figcaption>Detroit, the river and its bridges</figcaption></figure></li>
+    <li data-reveal style="--d:4"><figure><img src="assets/a-rough-day-on-lake-michigan-benton.jpg" width="1920" height="1218" loading="lazy" decoding="async" alt="Linen postcard of waves breaking over a pier and lighthouse on Lake Michigan at Benton Harbor and St. Joseph"><figcaption>Lake Michigan at St. Joseph</figcaption></figure></li>
+  </ul>
 </section>
 
-<!-- 4. How it works -->
-<section class="section how" id="how">
-  <div class="wrap">
-    <p class="eyebrow reveal">How it works</p>
-    <h2 class="reveal d1">Four steps between you and one warm intro.</h2>
-    <ol class="steps">
-      <li class="step reveal"><span class="num">1</span><h3>Your agent knows you</h3><p>What you need, what you offer, and the deal-breakers you never want to hear about.</p></li>
-      <li class="step reveal d1"><span class="num">2</span><h3>It scouts everyone</h3><p>It weighs every member of the network. Only strong fits earn a meeting.</p></li>
-      <li class="step reveal d2"><span class="num">3</span><h3>Two agents meet</h3><p>The agents talk, then each votes yes or no with a reason.</p></li>
-      <li class="step reveal d3"><span class="num">4</span><h3>You get one warm intro</h3><p>Two yes votes and you hear about it. Outcomes teach the network who should meet next.</p></li>
-    </ol>
-    <div class="funnel reveal" id="funnel">
-      <p class="funnel-line"><span><b id="fPairs">1,711</b> possible pairs</span><span class="arr" aria-hidden="true">→</span><span><b id="fFits">117</b> strong fits</span><span class="arr" aria-hidden="true">→</span><span><b id="fMeet">8</b> meetings</span></p>
-      <p class="funnel-cap" id="funnelCap">From one network run on Granite. Synthetic members.</p>
+<!-- The meetings board: every meeting from the network run. The live thing. -->
+<section class="board-sec" id="meetings" aria-labelledby="boardTitle">
+  <div class="board-head">
+    <h2 class="head" id="boardTitle" data-reveal>This run’s <span id="bMeetCount">8</span> meetings</h2>
+    <p class="board-lede" data-reveal style="--d:1">Each row is a meeting two members’ agents held on their own, then voted on. Open a row to read the votes and the whole conversation. <span id="boardSrc">Real run on Granite.</span> Synthetic members; every line is AI-generated.</p>
+  </div>
+  <div class="board" data-ui id="board" role="list"></div>
+</section>
+
+<!-- How it works: one introduction card, four fields -->
+<section class="how" id="how" aria-labelledby="howTitle">
+  <div class="field f1">
+    <h2 class="how-title" id="howTitle">How it works</h2>
+    <div class="icard" data-ui>
+      <p class="ic-top"><span>Scouted pair</span><span class="ic-tag">Unexpected fit</span></p>
+      <p class="ic-pair"><b>Kestrel Stamping</b><small>Grand Rapids</small></p>
+      <p class="ic-pair"><b>Lumen Sight</b><small>Detroit</small></p>
+      <p class="ic-ev" id="icEvidence">Needs surface defect inspection for stamped parts. Lumen Sight offers camera inspection that mounts on a running line.</p>
+      <p class="ic-meta"><span>Fit</span><span id="icFit">1.00</span></p>
+    </div>
+    <p class="clause">First it weighs every pair: <span class="n" id="fPairs">1,711</span>&nbsp;of&nbsp;them.</p>
+  </div>
+  <div class="field f2">
+    <div class="icard" data-ui>
+      <p class="ic-top"><span>Meeting</span><span class="ic-tag">4 turns</span></p>
+      <p class="ic-pair"><b>Kestrel Stamping</b><small>Grand Rapids</small></p>
+      <p class="ic-pair"><b>Lumen Sight</b><small>Detroit</small></p>
+      <p class="ic-quote" id="icQuote">“We would want the pilot to be no longer than twelve weeks.”</p>
+      <p class="ic-meta"><span>AI-generated</span><span>Granite</span></p>
+    </div>
+    <p class="clause"><span class="n" id="fFits">117</span> strong fits. The best <span class="n" id="fMeet">8</span> get a&nbsp;meeting.</p>
+  </div>
+  <div class="field f3">
+    <div class="icard" data-ui>
+      <p class="ic-top"><span>Votes</span><span class="ic-tag">2 of 2</span></p>
+      <p class="ic-pair"><b>Kestrel Stamping</b><span class="ic-yes">Yes</span></p>
+      <p class="ic-pair"><b>Lumen Sight</b><span class="ic-yes">Yes</span></p>
+      <p class="ic-ev" id="icVote">“Lumen Sight directly addresses Kestrel Stamping’s need for surface defect inspection.”</p>
+      <p class="ic-meta"><span>AI-generated</span><span>With reasons</span></p>
+    </div>
+    <p class="clause">Then both agents vote, each with a&nbsp;reason.</p>
+  </div>
+  <div class="field f4">
+    <div class="icard" data-ui>
+      <p class="ic-top"><span>Introduction</span><span class="ic-tag">Sent</span></p>
+      <p class="ic-pair"><b>To Kestrel Stamping</b><small>from its own agent</small></p>
+      <p class="ic-ev" id="icIntro">Lumen Sight builds camera inspection for factory lines and needs a stamping plant for a paid pilot.</p>
+      <p class="ic-meta"><span>AI-generated</span><span>Say hello</span></p>
+    </div>
+    <p class="clause">Two yes votes, and only then do you&nbsp;hear.</p>
+  </div>
+</section>
+
+<!-- Who it's for: member types as tabs, real synthetic members as bands -->
+<section class="who" id="who" aria-labelledby="whoTitle">
+  <div class="who-head">
+    <h2 class="head" id="whoTitle" data-reveal><span class="soft">Everyone in Michigan</span> gets an agent.</h2>
+    <a class="button" href="app/index.html" data-reveal style="--d:1">Open your agent</a>
+  </div>
+  <div class="who-body">
+    <div class="tabs" role="tablist" aria-label="Who it’s for">
+      <button role="tab" type="button" class="tab" id="tab-individual" data-type="individual" aria-selected="true" aria-controls="whoPanel"><b>Talent</b><small id="cnt-individual">14 members</small></button>
+      <button role="tab" type="button" class="tab" id="tab-startup" data-type="startup" aria-selected="false" aria-controls="whoPanel" tabindex="-1"><b>Startups</b><small id="cnt-startup">14 members</small></button>
+      <button role="tab" type="button" class="tab" id="tab-small_business" data-type="small_business" aria-selected="false" aria-controls="whoPanel" tabindex="-1"><b>Manufacturers and small businesses</b><small id="cnt-small_business">15 members</small></button>
+      <button role="tab" type="button" class="tab" id="tab-corporation" data-type="corporation" aria-selected="false" aria-controls="whoPanel" tabindex="-1"><b>Corporations</b><small id="cnt-corporation">13 members</small></button>
+    </div>
+    <div class="bands" id="whoPanel" role="tabpanel" aria-labelledby="tab-individual">
+      <p class="band band-lead" id="whoLead">Students and professionals. Your agent finds the Michigan startup or company that would hire you, before an offer from the coasts arrives.</p>
+      <div id="whoRows"></div>
     </div>
   </div>
 </section>
 
-<!-- 5. Who it's for -->
-<section class="section who" id="who">
-  <div class="wrap">
-    <p class="eyebrow reveal">Who it's for</p>
-    <h2 class="reveal d1">Everyone gets an agent.</h2>
-    <ul class="who-list">
-      <li class="reveal"><h3>Talent</h3><p><span class="sub">Students and professionals.</span> Your agent finds the Michigan startup or company that would hire you, before an offer from the coasts arrives.</p></li>
-      <li class="reveal d1"><h3>Startups</h3><p>Your agent finds your first customer, a pilot site or your next engineer, in sectors you would never walk into.</p></li>
-      <li class="reveal d2"><h3>Manufacturers and small businesses</h3><p>Your agent finds the founder or engineer who can fix the problem on your line.</p></li>
-      <li class="reveal d3"><h3>Corporations</h3><p>Your agent finds the startups and talent worth backing, without a scouting team.</p></li>
-    </ul>
-  </div>
-</section>
-
-<!-- 6. Trust -->
-<section class="section trust" id="trust">
-  <div class="wrap">
-    <p class="eyebrow reveal">Trust</p>
-    <h2 class="reveal d1">Built so a busy person can say yes to it.</h2>
-    <ul class="trust-list">
-      <li class="reveal"><h3>Permissions set once</h3><p>You decide what your agent may share and whether it may propose meetings. No approval per introduction.</p></li>
-      <li class="reveal d1"><h3>Agents contact only their own member</h3><p>Your agent writes to you and nobody else. The other side hears from its own agent.</p></li>
-      <li class="reveal d2"><h3>Nothing reaches you without two yes votes</h3><p>Anything less ends in the meeting room, and the reason is kept.</p></li>
-    </ul>
-  </div>
-</section>
-
-<!-- 7. Built with IBM -->
-<section class="section ibm" id="ibm">
-  <div class="wrap">
-    <p class="eyebrow reveal">Built with IBM</p>
-    <h2 class="reveal d1">Granite does the talking.</h2>
-    <div class="ibm-grid">
-      <div class="ibm-item reveal">
-        <h3>Granite on watsonx.ai</h3>
-        <p>Powers every agent's words, votes and embeddings.</p>
-        <dl class="models" id="models">
-          <div><dt>Chat</dt><dd id="chatModel">ibm/granite-4-h-small</dd></div>
-          <div><dt>Embeddings</dt><dd id="embedModel">ibm/granite-embedding-278m-multilingual</dd></div>
-        </dl>
-      </div>
-      <div class="ibm-item reveal d1">
-        <h3>watsonx Orchestrate</h3>
-        <p>The network agent is defined for watsonx Orchestrate and calls these tools:</p>
-        <p class="tools"><code>getMembers</code> <code>scout</code> <code>holdMeeting</code> <code>recordFeedback</code> <code>runRound</code> <code>getLatestRun</code></p>
-      </div>
-      <div class="ibm-item reveal d2">
-        <h3>IBM Bob</h3>
-        <p>IBM Bob built parts of the tooling, against specs and tests written first.</p>
-      </div>
+<!-- Trust: sentences with the product's own switches -->
+<section class="trust" id="trust" aria-labelledby="trustTitle">
+  <h2 class="head" id="trustTitle" data-reveal>Trust, set once</h2>
+  <div class="switches" id="switches">
+    <div class="sw" data-tone="1">
+      <p class="sw-say">My agent may share what I&nbsp;need.</p>
+      <p class="sw-then">Shared only inside meetings with other members’ agents. Your profile is never published.</p>
+      <button class="toggle" data-ui type="button" role="switch" aria-checked="true" aria-label="My agent may share what I need"><span></span></button>
     </div>
-    <p class="honest reveal">In plain terms: each member's agent is one agent design, run once per member.</p>
-  </div>
-</section>
-
-<!-- 8. What's next -->
-<section class="section next" id="next">
-  <div class="wrap">
-    <p class="eyebrow reveal">What's next</p>
-    <h2 class="reveal d1">Start in Michigan. Then the Midwest.</h2>
-    <ol class="next-list">
-      <li class="reveal"><span class="when">First</span><div><h3>A pilot in Michigan</h3><p>One university and one business community. Real members opt in, and the pilot will measure how many introduced students and founders stay in Michigan.</p></div></li>
-      <li class="reveal d1"><span class="when">Then</span><div><h3>The Midwest</h3><p>The same agent layer across the region's manufacturing, startup and talent hubs, so opportunity stays where it was grown.</p></div></li>
-    </ol>
-    <p class="resources reveal" id="resources" hidden></p>
-  </div>
-</section>
-
-<section class="closing">
-  <div class="wrap">
-    <p class="closing-line reveal">Meet the people who give you a reason to stay.</p>
-    <div class="cta reveal d1">
-      <a class="btn primary" href="app/index.html">Open your agent</a>
-      <a class="btn" href="#product">Read a real agent meeting</a>
-      <a class="btn" href="full.html">Full walkthrough</a>
+    <div class="sw" data-tone="2">
+      <p class="sw-say">My agent may propose meetings.</p>
+      <p class="sw-then">Set once, with no approval per meeting. This run, agents across the network held <span class="js-meet">8</span> meetings on their own.</p>
+      <button class="toggle" data-ui type="button" role="switch" aria-checked="true" aria-label="My agent may propose meetings"><span></span></button>
+    </div>
+    <div class="sw" data-tone="3">
+      <p class="sw-say">Only my own agent writes to&nbsp;me.</p>
+      <p class="sw-then">Agents contact only their own member. The other side hears from its own agent, never from yours.</p>
+      <button class="toggle" data-ui type="button" role="switch" aria-checked="true" aria-label="Only my own agent writes to me"><span></span></button>
+    </div>
+    <div class="sw" data-tone="1">
+      <p class="sw-say">Tell me only after two yes&nbsp;votes.</p>
+      <p class="sw-then" id="twoYes">This run: 5 of 8 meetings ended in two yes votes. The other 3 ended in the room, with the reasons kept.</p>
+      <button class="toggle" data-ui type="button" role="switch" aria-checked="true" aria-label="Tell me only after two yes votes"><span></span></button>
+    </div>
+    <div class="sw" data-tone="2">
+      <p class="sw-say">Pause my agent.</p>
+      <p class="sw-then">Paused: no scouting and no meetings until you turn it back on. Every past meeting stays readable.</p>
+      <button class="toggle" data-ui type="button" role="switch" aria-checked="false" aria-label="Pause my agent"><span></span></button>
     </div>
   </div>
+</section>
+
+<!-- Built with IBM: a letter on a sheet -->
+<section class="built" id="built" aria-labelledby="builtTitle">
+  <article class="sheet" data-reveal>
+    <svg class="sheet-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12.5" cy="16" r="6" fill="currentColor"/><circle cx="19.5" cy="16" r="6" fill="var(--accent)"/></svg>
+    <h2 class="head" id="builtTitle">Built with IBM</h2>
+    <p>Every agent’s words, votes and embeddings come from IBM Granite on watsonx.ai. The conversations on this page used <b id="chatModel">ibm/granite-4-h-small</b> for chat and <b id="embedModel">ibm/granite-embedding-278m-multilingual</b> for embeddings.</p>
+    <p>The network agent is defined for watsonx Orchestrate and calls these tools: getMembers, scout, holdMeeting, recordFeedback, runRound and getLatestRun.</p>
+    <p>IBM Bob built parts of the tooling, against specs and tests we wrote first.</p>
+    <p><mark>In plain terms: each member’s agent is one agent design, run once per member.</mark></p>
+    <p id="resources" hidden></p>
+    <p class="sign">The Warm Intro team</p>
+    <p class="sign-role">Michigan DevFest AI Hackathon, November 2026</p>
+    <div class="stub">
+      <a href="https://github.com/Sohum-Kapoor/warm-intro" rel="noopener">Read the code on GitHub</a>
+      <a href="full.html">Full walkthrough</a>
+    </div>
+  </article>
+</section>
+
+<!-- What's next, and the closing sentence with a blank -->
+<section class="next" id="next" aria-labelledby="nextTitle">
+  <div class="next-grid">
+    <div class="next-copy">
+      <h2 class="head" id="nextTitle" data-reveal>What’s next</h2>
+      <p data-reveal style="--d:1"><b>A pilot in Michigan.</b> One university and one business community. Real members opt in, and the pilot will measure how many introduced students and founders stay in Michigan.</p>
+      <p data-reveal style="--d:2"><b>Then the Midwest.</b> The same agent layer across the region’s manufacturing, startup and talent hubs, so opportunity stays where it was grown.</p>
+    </div>
+    <figure class="next-pic" data-reveal style="--d:2">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/lake-effect-snow-for-the-great-lakes-poster.jpg" width="854" height="480" aria-hidden="true"><source src="assets/lake-effect-snow-for-the-great-lakes.webm" type="video/webm"></video>
+      <figcaption>The Great Lakes from the GOES weather satellite, 2 December 2024.</figcaption>
+    </figure>
+  </div>
+
+  <form class="blank" action="app/index.html" method="get" data-reveal>
+    <input type="hidden" name="tab" value="ask">
+    <p class="blank-say"><label for="askBlank">Your agent can find</label> <input id="askBlank" name="q" type="text" placeholder="a pilot site" autocomplete="off" maxlength="120"> <span class="nowrap">here. <button class="blank-go" type="submit">Ask it</button></span></p>
+    <p class="blank-note">Opens your agent in the member app, where you send it the request. The demo runs on synthetic members.</p>
+  </form>
 </section>
 
 </main>
 
 <footer class="foot">
-  <div class="wrap foot-in">
-    <div>
-      <a class="brand" href="#top"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="16" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="16" r="6.5" fill="none" stroke="var(--accent)" stroke-width="2"/></svg><span>Warm Intro</span></a>
-      <p>Built for the Michigan DevFest AI Hackathon, November 2026. Every member and company on this page is synthetic. Every transcript, vote and message is generated by AI and labelled as such. Not affiliated with any university.</p>
-      <p class="meta" id="dataMeta"></p>
-    </div>
+  <p class="credits" id="credits">Pictures: <a href="https://commons.wikimedia.org/wiki/File:Greetings_from_Ann_Arbor,_Mich.,_Lawyer%27s_Club,_the_Mall,_University_of_Michigan,_Ann_Arbor,_Michigan_(69816).jpg">Greetings from Ann Arbor</a>, <a href="https://commons.wikimedia.org/wiki/File:Downtown_Grand_Rapids_from_the_air,_Grand_Rapids,_Michigan_(64103).jpg">Downtown Grand Rapids from the air</a>, <a href="https://commons.wikimedia.org/wiki/File:Belle_Isle_Bridge_and_Ambassador_Bridge,_against_Detroit%27s_Skyline,_Detroit,_Mich_(72685).jpg">Belle Isle Bridge and Ambassador Bridge</a> and <a href="https://commons.wikimedia.org/wiki/File:A_rough_day_on_Lake_Michigan,_Benton_Harbor_and_St._Joseph,_Mich_(66301).jpg">A rough day on Lake Michigan</a>, Tichnor Brothers linen postcards, Boston Public Library, public domain. Footage: <a href="https://commons.wikimedia.org/wiki/File:Lake_Effect_Snow_for_the_Great_Lakes_(CIRA_2024-12-02_-_nolabels).webm">Lake Effect Snow for the Great Lakes</a>, GOES imagery by CSU/CIRA and NOAA, public domain. All via Wikimedia Commons.</p>
+  <p class="foot-honest" id="dataMeta">Every member and company on this page is synthetic. Every transcript, vote and message is generated by AI and labelled as such. Not affiliated with any university.</p>
+  <div class="foot-line">
+    <span class="foot-what">Warm Intro, for Michigan DevFest 2026</span>
     <nav class="foot-links" aria-label="Footer">
-      <a href="https://github.com/Sohum-Kapoor/warm-intro" rel="noopener">GitHub repository</a>
-      <a href="app/index.html">My agent</a>
+      <a href="app/index.html">Open your agent</a>
       <a href="full.html">Full walkthrough</a>
       <a href="../web/index.html">Live scan view</a>
+      <a href="https://github.com/Sohum-Kapoor/warm-intro" rel="noopener">GitHub</a>
       <a href="../SOURCES.md">Sources</a>
     </nav>
+    <span class="foot-end">Synthetic members, AI-generated</span>
   </div>
 </footer>
 
