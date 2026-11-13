@@ -80,3 +80,9 @@ body.pitch::after{content:"Pitch mode - press f or Esc to exit";position:fixed;r
 .runind[hidden]{display:none}
 .dot.pulse{animation:pulse 1s ease-in-out infinite}
 .mline.inprog{stroke-dasharray:6 6;animation:pulse 1s ease-in-out infinite}
+
+.resblock{margin-top:12px;padding:8px 10px;border:1px dashed var(--border,#30363d);border-radius:8px}
+.resblock .rtitle{font-weight:700}
+.resblock .rwho{font-size:12px;margin-top:6px;font-weight:600}
+.resblock .ritem{font-size:13px;margin:2px 0}
+.resblock a{color:inherit;text-decoration:underline}

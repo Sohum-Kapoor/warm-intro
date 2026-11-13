@@ -161,10 +161,12 @@
       add(g, el('title', {}, (m.name || m.id) + ' - ' + (m.sector || '') + ' (' + (TYPES[m.type] ? TYPES[m.type].label : m.type) + ')', 1));
     });
   }
+  function f2(x) { return typeof x === 'number' ? x.toFixed(2) : x; }
   function renderStats() {
     var s = run.stats || {}, box = $('stats'); box.textContent = '';
-    [['pairs_scored', 'pairs scored'], ['passed_filter', 'passed filter'], ['meetings', 'meetings'], ['introductions', 'introductions']].forEach(function (k) {
-      var sp = add(box, el('span')); add(sp, el('b', {}, s[k[0]] != null ? s[k[0]] : '-')); sp.appendChild(document.createTextNode(k[1]));
+    var nIntroduced = arr(run.meetings).filter(function (m) { return m.result === 'introduced'; }).length;
+    [['pairs_scored', 'pairs scored'], ['passed_filter', 'passed filter'], ['meetings', 'meetings'], ['_introduced', 'introduced'], ['introductions', 'intro messages']].forEach(function (k) {
+      var sp = add(box, el('span')); add(sp, el('b', {}, k[0] === '_introduced' ? nIntroduced : (s[k[0]] != null ? s[k[0]] : '-'))); sp.appendChild(document.createTextNode(k[1]));
     });
   }
   function renderLegend() {
@@ -205,7 +207,7 @@
     var cand = m.candidate || (run.candidates || []).filter(function (c) { return c.a === m.a && c.b === m.b; })[0];
     if (cand) {
       var ev = (cand.evidence || [])[0];
-      add(box, el('div', {class: 'evidence'}, 'Why scouted: fit ' + cand.fit + ', novelty ' + cand.novelty + (cand.label ? ' (' + cand.label + ')' : '') + (ev ? ' - ' + nameOf(ev.need_of) + ' needs "' + ev.need + '"; ' + nameOf(ev.offer_of) + ' offers "' + ev.offer + '"' : '')));
+      var wsEl = add(box, el('div', {class: 'evidence'}, 'Why scouted: fit ' + f2(cand.fit) + ', novelty ' + f2(cand.novelty) + (cand.label ? ' (' + cand.label + ')' : '') + (ev ? ' - ' + nameOf(ev.need_of) + ' needs "' + ev.need + '"; ' + nameOf(ev.offer_of) + ' offers "' + ev.offer + '"' : '')));
     }
     if (!arr(m.transcript).length) add(box, el('div', {class: 'empty'}, 'No transcript recorded.'));
     arr(m.transcript).forEach(function (tn) {
@@ -222,6 +224,21 @@
       add(d, el('div', {class: 'v'}, v ? 'Vote: ' + v.vote : 'No vote'));
       if (v) add(d, el('div', {}, v.reason || ''));
     });
+    var rsg = run.resource_suggestions && typeof run.resource_suggestions === 'object' ? run.resource_suggestions : {};
+    if ([m.a, m.b].some(function (id) { return arr(rsg[id]).length; })) {
+      var rb = add(box, el('div', {class: 'resblock'}));
+      add(rb, el('div', {class: 'rtitle'}, 'Your agent also suggests'));
+      add(rb, el('div', {class: 'evidence'}, 'Real Michigan organisations (public info) \u00b7 matching is AI-generated'));
+      [m.a, m.b].forEach(function (id) {
+        if (!arr(rsg[id]).length) return;
+        add(rb, el('div', {class: 'rwho'}, 'For ' + nameOf(id)));
+        arr(rsg[id]).forEach(function (r) {
+          var d = add(rb, el('div', {class: 'ritem'}));
+          var a = add(d, el('a', {href: r.url || '#', target: '_blank', rel: 'noopener'}, r.name || r.resource_id));
+          d.appendChild(document.createTextNode(' \u00b7 ' + (r.category || '') + ' \u00b7 for: ' + (r.for_need || '')));
+        });
+      });
+    }
     if (live && m.result === 'introduced') {
       oc = add(box, el('div', {class: 'outcomes'}));
       add(oc, el('div', {class: 'evidence'}, 'Record an outcome (updates the weights):'));
