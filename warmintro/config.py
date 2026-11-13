@@ -17,7 +17,8 @@ NOVELTY_WEIGHT = 0.15
 HUB_BONUS = 0.05
 MAX_MEETINGS_PER_MEMBER = 3
 BIDIRECTIONAL_BONUS = 0.10
-TURNS_PER_AGENT = 3
+# two turns per agent: Granite drifted and invented terms at three; the contract allows up to three
+TURNS_PER_AGENT = 2
 MAX_MEETINGS_PER_ROUND = 8
 WEIGHT_MIN = 0.5
 WEIGHT_MAX = 1.5

@@ -9,6 +9,7 @@ from collections.abc import Callable
 from typing import Any
 
 from warmintro import store
+from warmintro.config import TURNS_PER_AGENT
 from warmintro.llm import LLM, get_llm
 from warmintro.store import Candidate, Introduction, Meeting, Member, Turn, Vote
 
@@ -71,7 +72,6 @@ SPEAK_TASK = (
     "Your task now: say your next turn in the meeting (turn {turn} of {turns}). {turn_instruction} "
     "Reply with the spoken text only: no turn labels, and do not write any other turn."
 )
-TURNS = 2  # the contract says "up to three"; two turns each gives Granite less room to drift
 TURN_INSTRUCTIONS = {
     1: "Introduce your member, what they need, and in a few words what they offer.",
     2: (
@@ -126,7 +126,7 @@ def build_system(member: Member, task: str, budget: int, turn: int, counterpart:
     is_org = member["type"] != "individual"
     instructions = {
         "speak": SPEAK_TASK.format(
-            turn=turn, turns=TURNS, turn_instruction=TURN_INSTRUCTIONS[turn]
+            turn=turn, turns=TURNS_PER_AGENT, turn_instruction=TURN_INSTRUCTIONS[turn]
         ),
         "vote": VOTE_TASK.format(counterpart_name=counterpart["name"], budget=budget),
         "introduce": INTRODUCE_TASK.format(counterpart_name=counterpart["name"]),
@@ -198,7 +198,7 @@ def parse_vote(raw: str) -> Vote | None:
 def _cast_vote(llm: LLM, member: Member, counterpart: Member, budget: int, messages: list[dict]) -> Vote:
     if budget <= 0:
         return {"vote": "no", "reason": "No introductions left this round."}
-    system = build_system(member, "vote", budget, TURNS, counterpart)
+    system = build_system(member, "vote", budget, TURNS_PER_AGENT, counterpart)
     for _ in range(2):
         parsed = parse_vote(llm.chat(system, [*messages, {"role": "user", "content": VOTE_PROMPT}], json_mode=True))
         if parsed:
@@ -275,7 +275,7 @@ def run_meeting(
 
     sides = [(a, b), (b, a)]
     _all_names = [m["name"] for m in by_id.values()]
-    for turn in range(1, TURNS + 1):
+    for turn in range(1, TURNS_PER_AGENT + 1):
         for me, other in sides:
             msgs = _messages(meeting["transcript"], me["id"], other, first=me is a)
             system = build_system(me, "speak", budget[me["id"]], turn, other)
@@ -297,7 +297,7 @@ def run_meeting(
                 blocked.append(me["id"])
                 continue
             msgs = _messages(meeting["transcript"], me["id"], other, first=me is a)
-            system = build_system(me, "introduce", budget[me["id"]], TURNS, other)
+            system = build_system(me, "introduce", budget[me["id"]], TURNS_PER_AGENT, other)
             intro: Introduction = {
                 "meeting_id": meeting["id"],
                 "to": me["id"],
